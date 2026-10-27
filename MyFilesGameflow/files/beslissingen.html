@@ -19,7 +19,7 @@
 
 <div class="content top-bar">
     <h1>Beslissingen</h1>
-    <p>Maak hier de beslissingen voor de huidige ronde.</p>
+    <p>Maak hier de beslissingen voor de huidige ronde.</p><br>
     
     <div class="cards-container">
         <div class="card">
@@ -42,16 +42,93 @@
                 <h2>Marketing</h2>
                 <p>Stel het marketingbudget in voor deze ronde.</p>
             </div><br>
+            <div class="field-container">
+                <div>
+                    <label>Marketingbudget (€)</label><br>
+                    <select>
+                        <option value="5000">5000</option>
+                        <option value="10000">10000</option>
+                        <option value="15000">15000</option>
+                        <option value="20000">20000</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Aantal medewerkers.</label><br>
+                    <input type="text" value="10">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
             <div>
-                <label>Marketingbudget (€)</label><br>
+                <h2>Personeel</h2>
+                <p>Pas het aantal medewerkers aan.</p>
+            </div><br>
+            <div>
+                <label>Aantal medewerkers.</label><br>
+                <input type="text" value="10">
+            </div>
+        </div>
+
+        <div class="card">
+            <div>
+                <h2>Investeringen</h2>
+                <p>Investeer in nieuwe faciliteiten of uitbreidingen.</p>
+            </div><br>
+            <div class="field-container">
+                <div>
+                    <label>Type investering</label><br>
+                    <select>
+                        <option value="Spa & Welness">Spa & Welness</option>
+                        <option value="Bar">Bar</option>
+                        <option value="Casino">Casino</option>
+                        <option value="Gym">Gym</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Kosten (€)</label><br>
+                    <input type="text" value="100000">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div>
+                <h2>Duurzaamheid</h2>
+                <p>Kies een duurzaamheidsmaatregel.</p>
+            </div><br>
+            <div class="field-container">
+                <div>
+                    <label>Maatregel</label><br>
+                    <select>
+                        <option value="Zonnepanelen installeren">Zonnepanelen installeren</option>
+                        <option value="Isolatie">Isolatie</option>
+                        <option value="Slimme aansturing en verlichting">Slimme aansturing en verlichting</option>
+                        <option value="Ventilatie en waterbesparing">Ventilatie en waterbesparing</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Kosten (€)</label><br>
+                    <input type="text" value="150000">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div>
+                <h2>Onderhoud & Service</h2>
+                <p>Kies het onderhoudsniveau voor kamers en faciliteiten.</p>
+            </div><br>
+            <div>
+                <label>Onderhoudsniveau</label><br>
                 <select>
-                    <option value="5000">5000</option>
-                    <option value="10000">10000</option>
-                    <option value="15000">15000</option>
-                    <option value="20000">20000</option>
+                    <option value="Minimaal">Minimaal</option>
+                    <option value="Normaal">Normaal</option>
+                    <option value="Maximaal">Maximaal</option>
                 </select>
             </div>
         </div>
+
     </div>
 </div>
 
