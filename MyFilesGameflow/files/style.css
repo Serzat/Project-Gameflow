@@ -7,6 +7,7 @@
 
 h1 {
     margin-top: 10%;
+    margin-bottom: 10px;
 }
 
 .top-bar{
@@ -14,7 +15,7 @@ h1 {
     height: 8vh;
     margin-top: 0;
     background: #F6EAD8;
-    
+    border-bottom: 2px solid #F6DBB0FF;
 }
 
 .sidebar {
@@ -44,19 +45,47 @@ h1 {
 .content {
     padding: 30px;
     flex: 1;
+    color: #333;
+}
+
+.cards-container {
+    display: flex;          
+    flex-wrap: wrap;        
+    gap: 40px;              
 }
 
 .card {
-    background: white;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 8px;
-    width: 300px;
+    background: #ECECEC;
+    padding: 5px 20px 20px 20px;
+    margin-top: 30px;
+    border-radius: 12px;
+    border: 2px solid #D4D4D4;
+    overflow: hidden;
+    width: 500px;
+}
+
+.card p {
+    margin-top: -10px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.card label{
+    color: #333;
+}
+
+select {
+    padding: 8px;
+    margin-top: 5px;
+    width: 45%;
+    box-sizing: border-box;
+    border: 2px solid #D4D4D4;
+    border-radius: 12px; 
 }
 
 input {
     padding: 8px;
     margin-top: 5px;
-    width: 100%;
+    width: 50%;
     box-sizing: border-box;
 }
