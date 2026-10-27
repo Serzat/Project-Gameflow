@@ -1,0 +1,6 @@
+@MyFilesGameflow_HostAddress = http://localhost:5063
+
+GET {{MyFilesGameflow_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
