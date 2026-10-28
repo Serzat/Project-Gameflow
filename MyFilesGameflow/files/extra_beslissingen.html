@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>extra_beslissingen</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Resort Management</h2>
+    <div>
+        <a href="#">Overzicht</a>
+        <a href="#" class="active">Beslissingen</a>
+        <a href="#">Ranglijst</a>
+        <a href="#">Host</a>
+        <a href="#">Feedback</a>
+    </div>
+    <hr>
+    <div>
+        <a href="#">Instellingen</a>
+        <a href="#">Uitloggen</a>
+    </div>
+</div>
+
+<div class="content top-bar">
+    <div class="h1-ronde-container">
+        <div class="h1-container">
+            <h1>Extra beslissingen</h1>
+            <p>Maak aanvullende keuzes voor deze ronde.</p>
+        </div>
+
+        <div class="ronde-card">
+            <h2>Ronde 1/4</h2>
+            <p>Deadline: 28-10-2026 00:00</p>
+        </div>
+    </div>
+
+    <div class="stats-container">
+        <h2>Team 1</h2>
+
+        <div class="card-container-stats">
+            <div class="stats-cards" data-card="1">
+                <p><span>Startprofiel:</span> A</p>
+                <p><span>Resort naam:</span> Sunny Beach Resort</p>
+                <p><span>Locatie:</span> Tropisch Eiland</p>
+            </div>
+
+            <div class="stats-cards" data-card="2">
+                <p><span>Huidig budget:</span> € 500.000</p>
+                <p><span>Aantal kamers:</span> 80</p>
+                <p><span>Aantal medewerkers:</span> 30</p>
+            </div>
+
+            <div class="stats-cards" data-card="3">
+                <p><span>Bezettingsgraad:</span> 70%</p>
+                <p><span>Gasttevredenheid:</span> 7/10</p>
+                <p><span>Duurzaamheidsscore:</span> 60/100</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <div class="card" data-card="doelgroep">
+            <div>
+                <h2>Doelgroep</h2>
+                <p>Kies op welke soort gasten je vooral wilt richten.</p>
+            </div>
+
+            <div>
+                <label>Keuze</label><br>
+                <select>
+                    <option value="gezinnen">gezinnen</option>
+                    <option value="Studenten">Studenten</option>
+                    <option value="Particulieren">Particulieren</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card" data-card="marketingkanaal"> 
+            <div>
+                <h2>Marketingkanaal</h2>
+                <p>Kies waar je jouw resort vooral wilt promoten.</p>
+            </div><br>
+            <div>
+                <label>Keuze</label><br>
+                <select>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="X">X</option>
+                    <option value="Threads">Threads</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card" data-card="personeeltraining">
+            <div>
+                <h2>Personeeltraining</h2>
+                <p>Bepaal hoeveel training je personeel krijgt.</p>
+            </div><br>
+            <div>
+                <label>Keuze</label><br>
+                <select>
+                    <option value="Basis">Basis</option>
+                    <option value="Gemiddeld">Gemiddeld</option>
+                    <option value="Hoog">Hoog</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card" data-card="korting">
+            <div>
+                <h2>Korting</h2>
+                <p>Kies hoeveel korting je deze ronde aanbiedt.</p>
+            </div><br>
+            <div>
+                <label>Keuze</label><br>
+                <select>
+                    <option value="10%">10%</option>
+                    <option value="15%">15%</option>
+                    <option value="20%">20%</option>
+                    <option value="25%">25%</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-card-extra-beslissingen-container">
+        <h3>Deze extra beslissingen zijn optioneel.</h3>
+        <p>Ze kunnen invloed hebben op bezettingsgraad, gasttevredenheid, personeelsresultaten en winst.</p>
+    </div>
+
+    <div class="button-container-extra-beslissingen">
+        <div class="button-container-left">
+            <a href="beslissingen.html">
+                <button data-card="meer-beslissingen" onclick="">⬅ Standaard beslissingen</button>
+            </a>
+        </div>
+        <div class="button-container-right">
+            <button data-card="resetten" onclick="">Resetten</button>
+            <button data-card="beslissingen-opslaan" onclick="">► Beslissingen opslaan</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
