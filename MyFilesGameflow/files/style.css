@@ -5,9 +5,25 @@
     background: #FCFBF8;
 }
 
-h1 {
-    margin-top: 8%;
-    margin-bottom: 8px;
+.h1-ronde-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;           
+    margin-top: 8%;                
+    margin-bottom: 50px;
+    margin-right: 60px;            
+}
+
+.h1-container {
+    margin: 0;
+}
+
+.h1-container h1 {
+    margin: 0 0 8px 0;              
+}
+
+.h1-container p {
+    margin: 0;
 }
 
 .top-bar{
@@ -15,7 +31,6 @@ h1 {
     height: 6vh;
     margin-top: 0;
     background: #F6EAD8;
-    border-bottom: 2px solid #F6DBB0FF;
 }
 
 .sidebar {
@@ -25,6 +40,15 @@ h1 {
     height: 100vh;
     padding: 20px;
     position: fixed;
+}
+
+.sidebar div{
+    margin-bottom: 170px;
+} 
+
+.sidebar hr{
+    margin-left: -20px;       
+    margin-right: -20px;
 }
 
 .sidebar a {
@@ -53,6 +77,29 @@ h1 {
     color: #333;
 }
 
+.ronde-card{
+    background: #E4EDF8;
+    padding: 10px 20px;
+    border-radius: 12px;
+    width: 180px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    margin-right:20px;
+}
+
+.ronde-card h2 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.ronde-card p {
+    margin: 0;
+    font-size: 12px;
+    font-weight: bolder;
+    color: #64748b;
+}
+
 .cards-container {
     display: flex;          
     flex-wrap: wrap;        
@@ -69,6 +116,25 @@ h1 {
     width: 500px;
 }
 
+.card[data-card="kamerprijs"]{
+    border-top-color: #FDDFDF;
+}
+.card[data-card="marketing"]{
+    border-top-color: #FCF7DE;
+}
+.card[data-card="personeel"]{
+    border-top-color: #DEFDE0;
+}
+.card[data-card="investering"]{
+    border-top-color: #ffd8f1;
+}
+.card[data-card="duurzaamheid"]{
+    border-top-color: #F0DEFD;
+}
+.card[data-card="onderhoud&service"]{
+    border-top-color: #d8fff9;
+}
+
 .card p {
     margin-top: -10px;
     margin-bottom: 30px;
@@ -77,6 +143,15 @@ h1 {
 
 .card label{
     color: #334155;
+}
+
+input, select{
+    padding: 8px;
+    margin-top: 5px;
+    width: 45%;
+    box-sizing: border-box;
+    border: 2px solid #D4D4D4;
+    border-radius: 8px;
 }
 
 .field-container {
@@ -89,15 +164,35 @@ h1 {
     flex: 1;
 }
 
-input, select {
-    padding: 8px;
-    margin-top: 5px;
-    width: 45%;
-    box-sizing: border-box;
-    border: 2px solid #D4D4D4;
-    border-radius: 8px;
-}
-
 .field-container input, .field-container select {
     width: 100%;
+}
+
+button{
+    padding: 10px 18px 10px 18px;
+    margin: 40px 20px 40px 0;
+    box-sizing: border-box;
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 60px;
+}
+
+button[data-card="resetten"]{
+    background: #ff6961;
+    color: white;
+}
+button[data-card="beslissingen-opslaan"]{
+    background: #6488EA;
+    color: white;
+}
+button[data-card="meer-beslissingen"]{
+    background: #6fc276;
+    color: white;
 }

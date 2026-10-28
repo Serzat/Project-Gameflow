@@ -10,23 +10,40 @@
 
 <div class="sidebar">
     <h2>Resort Management</h2>
-    <a href="#">Overzicht</a>
-    <a href="#" class="active">Beslissingen</a>
-    <a href="#">Ranglijst</a>
-    <a href="#">Host</a>
-    <a href="#">Feedback</a>
+    <div>
+        <a href="#">Overzicht</a>
+        <a href="#" class="active">Beslissingen</a>
+        <a href="#">Ranglijst</a>
+        <a href="#">Host</a>
+        <a href="#">Feedback</a>
+    </div>
+    <hr>
+    <div>
+        <a href="#">Instellingen</a>
+        <a href="#">Uitloggen</a>
+    </div>
 </div>
 
 <div class="content top-bar">
-    <h1>Beslissingen</h1>
-    <p>Maak hier de beslissingen voor de huidige ronde.</p><br>
+    <div class="h1-ronde-container">
+        <div class="h1-container">
+            <h1>Beslissingen</h1>
+            <p>Maak hier de beslissingen voor de huidige ronde.</p>
+        </div>
+
+        <div class="ronde-card">
+            <h2>Ronde 1/4</h2>
+            <p>Deadline: 28-10-2026 00:00</p>
+        </div>
+    </div>
     
     <div class="cards-container">
-        <div class="card">
+        <div class="card" data-card="kamerprijs">
             <div>
                 <h2>Kamerprijs</h2>
                 <p>Bepaal de gemiddelde prijs per kamer per nacht.</p>
-            </div><br>
+            </div>
+            
             <div>
                 <label>Prijs per nacht (€)</label><br>
                 <select>
@@ -37,7 +54,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="marketing">
             <div>
                 <h2>Marketing</h2>
                 <p>Stel het marketingbudget in voor deze ronde.</p>
@@ -59,7 +76,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="personeel">
             <div>
                 <h2>Personeel</h2>
                 <p>Pas het aantal medewerkers aan.</p>
@@ -70,7 +87,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="investering">
             <div>
                 <h2>Investeringen</h2>
                 <p>Investeer in nieuwe faciliteiten of uitbreidingen.</p>
@@ -92,7 +109,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="duurzaamheid">
             <div>
                 <h2>Duurzaamheid</h2>
                 <p>Kies een duurzaamheidsmaatregel.</p>
@@ -114,7 +131,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="onderhoud&service">
             <div>
                 <h2>Onderhoud & Service</h2>
                 <p>Kies het onderhoudsniveau voor kamers en faciliteiten.</p>
@@ -129,6 +146,12 @@
             </div>
         </div>
 
+    </div>
+    
+    <div class="button-container">
+        <button data-card="resetten" onclick="">Resetten</button>
+        <button data-card="beslissingen-opslaan" onclick="">► Beslissingen opslaan</button>
+        <button data-card="meer-beslissingen" onclick="">Meer beslissingen ➜</button>
     </div>
 </div>
 
