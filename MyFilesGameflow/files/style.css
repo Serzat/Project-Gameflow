@@ -26,6 +26,79 @@
     margin: 0;
 }
 
+.ronde-card{
+    background: #E4EDF8;
+    padding: 10px 20px;
+    border-radius: 12px;
+    width: 180px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    margin-right:20px;
+}
+
+.ronde-card h2 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.ronde-card p {
+    margin: 0;
+    font-size: 12px;
+    font-weight: bolder;
+    color: #64748b;
+}
+
+.stats-container {
+    background: #E4EDF8;
+    padding: 5px 20px 20px 20px;
+    border-radius: 12px;
+    border: none;
+    border-top: 20px solid #D0D9E4;
+    overflow: hidden;
+    width: 1080px;
+    height: 180px;
+    margin-bottom: 40px;
+}
+
+.stats-container span {
+    font-weight: bold;
+    font-size: 14px;
+    color: #334155
+}
+
+.card-container-stats{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stats-cards{
+    background: #E4EDF8;
+    padding: 5px 10px 10px 20px;
+    border: none;
+    overflow: hidden;
+    width: 300px;
+}
+
+.stats-cards p{
+    margin: 10px;
+    font-size: 14px;
+    color: #334155
+}
+
+.stats-cards[data-card="1"]{
+    border-right: 2px solid #D0D9E4;
+}
+
+.stats-cards[data-card="2"]{
+    border-right: 2px solid #D0D9E4;
+}
+
+.stats-cards[data-card="3"]{
+    font-weight: bold;
+}
+
 .top-bar{
     width: 100%;
     height: 6vh;
@@ -75,29 +148,6 @@
     flex: 1;
     margin-left: 260px;
     color: #333;
-}
-
-.ronde-card{
-    background: #E4EDF8;
-    padding: 10px 20px;
-    border-radius: 12px;
-    width: 180px;
-    font-weight: bold;
-    color: black;
-    text-align: center;
-    margin-right:20px;
-}
-
-.ronde-card h2 {
-    margin: 10px 0;
-    font-size: 18px;
-}
-
-.ronde-card p {
-    margin: 0;
-    font-size: 12px;
-    font-weight: bolder;
-    color: #64748b;
 }
 
 .cards-container {
