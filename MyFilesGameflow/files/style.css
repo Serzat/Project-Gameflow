@@ -51,20 +51,26 @@
 
 .stats-container {
     background: #E4EDF8;
-    padding: 5px 20px 20px 20px;
     border-radius: 12px;
     border: none;
     border-top: 20px solid #D0D9E4;
     overflow: hidden;
     width: 1080px;
-    height: 180px;
+    height: 200px;
     margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .stats-container span {
     font-weight: bold;
     font-size: 14px;
     color: #334155
+}
+
+.stats-container h2 {
+    padding: 5px 20px;
+    margin: 10px;
 }
 
 .card-container-stats{
@@ -90,13 +96,22 @@
 .stats-cards[data-card="1"]{
     border-right: 2px solid #D0D9E4;
 }
-
 .stats-cards[data-card="2"]{
     border-right: 2px solid #D0D9E4;
 }
-
 .stats-cards[data-card="3"]{
     font-weight: bold;
+}
+.stats-cards[data-card="4"] {
+    padding: 0;          
+    width: 380px;         
+    height: 100%;         
+}
+.stats-cards[data-card="4"] img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    
+    display: block;       
 }
 
 .info-card-extra-beslissingen-container{
@@ -292,3 +307,4 @@ button[data-card="meer-beslissingen"]{
     background: #6fc276;
     color: white;
 }
+
