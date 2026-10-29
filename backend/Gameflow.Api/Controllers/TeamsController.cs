@@ -64,5 +64,55 @@ namespace Gameflow.Api.Controllers
 
             return Ok(nieuwTeam);
         }
+        
+[HttpPut("{teamId}")]
+public IActionResult WijzigTeam(int competitieId, int teamId, [FromBody] Team gewijzigdTeam)
+{
+    var team = teams.FirstOrDefault(t =>
+        t.Id == teamId && t.CompetitieId == competitieId);
+
+    if (team == null)
+    {
+        return NotFound("Het team is niet gevonden.");
     }
+
+    if (string.IsNullOrWhiteSpace(gewijzigdTeam.Naam))
+    {
+        return BadRequest("De teamnaam is verplicht.");
+    }
+
+    string[] opties = { "A", "B", "C", "D" };
+
+    if (!opties.Contains(gewijzigdTeam.Profiel) ||
+        !opties.Contains(gewijzigdTeam.Bedrijf))
+    {
+        return BadRequest("Profiel en bedrijf moeten A, B, C of D zijn.");
+    }
+
+    team.Naam = gewijzigdTeam.Naam;
+    team.Profiel = gewijzigdTeam.Profiel;
+    team.Bedrijf = gewijzigdTeam.Bedrijf;
+
+    return Ok(team);
+}
+
+[HttpDelete("{teamId}")]
+public IActionResult VerwijderTeam(int competitieId, int teamId)
+{
+    var team = teams.FirstOrDefault(t =>
+        t.Id == teamId && t.CompetitieId == competitieId);
+
+    if (team == null)
+    {
+        return NotFound("Het team is niet gevonden.");
+    }
+
+    teams.Remove(team);
+
+    return NoContent();
+}
+
+
+    }
+    
 }
