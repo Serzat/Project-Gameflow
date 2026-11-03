@@ -9,8 +9,6 @@ namespace Gameflow.Api.Models
 
         public string Profiel { get; set; } = string.Empty;
 
-        public string Bedrijf { get; set; } = string.Empty;
-
         public int CompetitieId { get; set; }
     }
 }

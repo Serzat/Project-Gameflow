@@ -9,8 +9,6 @@ namespace Gameflow.Api.Models
 
         public int AantalTeams { get; set; }
 
-        public int RondeDuurMinuten { get; set; }
-
         public bool IsGestart { get; set; } = false;
     }
 }
