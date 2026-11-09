@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link href="feedback.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo">
+        <div class="logo-icoon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M3 20h18M5 20V10l7-6 7 6v10M10 20v-5h4v5"/></svg>
+        </div>
+        <h2>Resort Management</h2>
+    </div>
+    <div class="menu">
+        <a href="overzicht.html">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+            Startprofiel
+        </a>
+        <a href="beslissingen.html">
+            <svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg>
+            Beslissingen
+        </a>
+        <a href="#">
+            <svg viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20v-7"/></svg>
+            Ranglijst
+        </a>
+        <a href="#">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+            Host
+        </a>
+        <a href="feedback.html" class="active">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            Feedback
+        </a>
+    </div>
+    <div class="menu onder">
+        <a href="#">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+            Instellingen
+        </a>
+        <a href="#">
+            <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+            Uitloggen
+        </a>
+    </div>
+</div>
+
+<div class="content">
+    <div class="top-balk">
+        <div class="bol bol-1"></div>
+        <div class="bol bol-2"></div>
+        <div class="bol bol-3"></div>
+        <div class="team">
+            <div class="avatar">T1</div>
+            <span>Team 1</span>
+        </div>
+    </div>
+
+    <div class="pagina">
+        <div class="titel-rij animatie">
+            <div>
+                <span class="tag">Ronde 1 • Resultaten</span>
+                <h1>Ronde feedback</h1>
+                <p class="subtitel">Bekijk wat goed ging, wat beter kan en wat je in de volgende ronde kunt verbeteren.</p>
+            </div>
+            <div class="ronde-status">
+                <div class="vinkje">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg>
+                </div>
+                <div>
+                    <h3>Ronde 1 afgerond</h3>
+                    <p>Team 1 • 10-10-2026</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="score-kaarten animatie">
+            <div class="score-kaart blauw">
+                <div>
+                    <p>Totaalscore</p>
+                    <h2><span class="teller" data-getal="78">0</span> <small>punten</small></h2>
+                </div>
+                <div class="ring">
+                    <svg viewBox="0 0 80 80">
+                        <circle class="ring-achter" cx="40" cy="40" r="34"/>
+                        <circle class="ring-voor" cx="40" cy="40" r="34"/>
+                    </svg>
+                    <span>78%</span>
+                </div>
+            </div>
+            <div class="score-kaart groen">
+                <div>
+                    <p>Positie</p>
+                    <h2>2e <small>plaats</small></h2>
+                </div>
+                <div class="podium">
+                    <div class="trede trede-2"><span>2</span></div>
+                    <div class="trede trede-1"><span>1</span></div>
+                    <div class="trede trede-3"><span>3</span></div>
+                </div>
+            </div>
+            <div class="score-kaart paars">
+                <div>
+                    <p>Resultaat deze ronde</p>
+                    <h2>+<span class="teller" data-getal="4">0</span> <small>punten</small></h2>
+                </div>
+                <div class="groot-icoon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="animatie">
+            <h3 class="kopje">KPI-veranderingen</h3>
+            <p class="klein">Verschil ten opzichte van de vorige ronde</p>
+        </div>
+
+        <div class="kpi-kaarten animatie">
+            <div class="kpi-kaart blauw">
+                <div class="kpi-kop">
+                    <p>Bezettingsgraad</p>
+                    <svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"/></svg>
+                </div>
+                <div class="kpi-waarde">
+                    <h2>70%</h2>
+                    <span class="badge omhoog">▲ +5%</span>
+                </div>
+                <div class="balk"><div style="width: 70%"></div></div>
+            </div>
+            <div class="kpi-kaart roze">
+                <div class="kpi-kop">
+                    <p>Gasttevredenheid</p>
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+                </div>
+                <div class="kpi-waarde">
+                    <h2>70 / 100</h2>
+                    <span class="badge omhoog">▲ +5</span>
+                </div>
+                <div class="balk"><div style="width: 70%"></div></div>
+            </div>
+            <div class="kpi-kaart geel">
+                <div class="kpi-kop">
+                    <p>Winst &amp; Cashflow</p>
+                    <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                </div>
+                <div class="kpi-waarde">
+                    <h2>€ 120.000</h2>
+                    <span class="badge omlaag">▼ -€20k</span>
+                </div>
+                <div class="balk"><div style="width: 55%"></div></div>
+            </div>
+            <div class="kpi-kaart groen">
+                <div class="kpi-kop">
+                    <p>Duurzaamheid</p>
+                    <svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 014 13c0-6 7-10 16-10 0 9-4 16-10 16zM4 21c3-6 6-9 11-12"/></svg>
+                </div>
+                <div class="kpi-waarde">
+                    <h2>60 / 100</h2>
+                    <span class="badge omhoog">▲ +5</span>
+                </div>
+                <div class="balk"><div style="width: 60%"></div></div>
+            </div>
+        </div>
+
+        <div class="twee-blokken animatie">
+            <div class="blok goed">
+                <h3><span class="blok-icoon">✓</span> Wat ging goed</h3>
+                <ul>
+                    <li>De bezettingsgraad is gestegen.</li>
+                    <li>De marketingkeuze heeft meer gasten aangetrokken.</li>
+                    <li>De duurzaamheidsscore is verbeterd.</li>
+                </ul>
+            </div>
+            <div class="blok beter">
+                <h3><span class="blok-icoon">!</span> Wat kan beter</h3>
+                <ul>
+                    <li>De cashflow is gedaald door hoge investeringskosten.</li>
+                    <li>De personeelskosten zijn deze ronde gestegen.</li>
+                    <li>De winst had hoger kunnen zijn.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="onderste-rij animatie">
+            <div class="blok advies">
+                <h3><span class="blok-icoon">→</span> Advies voor de volgende ronde</h3>
+                <ol>
+                    <li><span class="nummer">1</span> Kies een goedkopere investering om je cashflow te beschermen.</li>
+                    <li><span class="nummer">2</span> Houd marketing op peil, maar let beter op het totale budget.</li>
+                    <li><span class="nummer">3</span> Zoek een betere balans tussen service, personeel en kosten.</li>
+                </ol>
+            </div>
+            <div class="blok invloed">
+                <h3>Invloed van beslissingen</h3>
+                <div class="invloed-rij">
+                    <span class="beslissing">Marketing verhoogd</span>
+                    <span class="label positief">↗ meer gasten</span>
+                </div>
+                <div class="invloed-rij">
+                    <span class="beslissing">Spa &amp; Wellness</span>
+                    <span class="label negatief">↘ lagere cashflow</span>
+                </div>
+                <div class="invloed-rij">
+                    <span class="beslissing">Zonnepanelen</span>
+                    <span class="label positief">↗ hogere duurzaamheid</span>
+                </div>
+                <a href="overzicht.html" class="knop">
+                    Terug naar overzicht
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // getallen laten optellen bij het laden
+    document.querySelectorAll(".teller").forEach(function (teller) {
+        let doel = parseInt(teller.dataset.getal);
+        let huidig = 0;
+        let stap = Math.max(1, Math.ceil(doel / 40));
+
+        let interval = setInterval(function () {
+            huidig += stap;
+            if (huidig >= doel) {
+                huidig = doel;
+                clearInterval(interval);
+            }
+            teller.textContent = huidig;
+        }, 25);
+    });
+</script>
+
+</body>
+</html>
