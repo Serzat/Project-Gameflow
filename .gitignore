@@ -1,1 +1,12 @@
 MyFilesGameflow/.DS_Store
+
+# Gegenereerde .NET-bestanden
+**/bin/
+**/obj/
+
+# Visual Studio-bestanden
+.vs/
+
+# Tijdelijke gebruikersbestanden
+*.user
+*.suo
