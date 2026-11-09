@@ -789,4 +789,56 @@ body {
     .kpi-kaarten {
         grid-template-columns: 1fr;
     }
+
+}
+
+
+/* ---------- koppeling met de backend ---------- */
+
+/* alleen de plek van het eigen team licht groen op */
+.trede-2 {
+    background: rgba(63, 154, 78, 0.18);
+    color: #2f8a3e;
+    box-shadow: none;
+}
+
+.trede.jij {
+    background: linear-gradient(180deg, #4cb860, #2f8a3e);
+    color: white;
+    box-shadow: 0 6px 14px rgba(63, 154, 78, 0.35);
+}
+
+/* de ring laat zien in welke ronde je zit */
+.ring-voor {
+    stroke-dashoffset: 160;
+}
+
+.ring span {
+    flex-direction: column;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.ring span small {
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 3px;
+    color: #6b8fc4;
+}
+
+/* melding als de backend niet bereikbaar is */
+.melding {
+    display: none;
+    margin: -12px 0 28px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background-color: #fdecea;
+    border: 1px solid #f5c2bd;
+    color: #a83228;
+    font-size: 15px;
+}
+
+.melding.zichtbaar {
+    display: block;
 }
