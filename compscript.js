@@ -1,0 +1,1 @@
+const teamCount = document.getElementById("teamCount");

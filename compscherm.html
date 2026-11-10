@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="compstyle.css">
+    <title>Competition screen</title>
+</head>
+
+<body>
+    <div class="dashboard">
+
+    <aside class="sidebar">
+        <h3>Resort Management</h3>
+
+        <nav>
+            <a href="#">Startprofiel</a>
+            <a href="#">Beslissingen</a>
+            <a href="#">Ranglijst</a>
+            <a href="#">Host</a>
+            <a href="#">Feedback</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div class="profile">
+                <span>♙</span>
+                <p>Spelbegeleider</p>
+            </div>
+        </header>
+        <section class="round-title">
+    Ronde Instellingen
+</section>
+
+<section class="settings">
+
+    <div class="left-settings">
+
+        <label>Naam Competitie</label>
+        <input type="text" placeholder="Voer in Het Competitie naam">
+
+        <label>Aantal teams</label>
+        <select id="teamCount">
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>8</option>
+        </select>
+
+        <label>Begin tijd</label>
+        <input type="time">
+
+    </div>
+
+    <div class="round-settings">
+        <p>Vul per ronde in hoelang een ronde duurt (in minuten)</p>
+
+        <div class="rounds">
+            <div class="round-card">
+                <p>Ronde 1</p>
+                <input type="number" placeholder="vul in">
+            </div>
+
+            <div class="round-card">
+                <p>Ronde 2</p>
+                <input type="number" placeholder="vul in">
+            </div>
+
+            <div class="round-card">
+                <p>Ronde 3</p>
+                <input type="number" placeholder="vul in">
+            </div>
+
+            <div class="round-card">
+                <p>Ronde 4</p>
+                <input type="number" placeholder="vul in">
+            </div>
+        </div>
+    </div>
+
+</section>
+        <section class="team-section">
+
+    <div class="team-header">
+        <strong>Team</strong>
+        <strong>Naam</strong>
+        <strong>Profiel</strong>
+    </div>
+
+    <div class="team-row">
+        <strong>Team 1</strong>
+        <input type="text" placeholder="Naam team 1">
+        <select>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+        </select>
+    </div>
+
+    <div class="team-row">
+        <strong>Team 2</strong>
+        <input type="text" placeholder="Naam team 2">
+        <select>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+        </select>
+    </div>
+
+    <div class="team-row">
+        <strong>Team 3</strong>
+        <input type="text" placeholder="Naam team 3">
+        <select>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+        </select>
+    </div>
+
+    <div class="team-row">
+        <strong>Team 4</strong>
+        <input type="text" placeholder="Naam team 4">
+        <select>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+        </select>
+    </div>
+
+</section>
+
+<button class="create-button">
+    Competitie aanmaken
+</button>
+
+    </main>
+
+</div>
+
+    <script src="compscript.js"></script>
+</body>
+</html>
