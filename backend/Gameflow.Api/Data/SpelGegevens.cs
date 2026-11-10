@@ -5,13 +5,20 @@ namespace Gameflow.Api.Data
 {
     public static class SpelGegevens
     {
-        // Alle aangemaakte competities
-        public static List<Competitie> Competities = new List<Competitie>();
+        // All created competitions
+        public static List<Competitie> Competities =
+            new List<Competitie>();
 
-        // Teams die bij competities horen
-        public static List<Team> Teams = new List<Team>();
+        // Teams belonging to competitions
+        public static List<Team> Teams =
+            new List<Team>();
 
-        // Rondes die bij competities horen
-        public static List<Ronde> Rondes = new List<Ronde>();
+        // Rounds belonging to competitions
+        public static List<Ronde> Rondes =
+            new List<Ronde>();
+
+        // Starting profiles belonging to competitions
+        public static List<Startprofiel> Startprofielen =
+            new List<Startprofiel>();
     }
 }

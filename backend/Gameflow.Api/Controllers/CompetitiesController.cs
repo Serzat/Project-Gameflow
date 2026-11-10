@@ -103,6 +103,7 @@ namespace Gameflow.Api.Controllers
             };
 
             SpelGegevens.Competities.Add(competitie);
+            
 
             // Create the teams for this competition
             foreach (var invoer in verzoek.Teams)
