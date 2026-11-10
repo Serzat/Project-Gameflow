@@ -1,0 +1,796 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Josefin+Sans:wght@400;500;600;700&display=swap');
+
+/* ALGEMENE INSTELLINGEN */
+
+.dash-page {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: "DM Sans", sans-serif;
+  background: #efe3cb;
+  color: #264f4b;
+}
+
+.dash-page *,
+.dash-page *::before,
+.dash-page *::after {
+  box-sizing: border-box;
+}
+
+/* ZIJBALK */
+
+.dash-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: #264f4b;
+  color: #f8e6c5;
+
+  display: flex;
+  flex-direction: column;
+
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  padding: 28px 0 24px;
+}
+
+.dash-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px 26px;
+  margin: 0 20px 18px;
+  border-bottom: 1px solid rgba(248, 230, 197, 0.15);
+}
+
+.dash-brand-deco {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #9fb8a8;
+}
+
+.dash-brand-titel {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 2.5px;
+  color: #fff9ef;
+  margin-top: 8px;
+}
+
+.dash-nav,
+.dash-nav-onder {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 14px;
+}
+
+.dash-nav-onder {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(248, 230, 197, 0.15);
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.dash-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 8px;
+
+  color: #d6e0d4;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: background 0.2s, color 0.2s;
+}
+
+.dash-link svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.dash-link:hover {
+  background: rgba(248, 230, 197, 0.08);
+  color: #fff9ef;
+}
+
+.dash-link-actief,
+.dash-link-actief:hover {
+  background: #f8e6c5;
+  color: #264f4b;
+  font-weight: 700;
+}
+
+.dash-link-actief svg {
+  color: #e58a24;
+  opacity: 1;
+}
+
+/* HOOFDGEDEELTE */
+
+.dash-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* BOVENBALK */
+
+.dash-topbar {
+  height: 70px;
+  background: #f8f0df;
+  border-bottom: 1px solid #e2d3b5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.dash-kruimel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #7a7762;
+}
+
+.dash-kruimel strong {
+  color: #264f4b;
+}
+
+.dash-kruimel-scheiding {
+  color: #b9ad91;
+}
+
+.dash-gebruiker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dash-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #264f4b;
+  color: #f8e6c5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dash-gebruiker-tekst {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.dash-gebruiker-naam {
+  font-size: 13px;
+  font-weight: 700;
+  color: #264f4b;
+}
+
+.dash-gebruiker-rol {
+  font-size: 11px;
+  color: #7a7762;
+}
+
+/* INHOUD */
+
+.dash-content {
+  width: 100%;
+  max-width: 1120px;
+  padding: 32px;
+}
+
+/* BANNER */
+
+.sp-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  min-height: 150px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  border-radius: 14px;
+
+  background-color: #264f4b;
+  background-image:
+    linear-gradient(90deg, rgba(38, 79, 75, 0.96) 0%, rgba(38, 79, 75, 0.8) 45%, rgba(38, 79, 75, 0.2) 100%),
+    url("/images/resort-beach.png");
+  background-size: cover;
+  background-position: center 62%;
+
+  color: #fff9ef;
+  box-shadow: 0 10px 30px -15px rgba(38, 79, 75, 0.6);
+}
+
+.sp-hero-deco {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #f8e6c5;
+  opacity: 0.85;
+}
+
+.sp-hero h1 {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  margin: 8px 0 6px;
+  color: #fff9ef;
+}
+
+.sp-hero p {
+  margin: 0;
+  font-size: 14px;
+  color: #e7ddc8;
+}
+
+.sp-hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(38, 79, 75, 0.85);
+  border: 1px solid rgba(248, 230, 197, 0.25);
+  border-radius: 12px;
+  padding: 14px 22px;
+  flex-shrink: 0;
+}
+
+.sp-hero-getal {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #f49a32;
+  line-height: 1;
+}
+
+.sp-hero-getal small {
+  font-size: 18px;
+  color: #f8e6c5;
+}
+
+.sp-hero-stat-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  margin-top: 6px;
+  color: #f8e6c5;
+}
+
+/* RASTER MET KAARTEN */
+
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* PROFIELKAART */
+
+.sp-kaart {
+  display: flex;
+  flex-direction: column;
+  background: #fbf6ec;
+  border: 1px solid #dccdae;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 2px rgba(38, 79, 75, 0.06),
+    0 10px 24px -14px rgba(38, 79, 75, 0.3);
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.sp-kaart:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 2px rgba(38, 79, 75, 0.06),
+    0 16px 30px -14px rgba(38, 79, 75, 0.35);
+}
+
+.sp-kaart-bewerken,
+.sp-kaart-bewerken:hover {
+  border-color: #f49a32;
+  transform: none;
+  box-shadow: 0 0 0 3px rgba(244, 154, 50, 0.2);
+}
+
+/* KOP VAN DE KAART */
+
+.sp-kaart-kop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #ebdfc6;
+}
+
+.sp-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #f49a32;
+  border: 1px solid #cb7b25;
+  color: #263f3c;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  padding-top: 3px;
+}
+
+.sp-kaart-titels {
+  flex: 1;
+  min-width: 0;
+}
+
+.sp-kaart-titels h2 {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  margin: 0 0 4px;
+  color: #264f4b;
+}
+
+.sp-locatie {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #7a7762;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sp-status {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #f3e2c4;
+  color: #9a6a22;
+  white-space: nowrap;
+}
+
+.sp-status-compleet {
+  background: #d6e6de;
+  color: #2f6b5f;
+}
+
+/* WEERGAVE (NIET BEWERKEN) */
+
+.sp-kaart-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.sp-tegels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sp-tegel {
+  background: #f3e8d3;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.sp-tegel-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #7a7762;
+}
+
+.sp-tegel-waarde {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #264f4b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sp-meters {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sp-meter-tekst {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #4d6460;
+}
+
+.sp-meter-tekst strong {
+  color: #264f4b;
+}
+
+.sp-meter-balk {
+  height: 7px;
+  background: #e6d8bc;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.sp-meter-vulling {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+/* FORMULIER (BEWERKEN) */
+
+.sp-formulier {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 14px;
+  padding: 20px;
+  flex: 1;
+}
+
+.sp-veld {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sp-veld-breed {
+  grid-column: 1 / -1;
+}
+
+.sp-veld label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  color: #264f4b;
+}
+
+.sp-input-wrap {
+  position: relative;
+}
+
+.sp-input-wrap input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #b9ad91;
+  border-radius: 6px;
+  background: #f8f0df;
+  color: #264f4b;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.sp-input-wrap input::placeholder {
+  color: #a9a48f;
+}
+
+.sp-input-wrap input:focus {
+  outline: 2px solid #82aaa0;
+  outline-offset: 1px;
+}
+
+.sp-input-wrap input.sp-met-eenheid {
+  padding-right: 44px;
+}
+
+/* Pijltjes bij number-inputs verbergen */
+.sp-input-wrap input::-webkit-outer-spin-button,
+.sp-input-wrap input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.sp-input-wrap input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.sp-eenheid {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a7762;
+  pointer-events: none;
+}
+
+/* ONDERKANT VAN DE KAART */
+
+.sp-kaart-voet {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid #ebdfc6;
+  background: #f8f0df;
+}
+
+.sp-knop {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.sp-knop-secundair {
+  background: transparent;
+  border: 1px solid #b9ad91;
+  color: #264f4b;
+}
+
+.sp-knop-secundair:hover {
+  background: #264f4b;
+  border-color: #264f4b;
+  color: #f8e6c5;
+}
+
+.sp-knop-tekst {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #7a7762;
+}
+
+.sp-knop-tekst:hover {
+  color: #264f4b;
+  text-decoration: underline;
+}
+
+.sp-knop-primair {
+  background: #f49a32;
+  border: 1px solid #cb7b25;
+  color: #263f3c;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding-top: 10px;
+}
+
+.sp-knop-primair:hover {
+  background: #e58a24;
+}
+
+/* FOOTER */
+
+.dash-footer {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #8c856c;
+  text-align: center;
+  margin-top: 36px;
+}
+
+/* RESORT TYPE IN DE KOP */
+
+.sp-kaart-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  min-width: 0;
+}
+
+.sp-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sp-type-beach {
+  background: #fbe3c4;
+  color: #a55f14;
+}
+
+.sp-type-winter {
+  background: #dce8ef;
+  color: #3d6b80;
+}
+
+.sp-type-cruise {
+  background: #d4e6e4;
+  color: #2c6f6a;
+}
+
+.sp-type-city {
+  background: #e7e0d2;
+  color: #5d5a4c;
+}
+
+.sp-type-leeg {
+  background: transparent;
+  border: 1px dashed #c6b79b;
+  color: #9a937c;
+  font-weight: 600;
+}
+
+.sp-locatie {
+  min-width: 0;
+}
+
+/* KEUZEVELD (SELECT) */
+
+.sp-input-wrap select {
+  width: 100%;
+  padding: 10px 36px 10px 12px;
+  border: 1px solid #b9ad91;
+  border-radius: 6px;
+  background-color: #f8f0df;
+  color: #264f4b;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23264f4b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.sp-input-wrap select:focus {
+  outline: 2px solid #82aaa0;
+  outline-offset: 1px;
+}
+
+.sp-input-wrap select.sp-select-leeg {
+  color: #a9a48f;
+}
+
+.sp-input-wrap select option {
+  color: #264f4b;
+}
+
+/* MIDDELGROTE SCHERMEN */
+
+@media (max-width: 1080px) {
+  .sp-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 560px;
+  }
+}
+
+/* MOBIELE SCHERMEN */
+
+@media (max-width: 768px) {
+  .dash-page {
+    flex-direction: column;
+  }
+
+  .dash-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 14px 0 10px;
+  }
+
+  .dash-brand {
+    padding: 0 16px 12px;
+    margin: 0 16px 10px;
+  }
+
+  .dash-brand-deco {
+    display: none;
+  }
+
+  .dash-brand-titel {
+    font-size: 16px;
+    margin-top: 0;
+  }
+
+  .dash-brand-titel br {
+    display: none;
+  }
+
+  .dash-nav,
+  .dash-nav-onder {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0 12px;
+  }
+
+  .dash-nav-onder {
+    margin: 8px 0 0;
+    padding-top: 8px;
+  }
+
+  .dash-link {
+    white-space: nowrap;
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+
+  .dash-topbar {
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  .dash-content {
+    padding: 20px 16px;
+  }
+
+  .sp-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+  }
+
+  .sp-hero h1 {
+    font-size: 25px;
+  }
+
+  .sp-grid {
+    max-width: none;
+  }
+}
+
+/* ZEER KLEINE SCHERMEN */
+
+@media (max-width: 420px) {
+  .dash-gebruiker-tekst {
+    display: none;
+  }
+
+  .sp-kaart-kop {
+    padding: 16px;
+  }
+
+  .sp-kaart-body,
+  .sp-formulier {
+    padding: 16px;
+  }
+
+  .sp-formulier {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-tegel-waarde {
+    font-size: 16px;
+  }
+}
