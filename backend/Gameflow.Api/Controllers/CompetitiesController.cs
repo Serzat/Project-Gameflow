@@ -9,72 +9,91 @@ namespace Gameflow.Api.Controllers
     [Route("api/competities")]
     public class CompetitiesController : ControllerBase
     {
-        // Alle competities ophalen
+        // Get all competitions
         [HttpGet]
         public IActionResult GetCompetities()
         {
             return Ok(SpelGegevens.Competities);
         }
 
-        // Een competitie met teams en rondes aanmaken
+        // Create a competition with teams and rounds
         [HttpPost]
-        public IActionResult MaakCompetitie([FromBody] CompetitieAanmakenVerzoek verzoek)
+        public IActionResult MaakCompetitie(
+            [FromBody] CompetitieAanmakenVerzoek verzoek)
         {
-            // Controleren of de competitienaam is ingevuld
+            // Check if the request is valid
+            if (verzoek == null)
+            {
+                return BadRequest("Ongeldig verzoek.");
+            }
+
+            // Check if a competition name is provided
             if (string.IsNullOrWhiteSpace(verzoek.Naam))
             {
-                return BadRequest("De competitienaam is verplicht.");
+                return BadRequest(
+                    "De competitienaam is verplicht.");
             }
 
-            // Er mogen 2 tot 4 teams meedoen
-            if (verzoek.AantalTeams < 2 || verzoek.AantalTeams > 4)
+            // Allow between 2 and 4 teams
+            if (verzoek.AantalTeams < 2 ||
+                verzoek.AantalTeams > 4)
             {
-                return BadRequest("Het aantal teams moet tussen 2 en 4 liggen.");
+                return BadRequest(
+                    "Het aantal teams moet tussen 2 en 4 liggen.");
             }
 
-            // Het aantal teams controleren
+            // Check if the number of teams is correct
             if (verzoek.Teams == null ||
                 verzoek.Teams.Count != verzoek.AantalTeams)
             {
-                return BadRequest("Het aantal ingevoerde teams klopt niet.");
+                return BadRequest(
+                    "Het aantal ingevoerde teams klopt niet.");
             }
 
-            // Er moeten vier rondes zijn
-            if (verzoek.Rondes == null || verzoek.Rondes.Count != 4)
+            // Every competition must have exactly 4 rounds
+            if (verzoek.Rondes == null ||
+                verzoek.Rondes.Count != 4)
             {
-                return BadRequest("Er moeten vier rondes worden ingesteld.");
+                return BadRequest(
+                    "Er moeten vier rondes worden ingesteld.");
             }
 
-            // Teamnamen en profielen controleren
+            // Validate team names and starting profiles
             string[] profielen = { "A", "B", "C", "D" };
 
             foreach (var team in verzoek.Teams)
             {
                 if (string.IsNullOrWhiteSpace(team.Naam))
                 {
-                    return BadRequest("Alle teams moeten een naam hebben.");
+                    return BadRequest(
+                        "Alle teams moeten een naam hebben.");
                 }
 
                 if (!profielen.Contains(team.Profiel))
                 {
-                    return BadRequest("Het profiel moet A, B, C of D zijn.");
+                    return BadRequest(
+                        "Het profiel moet A, B, C of D zijn.");
                 }
             }
 
-            // Controleren of alle rondes een geldige duur hebben
+            // Only allow 15, 30 or 45 minutes per round
             foreach (var ronde in verzoek.Rondes)
             {
-                if (ronde.DuurMinuten <= 0)
+                if (ronde.DuurMinuten != 15 &&
+                    ronde.DuurMinuten != 30 &&
+                    ronde.DuurMinuten != 45)
                 {
-                    return BadRequest("De rondeduur moet groter zijn dan 0.");
+                    return BadRequest(
+                        "De rondeduur moet 15, 30 of 45 minuten zijn.");
                 }
             }
 
-            // Een nieuw competitie-ID bepalen
+            // Generate a new competition ID
             int competitieId = SpelGegevens.Competities.Count == 0
                 ? 1
                 : SpelGegevens.Competities.Max(c => c.Id) + 1;
 
+            // Create the competition
             var competitie = new Competitie
             {
                 Id = competitieId,
@@ -85,7 +104,7 @@ namespace Gameflow.Api.Controllers
 
             SpelGegevens.Competities.Add(competitie);
 
-            // Teams aanmaken
+            // Create the teams for this competition
             foreach (var invoer in verzoek.Teams)
             {
                 int teamId = SpelGegevens.Teams.Count == 0
@@ -103,7 +122,7 @@ namespace Gameflow.Api.Controllers
                 SpelGegevens.Teams.Add(team);
             }
 
-            // Vier rondes aanmaken met de ingestelde duur
+            // Create four rounds with their selected durations
             for (int i = 0; i < verzoek.Rondes.Count; i++)
             {
                 int rondeId = SpelGegevens.Rondes.Count == 0
@@ -125,7 +144,7 @@ namespace Gameflow.Api.Controllers
             return Ok(competitie);
         }
 
-        // Rondes van een competitie ophalen
+        // Get all rounds for a competition
         [HttpGet("{competitieId}/rondes")]
         public IActionResult GetRondes(int competitieId)
         {
@@ -134,7 +153,8 @@ namespace Gameflow.Api.Controllers
 
             if (competitie == null)
             {
-                return NotFound("De competitie bestaat niet.");
+                return NotFound(
+                    "De competitie bestaat niet.");
             }
 
             var rondes = SpelGegevens.Rondes
@@ -144,58 +164,67 @@ namespace Gameflow.Api.Controllers
             return Ok(rondes);
         }
 
-        // Een ronde handmatig starten
+        // Manually start a round
         [HttpPost("{competitieId}/rondes/{nummer}/start")]
         public IActionResult StartRonde(int competitieId, int nummer)
         {
-            // De competitie zoeken
+            // Find the competition
             var competitie = SpelGegevens.Competities
                 .FirstOrDefault(c => c.Id == competitieId);
 
             if (competitie == null)
             {
-                return NotFound("De competitie bestaat niet.");
+                return NotFound(
+                    "De competitie bestaat niet.");
             }
 
-            // De gekozen ronde zoeken
+            // Find the selected round
             var ronde = SpelGegevens.Rondes
-                .FirstOrDefault(r => r.CompetitieId == competitieId &&
-                                     r.Nummer == nummer);
+                .FirstOrDefault(r =>
+                    r.CompetitieId == competitieId &&
+                    r.Nummer == nummer);
 
             if (ronde == null)
             {
-                return NotFound("De ronde bestaat niet.");
+                return NotFound(
+                    "De ronde bestaat niet.");
             }
 
-            // Voorkomen dat een ronde twee keer start
+            // Prevent a round from starting twice
             if (ronde.GestartOpUtc != null)
             {
-                return BadRequest("Deze ronde is al gestart.");
+                return BadRequest(
+                    "Deze ronde is al gestart.");
             }
 
-            // Controleren of de vorige ronde is afgelopen
+            // Make sure the previous round has finished
             if (nummer > 1)
             {
                 var vorigeRonde = SpelGegevens.Rondes
-                    .FirstOrDefault(r => r.CompetitieId == competitieId &&
-                                         r.Nummer == nummer - 1);
+                    .FirstOrDefault(r =>
+                        r.CompetitieId == competitieId &&
+                        r.Nummer == nummer - 1);
 
                 if (vorigeRonde == null ||
                     vorigeRonde.GestartOpUtc == null)
                 {
-                    return BadRequest("Start eerst de vorige ronde.");
+                    return BadRequest(
+                        "Start eerst de vorige ronde.");
                 }
 
-                DateTime vorigeEindtijd = vorigeRonde.GestartOpUtc.Value
-                    .AddMinutes(vorigeRonde.DuurMinuten);
+                // Calculate when the previous round ends
+                DateTime vorigeEindtijd =
+                    vorigeRonde.GestartOpUtc.Value
+                        .AddMinutes(vorigeRonde.DuurMinuten);
 
                 if (DateTime.UtcNow < vorigeEindtijd)
                 {
-                    return BadRequest("De vorige ronde is nog bezig.");
+                    return BadRequest(
+                        "De vorige ronde is nog bezig.");
                 }
             }
 
-            // De starttijd opslaan
+            // Save the start time in UTC
             ronde.GestartOpUtc = DateTime.UtcNow;
             competitie.IsGestart = true;
 
@@ -207,20 +236,24 @@ namespace Gameflow.Api.Controllers
             });
         }
 
-        // Controleren of een ronde bezig of afgelopen is
+        // Check whether a round is active or finished
         [HttpGet("{competitieId}/rondes/{nummer}/status")]
-        public IActionResult GetRondeStatus(int competitieId, int nummer)
+        public IActionResult GetRondeStatus(
+            int competitieId, int nummer)
         {
+            // Find the requested round
             var ronde = SpelGegevens.Rondes
-                .FirstOrDefault(r => r.CompetitieId == competitieId &&
-                                     r.Nummer == nummer);
+                .FirstOrDefault(r =>
+                    r.CompetitieId == competitieId &&
+                    r.Nummer == nummer);
 
             if (ronde == null)
             {
-                return NotFound("De ronde bestaat niet.");
+                return NotFound(
+                    "De ronde bestaat niet.");
             }
 
-            // Een ronde zonder starttijd is nog niet begonnen
+            // Return not started if there is no start time
             if (ronde.GestartOpUtc == null)
             {
                 return Ok(new
@@ -230,13 +263,14 @@ namespace Gameflow.Api.Controllers
                 });
             }
 
-            // De eindtijd berekenen
+            // Calculate the end time using the selected duration
             DateTime eindtijd = ronde.GestartOpUtc.Value
                 .AddMinutes(ronde.DuurMinuten);
 
             string status = "Actief";
 
-            // Na de ingestelde duur is de ronde afgelopen
+            // Automatically consider the round finished
+            // when the selected duration has passed
             if (DateTime.UtcNow >= eindtijd)
             {
                 status = "Afgelopen";
