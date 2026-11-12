@@ -19,12 +19,13 @@ public class EfAccountStore(GameflowDb db, IPasswordHasher<User> passwordHasher)
         return await db.Users.AnyAsync(u => u.Email == normalized, ct);
     }
 
-    public async Task<User> CreateAsync(string username, string email, string password, CancellationToken ct)
+        public async Task<User> CreateAsync(string username, string email, string team, string password, CancellationToken ct)
     {
         var user = new User
         {
             Username = username.Trim(),
             Email = Normalize(email),
+            Team = team,
             CreatedAt = DateTime.UtcNow
         };
 
@@ -60,4 +61,4 @@ public class EfAccountStore(GameflowDb db, IPasswordHasher<User> passwordHasher)
     }
 
     private static string Normalize(string email) => email.Trim().ToLowerInvariant();
-}
+}   

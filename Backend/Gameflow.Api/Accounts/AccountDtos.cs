@@ -15,6 +15,10 @@ public class RegisterRequest
     public string Email { get; set; } = "";
 
     [Required]
+    [AllowedValues("beach", "winter", "cruise", "city")]
+    public string Team { get; set; } = "";
+
+    [Required]
     [StringLength(100, MinimumLength = 8)]
     public string Password { get; set; } = "";
 }
@@ -31,4 +35,4 @@ public class LoginRequest
 }
 
 // Wat de backend terugstuurt (zonder wachtwoord!)
-public record AccountResponse(int Id, string Username, string Email);
+public record AccountResponse(int Id, string Username, string Email, string Team);

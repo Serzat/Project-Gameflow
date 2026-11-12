@@ -6,7 +6,6 @@ public interface IAccountStore
 
     Task<bool> EmailExistsAsync(string email, CancellationToken ct);
 
-    Task<User> CreateAsync(string username, string email, string password, CancellationToken ct);
-
+    Task<User> CreateAsync(string username, string email, string team, string password, CancellationToken ct);
     Task<User?> CheckLoginAsync(string email, string password, CancellationToken ct);
 }

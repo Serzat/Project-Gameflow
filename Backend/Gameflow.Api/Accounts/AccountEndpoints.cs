@@ -6,9 +6,19 @@ public static class AccountEndpoints
     {
         var group = app.MapGroup("/accounts").WithTags("Accounts");
 
-        group.MapPost("/register", Register);
-        group.MapPost("/login", Login);
-        group.MapGet("/{id:int}", GetAccount).WithName("GetAccount");
+        group.MapPost("/register", Register)
+            .Produces<AccountResponse>(StatusCodes.Status201Created)
+            .Produces(StatusCodes.Status409Conflict)
+            .ProducesValidationProblem();
+
+        group.MapPost("/login", Login)
+            .Produces<AccountResponse>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/{id:int}", GetAccount)
+            .WithName("GetAccount")
+            .Produces<AccountResponse>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound);
 
         return app;
     }
@@ -21,9 +31,9 @@ public static class AccountEndpoints
             return Results.Conflict(new { message = "Er bestaat al een account met dit e-mailadres." });
         }
 
-        var user = await store.CreateAsync(request.Username, request.Email, request.Password, ct);
+        var user = await store.CreateAsync(request.Username, request.Email, request.Team, request.Password, ct);
 
-        var response = new AccountResponse(user.Id, user.Username, user.Email);
+        var response = new AccountResponse(user.Id, user.Username, user.Email, user.Team);
 
         return Results.CreatedAtRoute("GetAccount", new { id = user.Id }, response);
     }
@@ -38,7 +48,7 @@ public static class AccountEndpoints
             return Results.Unauthorized();
         }
 
-        return Results.Ok(new AccountResponse(user.Id, user.Username, user.Email));
+        return Results.Ok(new AccountResponse(user.Id, user.Username, user.Email, user.Team));
     }
 
     // GET /accounts/{id}
@@ -51,6 +61,6 @@ public static class AccountEndpoints
             return Results.NotFound();
         }
 
-        return Results.Ok(new AccountResponse(user.Id, user.Username, user.Email));
+        return Results.Ok(new AccountResponse(user.Id, user.Username, user.Email, user.Team));
     }
 }
