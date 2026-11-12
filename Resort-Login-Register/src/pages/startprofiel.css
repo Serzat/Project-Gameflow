@@ -272,6 +272,61 @@
   color: #f8e6c5;
 }
 
+/* SCHAKELAAR STANDAARD / CUSTOM */
+
+.sp-schakel-rij {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-bottom: 24px;
+}
+
+.sp-schakelaar {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  background: #f8f0df;
+  border: 1px solid #dccdae;
+  border-radius: 999px;
+}
+
+.sp-schakel-knop {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #4d6460;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sp-schakel-knop:hover {
+  color: #264f4b;
+  background: rgba(38, 79, 75, 0.06);
+}
+
+.sp-schakel-knop-actief,
+.sp-schakel-knop-actief:hover {
+  background: #264f4b;
+  color: #f8e6c5;
+}
+
+.sp-schakel-knop:focus-visible {
+  outline: 2px solid #82aaa0;
+  outline-offset: 2px;
+}
+
+.sp-schakel-uitleg {
+  margin: 0;
+  font-size: 13px;
+  color: #7a7762;
+}
+
 /* RASTER MET KAARTEN */
 
 .sp-grid {
@@ -302,13 +357,6 @@
     0 16px 30px -14px rgba(38, 79, 75, 0.35);
 }
 
-.sp-kaart-bewerken,
-.sp-kaart-bewerken:hover {
-  border-color: #f49a32;
-  transform: none;
-  box-shadow: 0 0 0 3px rgba(244, 154, 50, 0.2);
-}
-
 /* KOP VAN DE KAART */
 
 .sp-kaart-kop {
@@ -335,7 +383,31 @@
   font-family: "Josefin Sans", sans-serif;
   font-size: 19px;
   font-weight: 700;
-  padding-top: 3px;
+}
+
+/* Elk type een eigen badgekleur */
+.sp-badge-beach {
+  background: #f49a32;
+  border-color: #cb7b25;
+  color: #263f3c;
+}
+
+.sp-badge-winter {
+  background: #dce8ef;
+  border-color: #9fbccb;
+  color: #3d6b80;
+}
+
+.sp-badge-cruise {
+  background: #327b81;
+  border-color: #255e63;
+  color: #fff9ef;
+}
+
+.sp-badge-city {
+  background: #e7e0d2;
+  border-color: #c6b79b;
+  color: #5d5a4c;
 }
 
 .sp-kaart-titels {
@@ -363,6 +435,9 @@
 }
 
 .sp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 11px;
   font-weight: 700;
   padding: 5px 10px;
@@ -370,11 +445,6 @@
   background: #f3e2c4;
   color: #9a6a22;
   white-space: nowrap;
-}
-
-.sp-status-compleet {
-  background: #d6e6de;
-  color: #2f6b5f;
 }
 
 /* WEERGAVE (NIET BEWERKEN) */
@@ -452,146 +522,6 @@
   transition: width 0.4s ease;
 }
 
-/* FORMULIER (BEWERKEN) */
-
-.sp-formulier {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 14px;
-  padding: 20px;
-  flex: 1;
-}
-
-.sp-veld {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.sp-veld-breed {
-  grid-column: 1 / -1;
-}
-
-.sp-veld label {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  margin-bottom: 6px;
-  color: #264f4b;
-}
-
-.sp-input-wrap {
-  position: relative;
-}
-
-.sp-input-wrap input {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #b9ad91;
-  border-radius: 6px;
-  background: #f8f0df;
-  color: #264f4b;
-  font-family: inherit;
-  font-size: 14px;
-}
-
-.sp-input-wrap input::placeholder {
-  color: #a9a48f;
-}
-
-.sp-input-wrap input:focus {
-  outline: 2px solid #82aaa0;
-  outline-offset: 1px;
-}
-
-.sp-input-wrap input.sp-met-eenheid {
-  padding-right: 44px;
-}
-
-/* Pijltjes bij number-inputs verbergen */
-.sp-input-wrap input::-webkit-outer-spin-button,
-.sp-input-wrap input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.sp-input-wrap input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-.sp-eenheid {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 12px;
-  font-weight: 600;
-  color: #7a7762;
-  pointer-events: none;
-}
-
-/* ONDERKANT VAN DE KAART */
-
-.sp-kaart-voet {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 20px;
-  border-top: 1px solid #ebdfc6;
-  background: #f8f0df;
-}
-
-.sp-knop {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border-radius: 6px;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-
-.sp-knop-secundair {
-  background: transparent;
-  border: 1px solid #b9ad91;
-  color: #264f4b;
-}
-
-.sp-knop-secundair:hover {
-  background: #264f4b;
-  border-color: #264f4b;
-  color: #f8e6c5;
-}
-
-.sp-knop-tekst {
-  background: transparent;
-  border: 1px solid transparent;
-  color: #7a7762;
-}
-
-.sp-knop-tekst:hover {
-  color: #264f4b;
-  text-decoration: underline;
-}
-
-.sp-knop-primair {
-  background: #f49a32;
-  border: 1px solid #cb7b25;
-  color: #263f3c;
-  font-family: "Josefin Sans", sans-serif;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  padding-top: 10px;
-}
-
-.sp-knop-primair:hover {
-  background: #e58a24;
-}
-
 /* FOOTER */
 
 .dash-footer {
@@ -600,91 +530,6 @@
   color: #8c856c;
   text-align: center;
   margin-top: 36px;
-}
-
-/* RESORT TYPE IN DE KOP */
-
-.sp-kaart-info {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px 10px;
-  min-width: 0;
-}
-
-.sp-type {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 9px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.sp-type-beach {
-  background: #fbe3c4;
-  color: #a55f14;
-}
-
-.sp-type-winter {
-  background: #dce8ef;
-  color: #3d6b80;
-}
-
-.sp-type-cruise {
-  background: #d4e6e4;
-  color: #2c6f6a;
-}
-
-.sp-type-city {
-  background: #e7e0d2;
-  color: #5d5a4c;
-}
-
-.sp-type-leeg {
-  background: transparent;
-  border: 1px dashed #c6b79b;
-  color: #9a937c;
-  font-weight: 600;
-}
-
-.sp-locatie {
-  min-width: 0;
-}
-
-/* KEUZEVELD (SELECT) */
-
-.sp-input-wrap select {
-  width: 100%;
-  padding: 10px 36px 10px 12px;
-  border: 1px solid #b9ad91;
-  border-radius: 6px;
-  background-color: #f8f0df;
-  color: #264f4b;
-  font-family: inherit;
-  font-size: 14px;
-  cursor: pointer;
-
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23264f4b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-}
-
-.sp-input-wrap select:focus {
-  outline: 2px solid #82aaa0;
-  outline-offset: 1px;
-}
-
-.sp-input-wrap select.sp-select-leeg {
-  color: #a9a48f;
-}
-
-.sp-input-wrap select option {
-  color: #264f4b;
 }
 
 /* MIDDELGROTE SCHERMEN */
@@ -781,13 +626,8 @@
     padding: 16px;
   }
 
-  .sp-kaart-body,
-  .sp-formulier {
+  .sp-kaart-body {
     padding: 16px;
-  }
-
-  .sp-formulier {
-    grid-template-columns: 1fr;
   }
 
   .sp-tegel-waarde {

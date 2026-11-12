@@ -1,35 +1,86 @@
 import { useState } from "react";
 import "./startprofiel.css";
 
-// De vier soorten resorts waaruit je kunt kiezen.
+// DE VIER RESORT TYPES
+// Locatie hoort bij het type en is in beide profielen hetzelfde.
 const RESORT_TYPES = [
-  { waarde: "beach", label: "Beach resort", icoon: "zon" },
-  { waarde: "winter", label: "Winter resort", icoon: "sneeuw" },
-  { waarde: "cruise", label: "Cruise resort", icoon: "anker" },
-  { waarde: "city", label: "City resort", icoon: "stad" },
+  { waarde: "beach", label: "Beach resort", icoon: "zon", locatie: "Bali" },
+  { waarde: "winter", label: "Winter resort", icoon: "sneeuw", locatie: "Zermatt" },
+  { waarde: "cruise", label: "Cruise resort", icoon: "anker", locatie: "Middellandse Zee" },
+  { waarde: "city", label: "City resort", icoon: "stad", locatie: "Barcelona" },
 ];
 
-// Velden van een profiel.
+// WELKE GEGEVENS EEN PROFIEL HEEFT
+// weergave "tegel" = blokje bovenaan, "meter" = balkje eronder
 const PROFIEL_VELDEN = [
-  { key: "resortType", label: "Type resort", type: "select", weergave: "kop" },
-  { key: "locatie", label: "Locatie", type: "text", placeholder: "Bijv. Bali", weergave: "kop" },
-  { key: "startbudget", label: "Startbudget", kortLabel: "Budget", type: "number", min: 0, eenheid: "€", weergave: "tegel" },
-  { key: "aantalKamers", label: "Aantal kamers", kortLabel: "Kamers", type: "number", min: 0, weergave: "tegel" },
-  { key: "aantalMedewerkers", label: "Aantal medewerkers", kortLabel: "Medewerkers", type: "number", min: 0, weergave: "tegel" },
-  { key: "bezettingsgraad", label: "Bezettingsgraad", type: "number", min: 0, max: 100, eenheid: "%", weergave: "meter", kleur: "#327b81" },
-  { key: "gasttevredenheid", label: "Gasttevredenheid", type: "number", min: 0, max: 100, eenheid: "%", weergave: "meter", kleur: "#f49a32" },
-  { key: "duurzaamheidsscore", label: "Duurzaamheidsscore", type: "number", min: 0, max: 100, eenheid: "/100", weergave: "meter", kleur: "#6b9a5b" },
+  { key: "startbudget", kortLabel: "Budget", weergave: "tegel" },
+  { key: "aantalKamers", kortLabel: "Kamers", weergave: "tegel" },
+  { key: "aantalMedewerkers", kortLabel: "Medewerkers", weergave: "tegel" },
+  { key: "bezettingsgraad", label: "Bezettingsgraad", eenheid: "%", weergave: "meter", kleur: "#327b81" },
+  { key: "gasttevredenheid", label: "Gasttevredenheid", eenheid: "%", weergave: "meter", kleur: "#f49a32" },
+  { key: "duurzaamheidsscore", label: "Duurzaamheidsscore", eenheid: "/100", weergave: "meter", kleur: "#6b9a5b" },
 ];
 
-const LEEG_PROFIEL = {
-  resortType: "",
-  locatie: "",
-  startbudget: "",
-  aantalKamers: "",
-  aantalMedewerkers: "",
-  bezettingsgraad: "",
-  gasttevredenheid: "",
-  duurzaamheidsscore: "",
+// STANDAARD PROFIEL
+// Iedereen begint hetzelfde, welk type resort je ook hebt.
+const STANDAARD_WAARDEN = {
+  startbudget: 5000,
+  aantalKamers: 10,
+  aantalMedewerkers: 5,
+  bezettingsgraad: 60,
+  gasttevredenheid: 70,
+  duurzaamheidsscore: 50,
+};
+
+// CUSTOM PROFIEL
+// Elk type resort begint anders. (Voorbeeldwaarden, later aan te passen.)
+const CUSTOM_WAARDEN = {
+  beach: {
+    startbudget: 6000,
+    aantalKamers: 12,
+    aantalMedewerkers: 6,
+    bezettingsgraad: 75,
+    gasttevredenheid: 80,
+    duurzaamheidsscore: 45,
+  },
+  winter: {
+    startbudget: 7500,
+    aantalKamers: 8,
+    aantalMedewerkers: 5,
+    bezettingsgraad: 65,
+    gasttevredenheid: 75,
+    duurzaamheidsscore: 55,
+  },
+  cruise: {
+    startbudget: 9000,
+    aantalKamers: 6,
+    aantalMedewerkers: 9,
+    bezettingsgraad: 85,
+    gasttevredenheid: 70,
+    duurzaamheidsscore: 35,
+  },
+  city: {
+    startbudget: 4500,
+    aantalKamers: 15,
+    aantalMedewerkers: 10,
+    bezettingsgraad: 70,
+    gasttevredenheid: 65,
+    duurzaamheidsscore: 60,
+  },
+};
+
+// De twee profielen waartussen je kunt schakelen
+const PROFIELEN = {
+  standaard: {
+    label: "Standaard profiel",
+    uitleg: "Elk resort begint met precies dezelfde startwaarden.",
+    waardenVoor: () => STANDAARD_WAARDEN,
+  },
+  custom: {
+    label: "Custom profiel",
+    uitleg: "Elk type resort heeft zijn eigen startsituatie.",
+    waardenVoor: (type) => CUSTOM_WAARDEN[type],
+  },
 };
 
 const MENU_ITEMS = [
@@ -72,17 +123,16 @@ const ICONEN = {
       <path d="M21 12H9" />
     </>
   ),
-  potlood: (
-    <>
-      <path d="M12 20h9" />
-      <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-    </>
-  ),
-  check: <path d="M20 6 9 17l-5-5" />,
   pin: (
     <>
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
       <circle cx="12" cy="10" r="3" />
+    </>
+  ),
+  slot: (
+    <>
+      <rect x="3" y="11" width="18" height="11" rx="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
     </>
   ),
   // Iconen voor de resort types
@@ -130,210 +180,82 @@ const euroKort = new Intl.NumberFormat("nl-NL", {
 });
 
 function formatWaarde(veld, waarde) {
-  if (waarde === "") return "—";
-  if (veld.key === "startbudget") return euroKort.format(Number(waarde));
+  if (waarde === undefined || waarde === null) return "—";
+  if (veld.key === "startbudget") return euroKort.format(waarde);
   if (veld.eenheid === "%") return `${waarde}%`;
   if (veld.eenheid === "/100") return `${waarde}/100`;
-  return Number(waarde).toLocaleString("nl-NL");
+  return waarde.toLocaleString("nl-NL");
 }
 
-function aantalIngevuld(profiel) {
-  return PROFIEL_VELDEN.filter((veld) => profiel[veld.key] !== "").length;
-}
+// RESORTKAART (alleen weergeven, niet bewerken)
 
-// PROFIELKAART
-
-function ProfielKaart({ naam, data, onOpslaan }) {
-  const [bewerken, setBewerken] = useState(false);
-  const [concept, setConcept] = useState(data);
-
-  const ingevuld = aantalIngevuld(data);
-  const compleet = ingevuld === PROFIEL_VELDEN.length;
-
+function ResortKaart({ type, waarden, profielLabel }) {
   const tegels = PROFIEL_VELDEN.filter((veld) => veld.weergave === "tegel");
   const meters = PROFIEL_VELDEN.filter((veld) => veld.weergave === "meter");
 
-  const resortType = RESORT_TYPES.find((type) => type.waarde === data.resortType);
-
-  const startBewerken = () => {
-    setConcept(data);
-    setBewerken(true);
-  };
-
-  const handleOpslaan = (e) => {
-    e.preventDefault();
-    onOpslaan(concept);
-    setBewerken(false);
-    // Later koppelen we dit aan de C# backend
-  };
-
   return (
-    <form
-      className={bewerken ? "sp-kaart sp-kaart-bewerken" : "sp-kaart"}
-      onSubmit={handleOpslaan}
-    >
+    <article className="sp-kaart">
       <header className="sp-kaart-kop">
-        <div className="sp-badge">{naam}</div>
-
-        <div className="sp-kaart-titels">
-          <h2>PROFIEL {naam}</h2>
-
-          <div className="sp-kaart-info">
-            {resortType ? (
-              <span className={`sp-type sp-type-${resortType.waarde}`}>
-                <Icoon naam={resortType.icoon} grootte={12} />
-                {resortType.label}
-              </span>
-            ) : (
-              <span className="sp-type sp-type-leeg">Geen type</span>
-            )}
-
-            <span className="sp-locatie">
-              <Icoon naam="pin" grootte={13} />
-              {data.locatie || "Nog geen locatie"}
-            </span>
-          </div>
+        <div className={`sp-badge sp-badge-${type.waarde}`}>
+          <Icoon naam={type.icoon} grootte={20} />
         </div>
 
-        <span className={compleet ? "sp-status sp-status-compleet" : "sp-status"}>
-          {compleet ? "Compleet" : `${ingevuld}/${PROFIEL_VELDEN.length} ingevuld`}
+        <div className="sp-kaart-titels">
+          <h2>{type.label.toUpperCase()}</h2>
+          <span className="sp-locatie">
+            <Icoon naam="pin" grootte={13} />
+            {type.locatie}
+          </span>
+        </div>
+
+        <span className="sp-status">
+          <Icoon naam="slot" grootte={11} />
+          {profielLabel}
         </span>
       </header>
 
-      {bewerken ? (
-        <div className="sp-formulier">
-          {PROFIEL_VELDEN.map((veld) => {
-            const id = `profiel-${naam}-${veld.key}`;
+      <div className="sp-kaart-body">
+        <div className="sp-tegels">
+          {tegels.map((veld) => (
+            <div className="sp-tegel" key={veld.key}>
+              <span className="sp-tegel-label">{veld.kortLabel}</span>
+              <span className="sp-tegel-waarde">
+                {formatWaarde(veld, waarden[veld.key])}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="sp-meters">
+          {meters.map((veld) => {
+            const procent = Math.min(100, Math.max(0, waarden[veld.key] ?? 0));
             return (
-              <div key={veld.key} className="sp-veld">
-                <label htmlFor={id}>{veld.label.toUpperCase()}</label>
-
-                <div className="sp-input-wrap">
-                  {veld.type === "select" ? (
-                    <select
-                      id={id}
-                      value={concept[veld.key]}
-                      onChange={(e) =>
-                        setConcept({ ...concept, [veld.key]: e.target.value })
-                      }
-                      className={concept[veld.key] === "" ? "sp-select-leeg" : ""}
-                    >
-                      <option value="" disabled>
-                        Kies een type
-                      </option>
-                      {RESORT_TYPES.map((type) => (
-                        <option key={type.waarde} value={type.waarde}>
-                          {type.label}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    <input
-                      id={id}
-                      type={veld.type}
-                      min={veld.min}
-                      max={veld.max}
-                      placeholder={veld.placeholder || "0"}
-                      value={concept[veld.key]}
-                      onChange={(e) =>
-                        setConcept({ ...concept, [veld.key]: e.target.value })
-                      }
-                      className={veld.eenheid ? "sp-met-eenheid" : ""}
-                    />
-                  )}
-
-                  {veld.eenheid && (
-                    <span className="sp-eenheid">{veld.eenheid}</span>
-                  )}
+              <div className="sp-meter" key={veld.key}>
+                <div className="sp-meter-tekst">
+                  <span>{veld.label}</span>
+                  <strong>{formatWaarde(veld, waarden[veld.key])}</strong>
+                </div>
+                <div className="sp-meter-balk">
+                  <div
+                    className="sp-meter-vulling"
+                    style={{ width: `${procent}%`, background: veld.kleur }}
+                  />
                 </div>
               </div>
             );
           })}
         </div>
-      ) : (
-        <div className="sp-kaart-body">
-          <div className="sp-tegels">
-            {tegels.map((veld) => (
-              <div className="sp-tegel" key={veld.key}>
-                <span className="sp-tegel-label">{veld.kortLabel}</span>
-                <span className="sp-tegel-waarde">
-                  {formatWaarde(veld, data[veld.key])}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <div className="sp-meters">
-            {meters.map((veld) => {
-              const procent = Math.min(100, Math.max(0, Number(data[veld.key]) || 0));
-              return (
-                <div className="sp-meter" key={veld.key}>
-                  <div className="sp-meter-tekst">
-                    <span>{veld.label}</span>
-                    <strong>{formatWaarde(veld, data[veld.key])}</strong>
-                  </div>
-                  <div className="sp-meter-balk">
-                    <div
-                      className="sp-meter-vulling"
-                      style={{ width: `${procent}%`, background: veld.kleur }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      <footer className="sp-kaart-voet">
-        {bewerken ? (
-          <>
-            <button
-              key="annuleren"
-              type="button"
-              className="sp-knop sp-knop-tekst"
-              onClick={() => setBewerken(false)}
-            >
-              Annuleren
-            </button>
-            <button key="opslaan" type="submit" className="sp-knop sp-knop-primair">
-              <Icoon naam="check" grootte={16} />
-              OPSLAAN
-            </button>
-          </>
-        ) : (
-          <button
-            key="bewerken"
-            type="button"
-            className="sp-knop sp-knop-secundair"
-            onClick={startBewerken}
-          >
-            <Icoon naam="potlood" grootte={15} />
-            Bewerken
-          </button>
-        )}
-      </footer>
-    </form>
+      </div>
+    </article>
   );
 }
 
 // PAGINA
 
 function Startprofiel() {
-  const [profielen, setProfielen] = useState({
-    A: { ...LEEG_PROFIEL },
-    B: { ...LEEG_PROFIEL },
-    C: { ...LEEG_PROFIEL },
-    D: { ...LEEG_PROFIEL },
-  });
-
-  const opslaanProfiel = (naam, nieuweData) => {
-    setProfielen((vorige) => ({ ...vorige, [naam]: nieuweData }));
-  };
-
-  const aantalCompleet = Object.values(profielen).filter(
-    (profiel) => aantalIngevuld(profiel) === PROFIEL_VELDEN.length
-  ).length;
+  // Welk profiel staat aan: "standaard" of "custom"
+  const [gekozenProfiel, setGekozenProfiel] = useState("standaard");
+  const profiel = PROFIELEN[gekozenProfiel];
 
   const huidigPad = window.location.pathname;
 
@@ -401,24 +323,45 @@ function Startprofiel() {
             <div className="sp-hero-tekst">
               <span className="sp-hero-deco">✦ SPELOPZET ✦</span>
               <h1>Startprofielen</h1>
-              <p>Stel per profiel de beginsituatie van het resort in.</p>
+              <p>Kies met welke startsituatie de resorts beginnen.</p>
             </div>
 
             <div className="sp-hero-stat">
-              <span className="sp-hero-getal">
-                {aantalCompleet}<small>/4</small>
-              </span>
-              <span className="sp-hero-stat-label">PROFIELEN COMPLEET</span>
+              <span className="sp-hero-getal">{RESORT_TYPES.length}</span>
+              <span className="sp-hero-stat-label">RESORT TYPES</span>
             </div>
           </section>
 
+          {/* SCHAKELAAR STANDAARD / CUSTOM */}
+          <div className="sp-schakel-rij">
+            <div className="sp-schakelaar" role="group" aria-label="Kies een profiel">
+              {Object.entries(PROFIELEN).map(([sleutel, p]) => (
+                <button
+                  key={sleutel}
+                  type="button"
+                  className={
+                    gekozenProfiel === sleutel
+                      ? "sp-schakel-knop sp-schakel-knop-actief"
+                      : "sp-schakel-knop"
+                  }
+                  aria-pressed={gekozenProfiel === sleutel}
+                  onClick={() => setGekozenProfiel(sleutel)}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+
+            <p className="sp-schakel-uitleg">{profiel.uitleg}</p>
+          </div>
+
           <div className="sp-grid">
-            {Object.keys(profielen).map((naam) => (
-              <ProfielKaart
-                key={naam}
-                naam={naam}
-                data={profielen[naam]}
-                onOpslaan={(nieuweData) => opslaanProfiel(naam, nieuweData)}
+            {RESORT_TYPES.map((type) => (
+              <ResortKaart
+                key={type.waarde}
+                type={type}
+                waarden={profiel.waardenVoor(type.waarde)}
+                profielLabel={gekozenProfiel === "standaard" ? "Standaard" : "Custom"}
               />
             ))}
           </div>

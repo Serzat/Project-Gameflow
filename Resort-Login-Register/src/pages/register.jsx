@@ -1,15 +1,17 @@
-
 import { useState } from "react";
+import { registerUser } from "../api/accounts";
 import "./register.css";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [team, setTeam] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -23,9 +25,20 @@ function Register() {
       return;
     }
 
-    // Later koppelen we dit aan de C# backend.
-    // Stuur wachtwoorden niet naar console.log.
-    alert("Registration form is valid. Backend not connected yet.");
+    setLoading(true);
+
+    try {
+      const user = await registerUser(username, email, team, password);
+
+      alert(`Account created! Welcome to the team, ${user.username}. You can now log in.`);
+
+      // Na registreren naar de loginpagina
+      window.location.href = "/";
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -34,7 +47,6 @@ function Register() {
         <div className="register-content">
 
           <div className="register-brand">
-
             <h1>
               RESORT<br />
               MANAGEMENT
@@ -63,6 +75,8 @@ function Register() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"
+              minLength={3}
+              maxLength={30}
               required
             />
 
@@ -78,6 +92,22 @@ function Register() {
               autoComplete="email"
               required
             />
+
+            <label htmlFor="team">TEAM</label>
+            <select
+              id="team"
+              value={team}
+              onChange={(e) => setTeam(e.target.value)}
+              required
+            >
+              <option value="" disabled>
+                Choose your resort
+              </option>
+              <option value="beach">Beach resort</option>
+              <option value="winter">Winter resort</option>
+              <option value="cruise">Cruise resort</option>
+              <option value="city">City resort</option>
+            </select>
 
             <label htmlFor="register-password">
               PASSWORD
@@ -115,8 +145,9 @@ function Register() {
             <button
               type="submit"
               className="register-button"
+              disabled={loading}
             >
-              CREATE ACCOUNT →
+              {loading ? "CREATING ACCOUNT..." : "CREATE ACCOUNT →"}
             </button>
           </form>
 

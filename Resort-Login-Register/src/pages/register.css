@@ -133,6 +133,58 @@
   color: #829a96;
 }
 
+.register-form select {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1px solid #b9ad91;
+  border-radius: 5px;
+  background: #f8f0df;
+  color: #264f4b;
+
+  font-family: inherit;
+  font-size: 14px;
+  margin-bottom: 13px;
+  cursor: pointer;
+}
+
+.register-form select:focus {
+  outline: 2px solid #82aaa0;
+  outline-offset: 1px;
+}
+
+/* Grijze kleur zolang er nog geen team gekozen is, net als een placeholder */
+.register-form select:invalid {
+  color: #829a96;
+}
+
+/* Opties altijd in de donkere tekstkleur, ook als er nog niks gekozen is */
+.register-form select option {
+  color: #264f4b;
+  background: #f8f0df;
+}
+
+/* Zelf de dropdown-lijst stylen (werkt in Chrome en Edge) */
+.register-form select,
+.register-form select::picker(select) {
+  appearance: base-select;
+}
+
+.register-form select::picker(select) {
+  border: 1px solid #b9ad91;
+  border-radius: 5px;
+  background: #f8f0df;
+}
+
+.register-form select option:hover,
+.register-form select option:focus {
+  background-color: #e8d5b5;
+  color: #264f4b;
+}
+
+.register-form select option:checked {
+  background-color: #d9c39c;
+  color: #264f4b;
+}
 /* FOUTMELDING */
 
 .register-error {

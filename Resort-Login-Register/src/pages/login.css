@@ -107,6 +107,14 @@ body {
   margin: 8px 0;
 }
 
+/* FOUTMELDING */
+
+.login-error {
+  color: #a13e2f;
+  font-size: 12px;
+  margin: 0 0 12px;
+}
+
 /* INLOGFORMULIER */
 
 .login-form {

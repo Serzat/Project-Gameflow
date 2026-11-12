@@ -1,17 +1,32 @@
-
 import { useState } from "react";
+import { loginUser } from "../api/accounts";
 import "./login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    // Later koppelen we dit aan de C# backend
-    console.log("Login attempt:", email);
+    try {
+      const user = await loginUser(email, password);
+
+      // Onthoud wie er ingelogd is, zodat andere pagina's dit kunnen gebruiken
+      localStorage.setItem("user", JSON.stringify(user));
+
+      alert(`Welcome back, ${user.username}! (Team: ${user.team})`);
+      // Later: doorsturen naar de volgende pagina
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -65,8 +80,14 @@ function Login() {
               Forgot password?
             </a>
 
-            <button type="submit" className="login-button">
-              LOG IN →
+            {error && (
+              <p className="login-error" role="alert">
+                {error}
+              </p>
+            )}
+
+            <button type="submit" className="login-button" disabled={loading}>
+              {loading ? "LOGGING IN..." : "LOG IN →"}
             </button>
           </form>
 
@@ -82,7 +103,6 @@ function Login() {
             New to paradise? <a href="/register">Sign up</a>
           </p>
         </div>
-
       </section>
 
       <section className="login-right">
