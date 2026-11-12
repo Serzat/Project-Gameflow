@@ -49,4 +49,16 @@ public class TeamStatsService {
         _context.teamStats.Add(stats);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<bool> deleteTS(int id) {
+        var stats = await _context.teamStats.FindAsync(id);
+
+        if (stats == null) {
+            return false;
+        }
+
+        _context.teamStats.Remove(stats);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

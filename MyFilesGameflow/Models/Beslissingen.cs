@@ -2,6 +2,10 @@
 
 public class Beslissingen {
     public int Id { get; set; }
+    
+    public int TeamNummer { get; set; }
+    public int RondeNummer { get; set; }
+    
     public decimal Kamerprijs { get; set; }
     public decimal MarketingBudget  { get; set; }
     public string MarketingFocus { get; set; }

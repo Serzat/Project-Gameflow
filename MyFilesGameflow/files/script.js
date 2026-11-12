@@ -11,11 +11,14 @@
         gasttevredenheid: "7/10",
         duurzaamheidsscore: "60/100"
     };
+    
+    const teamsNummer = 1;
+    const rondeNummer = 1;
 
-    laadTeamStats()
-    async function laadTeamStats() {
+    laadTeamStats(teamsNummer, rondeNummer);
+    async function laadTeamStats(teamNummer, rondeNummer) {
         try {
-            const response = await fetch(`http://localhost:5050/api/teamstats?teamnummer=1&rondenummer=1`);
+            const response = await fetch(`http://localhost:5050/api/teamstats/${teamNummer}/${rondeNummer}`);
 
             if (!response.ok) {
                 throw new Error("Kon de teamstats niet ophalen van de server.");

@@ -14,7 +14,7 @@ public class TeamstatsController : ControllerBase{
     }
     
     
-    [HttpGet]
+    [HttpGet("{teamnummer}/{rondenummer}")]
     public async Task<ActionResult<TeamsStatsDto>> GetTeamStats(int teamnummer,  int rondenummer) {
         var stats = await _service.getTS(teamnummer, rondenummer);
 
@@ -30,6 +30,15 @@ public class TeamstatsController : ControllerBase{
         await _service.postTS(dto);
         
         return Ok(new {message = "Stats successfully posted"});
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTeamStats(int id) {
+        if (!await _service.deleteTS(id)) {
+            return NotFound(new { message = "Id not found" });
+        }
+        
+        return Ok(new {message = "Stats successfully deleted"});
     }
     
 }

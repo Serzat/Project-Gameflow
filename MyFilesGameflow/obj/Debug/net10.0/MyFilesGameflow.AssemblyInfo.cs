@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyFilesGameflow")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+347772f82e9c41db93ff8529c213e277c4d4d2cb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+12bec29c8584775b930a41ad840d350ff66037b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyFilesGameflow")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyFilesGameflow")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
