@@ -9,6 +9,9 @@ namespace Gameflow.Api.Models
 
         public int AantalTeams { get; set; }
 
+        // Starting profile mode used by this competition
+        public string Modus { get; set; } = string.Empty;
+
         public bool IsGestart { get; set; } = false;
     }
 }
