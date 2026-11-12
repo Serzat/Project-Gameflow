@@ -32,27 +32,26 @@
         </div>
 
         <div class="ronde-card">
-            <h2>Ronde 1/4</h2>
+            <h2 id="ronde">Ronde 1/4</h2>
             <p>Deadline: 28-10-2026 00:00</p>
         </div>
     </div>
 
     <div class="stats-container">
-        <h2>Team 1</h2>
+        <h2 id="team-titel">Team 1</h2>
         
         <div class="card-container-stats">
             <div class="stats-cards" data-card="1">
-                <p><span>Startprofiel:</span> A</p>
-                <p><span>Resort naam:</span> Sunny Beach Resort</p>
-                <p><span>Locatie:</span> Tropisch Eiland</p>
+                <p><span>Startprofiel:</span> <span id="stat-startprofiel">-</span></p>
+                <p><span>Resort naam:</span> <span id="stat-resortnaam">-</span></p>
+                <p><span>Locatie:</span> <span id="stat-locatie">-</span></p>
             </div>
 
             <div class="stats-cards" data-card="2">
-                <p><span>Huidig budget:</span> € 500.000</p>
-                <p><span>Aantal kamers:</span> 80</p>
-                <p><span>Aantal medewerkers:</span> 30</p>
+                <p><span>Huidig budget:</span> <span id="stat-budget">-</span></p>
+                <p><span>Aantal kamers:</span> <span id="stat-kamers">-</span></p>
+                <p><span>Aantal medewerkers:</span> <span id="stat-medewerkers">-</span></p>
             </div>
-
             <div class="stats-cards" data-card="3">
                 <p><span>Bezettingsgraad:</span> 70%</p>
                 <p><span>Gasttevredenheid:</span> 7/10</p>
@@ -94,8 +93,12 @@
                     </select>
                 </div>
                 <div>
-                    <label>Aantal medewerkers.</label><br>
-                    <input type="text" value="10">
+                    <label>Marketing focus.</label><br>
+                    <select>
+                        <option value="Alle doelgroepen">Alle Doelgroepen</option>
+                        <option value="Jong volwassenen">Jong volwassenen</option>
+                        <option value="Ouderen">Ouderen</option>
+                    </select>
                 </div>
             </div>
         </div>

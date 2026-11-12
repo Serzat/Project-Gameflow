@@ -23,7 +23,7 @@ class Program {
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddScoped<BeslissingenService>();
+        builder.Services.AddScoped<TeamStatsService>();
         
         
         var app = builder.Build();
@@ -34,7 +34,7 @@ class Program {
         app.UseSwaggerUI();
         
         app.Urls.Add("http://localhost:5050");
-        Console.WriteLine("http://localhost:5050/api/beslissingen");
+        Console.WriteLine("http://localhost:5050/api/teamstats");
         Console.WriteLine("http://localhost:5050/swagger");
         
         app.MapControllers();
