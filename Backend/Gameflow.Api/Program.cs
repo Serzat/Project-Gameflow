@@ -1,29 +1,32 @@
-using Gameflow.Api.Data;
-using Microsoft.EntityFrameworkCore;
 using Gameflow.Api.Accounts;
+using Gameflow.Api.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // ===== Services registreren (vóór Build) =====
 
-// Swagger, testen en validation
+// Swagger en validatie (les 5 en 6)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddValidation();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("Frontend", policy =>
-        policy.WithOrigins("http://localhost:5173")
-              .AllowAnyHeader()
-              .AllowAnyMethod());
-});
 
-// EF Core met SQL Server. Leest de connectionstring uit je user secrets 
+// EF Core met SQL Server (les 6)
 builder.Services.AddDbContext<GameflowDb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Gameflow")));
-builder.Services.AddScoped<IAccountStore, EfAccountStore>();
-builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
+
+// Identity met rollen (les 7)
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<User>(options =>
+    {
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequiredLength = 8;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<GameflowDb>();
 
 var app = builder.Build();
 
@@ -34,7 +37,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("Frontend");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Standaardroutes van Identity: /api/auth/login, /api/auth/register enz.
+app.MapGroup("/api/auth").MapIdentityApi<User>();
+
+// Onze eigen routes: /api/auth/signup, /api/auth/me, /api/auth/logout
 app.MapAccounts();
 
 app.Run();

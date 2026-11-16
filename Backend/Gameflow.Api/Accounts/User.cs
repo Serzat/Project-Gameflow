@@ -1,16 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace Gameflow.Api.Accounts;
 
-public class User
+public class User : IdentityUser
 {
-    public int Id { get; set; }
+    public string DisplayName { get; set; } = "";
 
-    public required string Username { get; set; }
-
-    public required string Email { get; set; }
-
-    public required string Team { get; set; }
-
-    public string PasswordHash { get; set; } = "";
+    public string Team { get; set; } = "";
 
     public DateTime CreatedAt { get; set; }
 }

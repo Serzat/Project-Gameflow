@@ -1,66 +1,77 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+
 namespace Gameflow.Api.Accounts;
 
 public static class AccountEndpoints
 {
     public static IEndpointRouteBuilder MapAccounts(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/accounts").WithTags("Accounts");
+        var group = app.MapGroup("/api/auth").WithTags("Accounts");
 
-        group.MapPost("/register", Register)
-            .Produces<AccountResponse>(StatusCodes.Status201Created)
-            .Produces(StatusCodes.Status409Conflict)
+        group.MapPost("/signup", Signup)
+            .Produces<AccountResponse>(StatusCodes.Status200OK)
             .ProducesValidationProblem();
 
-        group.MapPost("/login", Login)
+        group.MapGet("/me", Me)
+            .RequireAuthorization()
             .Produces<AccountResponse>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
 
-        group.MapGet("/{id:int}", GetAccount)
-            .WithName("GetAccount")
-            .Produces<AccountResponse>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status404NotFound);
+        group.MapPost("/logout", Logout)
+            .RequireAuthorization()
+            .Produces(StatusCodes.Status204NoContent);
 
         return app;
     }
 
-    // POST /accounts/register
-    private static async Task<IResult> Register(RegisterRequest request, IAccountStore store, CancellationToken ct)
+    // POST /api/auth/signup: registreren mét gebruikersnaam en team
+       private static async Task<IResult> Signup(SignupRequest request, UserManager<User> userManager)
     {
-        if (await store.EmailExistsAsync(request.Email, ct))
+        var user = new User
         {
-            return Results.Conflict(new { message = "Er bestaat al een account met dit e-mailadres." });
+            UserName = request.Email,
+            Email = request.Email,
+            DisplayName = request.Username.Trim(),
+            Team = request.Team,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        var result = await userManager.CreateAsync(user, request.Password);
+
+        if (!result.Succeeded)
+        {
+            var errors = result.Errors
+                .GroupBy(e => e.Code)
+                .ToDictionary(g => g.Key, g => g.Select(e => e.Description).ToArray());
+
+            return Results.ValidationProblem(errors);
         }
 
-        var user = await store.CreateAsync(request.Username, request.Email, request.Team, request.Password, ct);
+        var roles = await userManager.GetRolesAsync(user);
 
-        var response = new AccountResponse(user.Id, user.Username, user.Email, user.Team);
-
-        return Results.CreatedAtRoute("GetAccount", new { id = user.Id }, response);
+        return Results.Ok(new AccountResponse(user.Id, user.DisplayName, user.Email!, user.Team, roles));
     }
 
-    // POST /accounts/login
-    private static async Task<IResult> Login(LoginRequest request, IAccountStore store, CancellationToken ct)
+    // GET /api/auth/me: wie is er nu ingelogd?
+    private static async Task<IResult> Me(ClaimsPrincipal principal, UserManager<User> userManager)
     {
-        var user = await store.CheckLoginAsync(request.Email, request.Password, ct);
+        var user = await userManager.GetUserAsync(principal);
 
         if (user is null)
         {
             return Results.Unauthorized();
         }
 
-        return Results.Ok(new AccountResponse(user.Id, user.Username, user.Email, user.Team));
+        var roles = await userManager.GetRolesAsync(user);
+
+        return Results.Ok(new AccountResponse(user.Id, user.DisplayName, user.Email!, user.Team, roles));
     }
 
-    // GET /accounts/{id}
-    private static async Task<IResult> GetAccount(int id, IAccountStore store, CancellationToken ct)
+    // POST /api/auth/logout: uitloggen (cookie verwijderen)
+    private static async Task<IResult> Logout(SignInManager<User> signInManager)
     {
-        var user = await store.FindByIdAsync(id, ct);
-
-        if (user is null)
-        {
-            return Results.NotFound();
-        }
-
-        return Results.Ok(new AccountResponse(user.Id, user.Username, user.Email, user.Team));
+        await signInManager.SignOutAsync();
+        return Results.NoContent();
     }
 }

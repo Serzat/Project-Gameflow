@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Gameflow.Api.Accounts;
 
 // Wat de frontend stuurt bij registreren
-public class RegisterRequest
+public class SignupRequest
 {
     [Required]
     [StringLength(30, MinimumLength = 3)]
@@ -23,16 +23,5 @@ public class RegisterRequest
     public string Password { get; set; } = "";
 }
 
-// Wat de frontend stuurt bij inloggen
-public class LoginRequest
-{
-    [Required]
-    [EmailAddress]
-    public string Email { get; set; } = "";
-
-    [Required]
-    public string Password { get; set; } = "";
-}
-
-// Wat de backend terugstuurt (zonder wachtwoord!)
-public record AccountResponse(int Id, string Username, string Email, string Team);
+// Wat de backend terugstuurt over een gebruiker (zonder wachtwoord!)
+public record AccountResponse(string Id, string Username, string Email, string Team, IList<string> Roles);
