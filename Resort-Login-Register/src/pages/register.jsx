@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { registerUser } from "../api/accounts";
+import { signup } from "../api/auth";
 import "./register.css";
 
 function Register() {
@@ -28,7 +28,7 @@ function Register() {
     setLoading(true);
 
     try {
-      const user = await registerUser(username, email, team, password);
+            const user = await signup(username, email, team, password);
 
       alert(`Account created! Welcome to the team, ${user.username}. You can now log in.`);
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { loginUser } from "../api/accounts";
+import { login, getMe } from "../api/auth";
 import "./login.css";
 
 function Login() {
@@ -9,18 +9,18 @@ function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+    const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      const user = await loginUser(email, password);
+      await login(email, password);
 
-      // Onthoud wie er ingelogd is, zodat andere pagina's dit kunnen gebruiken
-      localStorage.setItem("user", JSON.stringify(user));
+      // Na het inloggen vragen we op wie er is ingelogd
+      const user = await getMe();
 
-      alert(`Welcome back, ${user.username}! (Team: ${user.team})`);
+      alert(`Welcome back, ${user.username}! (Team: ${user.team || "none"}, role: ${user.roles.join(", ")})`);
       // Later: doorsturen naar de volgende pagina
     } catch (err) {
       setError(err.message);
