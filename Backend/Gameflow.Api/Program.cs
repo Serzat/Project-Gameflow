@@ -7,16 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // ===== Services registreren (vóór Build) =====
 
-// Swagger en validatie (les 5 en 6)
+// Swagger en validatie
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddValidation();
 
-// EF Core met SQL Server (les 6)
+// EF Core met SQL Server
 builder.Services.AddDbContext<GameflowDb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Gameflow")));
 
-// Identity met rollen (les 7)
+// Identity met rollen
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<User>(options =>
     {
@@ -29,6 +29,9 @@ builder.Services.AddIdentityApiEndpoints<User>(options =>
     .AddEntityFrameworkStores<GameflowDb>();
 
 var app = builder.Build();
+
+// Rollen en het spelbegeleider-account aanmaken
+await DbSeeder.SeedAsync(app.Services);
 
 // ===== Middleware en routes (na Build) =====
 

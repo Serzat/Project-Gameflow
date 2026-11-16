@@ -26,7 +26,7 @@ public static class AccountEndpoints
     }
 
     // POST /api/auth/signup: registreren mét gebruikersnaam en team
-       private static async Task<IResult> Signup(SignupRequest request, UserManager<User> userManager)
+    private static async Task<IResult> Signup(SignupRequest request, UserManager<User> userManager)
     {
         var user = new User
         {
@@ -47,6 +47,9 @@ public static class AccountEndpoints
 
             return Results.ValidationProblem(errors);
         }
+
+        // Iedereen die zich zelf registreert is een speler
+        await userManager.AddToRoleAsync(user, Roles.Speler);
 
         var roles = await userManager.GetRolesAsync(user);
 
