@@ -154,7 +154,7 @@
                 console.error("Fout bij opslaan extra beslissingen:", error);
                 alert("Er is iets misgegaan bij het opslaan van de extra beslissingen.");
             }
-        });
+        });  
     }
 
 });
