@@ -1,0 +1,40 @@
+using Gameflow.Api.Data;
+using Microsoft.EntityFrameworkCore;
+using Gameflow.Api.Accounts;
+using Microsoft.AspNetCore.Identity;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// ===== Services registreren (vóór Build) =====
+
+// Swagger, testen en validation
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddValidation();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
+// EF Core met SQL Server. Leest de connectionstring uit je user secrets 
+builder.Services.AddDbContext<GameflowDb>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Gameflow")));
+builder.Services.AddScoped<IAccountStore, EfAccountStore>();
+builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
+
+var app = builder.Build();
+
+// ===== Middleware en routes (na Build) =====
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+app.UseCors("Frontend");
+app.MapAccounts();
+
+app.Run();

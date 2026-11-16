@@ -1,0 +1,6 @@
+@Gameflow.Api_HostAddress = http://localhost:5030
+
+GET {{Gameflow.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
