@@ -1,6 +1,9 @@
-﻿using MyFilesGameflow.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MyFilesGameflow.Data;
+using MyFilesGameflow.Models;
+using MyFilesGameflow.Dtos;
 
-namespace MyFilesGameflow.Service;
+namespace MyFilesGameflow.Service;   
 
 public class BeslissingenService {
     private readonly ApplicationDbContext _context;
@@ -8,6 +11,40 @@ public class BeslissingenService {
     public BeslissingenService(ApplicationDbContext context) {
         _context = context;
     }
-    
-    
+
+    public async Task PostData(BeslissingInputDto dto) {
+        var beslissingen = await _context.beslissingen.FirstOrDefaultAsync(t => t.TeamNummer == dto.TeamNummer
+        && t.RondeNummer == dto.RondeNummer);
+
+        if (beslissingen == null) {
+            Beslissingen b = new Beslissingen() {
+                TeamNummer = dto.TeamNummer,
+                RondeNummer = dto.RondeNummer,
+                Kamerprijs = dto.Kamerprijs,
+                MarketingBudget = dto.MarketingBudget,
+                MarketingFocus = dto.MarketingFocus,
+                AantalMedewerkers = dto.AantalMedewerkers,
+                TypeInvestering = dto.TypeInvestering,
+                InvesteringKosten = dto.InvesteringKosten,
+                DuurzaamheidMaatregel = dto.DuurzaamheidMaatregel,
+                DuurzaamheidKosten = dto.DuurzaamheidKosten,
+                OnderhoudsNiveau = dto.OnderhoudsNiveau
+            };
+            
+            _context.beslissingen.Add(b);
+        }
+        else {
+            beslissingen.Kamerprijs = dto.Kamerprijs;
+            beslissingen.MarketingBudget = dto.MarketingBudget;
+            beslissingen.MarketingFocus = dto.MarketingFocus;
+            beslissingen.AantalMedewerkers = dto.AantalMedewerkers;
+            beslissingen.TypeInvestering = dto.TypeInvestering;
+            beslissingen.InvesteringKosten = dto.InvesteringKosten;
+            beslissingen.DuurzaamheidMaatregel = dto.DuurzaamheidMaatregel;
+            beslissingen.DuurzaamheidKosten = dto.DuurzaamheidKosten;
+            beslissingen.OnderhoudsNiveau = dto.OnderhoudsNiveau;
+        }
+        
+        await _context.SaveChangesAsync();
+    }
 }

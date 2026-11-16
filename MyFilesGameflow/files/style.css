@@ -303,6 +303,10 @@ button[data-card="beslissingen-opslaan"]{
     background: #6488EA;
     color: white;
 }
+button[data-card="extra-beslissingen-opslaan"]{
+    background: #6488EA;
+    color: white;
+}
 button[data-card="meer-beslissingen"]{
     background: #6fc276;
     color: white;

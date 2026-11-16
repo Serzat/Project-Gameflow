@@ -10,7 +10,7 @@ public class TeamstatsController : ControllerBase{
     private readonly TeamStatsService _service;
 
     public TeamstatsController(TeamStatsService service) {
-        _service = service;
+        _service = service;   
     }
     
     

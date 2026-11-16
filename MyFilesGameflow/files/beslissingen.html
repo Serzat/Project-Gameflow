@@ -69,7 +69,7 @@
             
             <div>
                 <label>Prijs per nacht (€)</label><br>
-                <select>
+                <select id="kamerprijs-select">
                     <option value="40">40</option>
                     <option value="80">80</option>
                     <option value="120">120</option>
@@ -85,7 +85,7 @@
             <div class="field-container">
                 <div>
                     <label>Marketingbudget (€)</label><br>
-                    <select>
+                    <select id="marketingbudget-select">
                         <option value="5000">5000</option>
                         <option value="10000">10000</option>
                         <option value="15000">15000</option>
@@ -94,7 +94,7 @@
                 </div>
                 <div>
                     <label>Marketing focus.</label><br>
-                    <select>
+                    <select id="marketingfocus-select">
                         <option value="Alle doelgroepen">Alle Doelgroepen</option>
                         <option value="Jong volwassenen">Jong volwassenen</option>
                         <option value="Ouderen">Ouderen</option>
@@ -110,7 +110,7 @@
             </div><br>
             <div>
                 <label>Aantal medewerkers.</label><br>
-                <input type="text" value="10">
+                <input type="text" id="aantalmedewerkers-input" value="10">
             </div>
         </div>
 
@@ -122,7 +122,7 @@
             <div class="field-container">
                 <div>
                     <label>Type investering</label><br>
-                    <select>
+                    <select id="typeinvestering-select">
                         <option value="Spa & Welness">Spa & Welness</option>
                         <option value="Bar">Bar</option>
                         <option value="Casino">Casino</option>
@@ -131,7 +131,7 @@
                 </div>
                 <div>
                     <label>Kosten (€)</label><br>
-                    <input type="text" value="100000">
+                    <input type="text" id="investeringkosten-input" value="100000">
                 </div>
             </div>
         </div>
@@ -144,7 +144,7 @@
             <div class="field-container">
                 <div>
                     <label>Maatregel</label><br>
-                    <select>
+                    <select id="duurzaamheidmaatregel-select">
                         <option value="Zonnepanelen installeren">Zonnepanelen installeren</option>
                         <option value="Isolatie">Isolatie</option>
                         <option value="Slimme aansturing en verlichting">Slimme aansturing en verlichting</option>
@@ -153,7 +153,7 @@
                 </div>
                 <div>
                     <label>Kosten (€)</label><br>
-                    <input type="text" value="150000">
+                    <input type="text" id="duurzaamheidkosten-input" value="150000">
                 </div>
             </div>
         </div>
@@ -165,7 +165,7 @@
             </div><br>
             <div>
                 <label>Onderhoudsniveau</label><br>
-                <select>
+                <select id="onderhoudsniveau-select">
                     <option value="Minimaal">Minimaal</option>
                     <option value="Normaal">Normaal</option>
                     <option value="Maximaal">Maximaal</option>

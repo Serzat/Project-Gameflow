@@ -24,6 +24,7 @@ class Program {
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<TeamStatsService>();
+        builder.Services.AddScoped<BeslissingenService>();
         
         
         var app = builder.Build();

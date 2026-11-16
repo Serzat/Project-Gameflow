@@ -68,18 +68,92 @@
             }, 2000);
         });
     }
-
+    
     const opslaanBtn = document.querySelector('button[data-card="beslissingen-opslaan"]');
     if (opslaanBtn) {
-        opslaanBtn.addEventListener("click", function(e) {
-            e.preventDefault()
+        opslaanBtn.addEventListener("click", async function(e) {
+            e.preventDefault();
 
-            const origineleTekst = opslaanBtn.innerText;
-            opslaanBtn.innerText = "Opgeslagen!";
+            console.log("Opslaan knop is aangeklikt!");
+            
+            const beslissingData = {
+                teamNummer: teamsNummer,
+                rondeNummer: rondeNummer,
+                kamerprijs: parseFloat(document.getElementById("kamerprijs-select").value) || 0,
+                marketingBudget: parseFloat(document.getElementById("marketingbudget-select").value) || 0,
+                marketingFocus: document.getElementById("marketingfocus-select").value,
+                aantalMedewerkers: parseInt(document.getElementById("aantalmedewerkers-input").value) || 0,
+                typeInvestering: document.getElementById("typeinvestering-select").value,
+                investeringKosten: parseFloat(document.getElementById("investeringkosten-input").value) || 0,
+                duurzaamheidMaatregel: document.getElementById("duurzaamheidmaatregel-select").value,
+                duurzaamheidKosten: parseFloat(document.getElementById("duurzaamheidkosten-input").value) || 0,
+                onderhoudsNiveau: document.getElementById("onderhoudsniveau-select").value
+            };
 
-            setTimeout(function() {
-                opslaanBtn.innerText = origineleTekst;
-            }, 2000);
+            try {
+                const response = await fetch('http://localhost:5050/api/Beslissingen', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(beslissingData)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Kon de beslissingen niet opslaan.");
+                }
+
+                const result = await response.json();
+                console.log("Succesvol opgeslagen:", result);
+                
+                const origineleTekst = opslaanBtn.innerText;
+                opslaanBtn.innerText = "Opgeslagen!";
+
+                setTimeout(function() {
+                    opslaanBtn.innerText = origineleTekst;
+                }, 2000);
+
+            } catch (error) {
+                console.error("Fout bij opslaan van beslissingen:", error);
+                alert("Fout details: " + error.message);
+            }
+        });
+    }
+
+    const opslaanExtraBtn = document.querySelector('button[data-card="extra-beslissingen-opslaan"]');
+    if (opslaanExtraBtn) {
+        opslaanExtraBtn.addEventListener("click", async function (e) {
+            e.preventDefault();
+
+            const kortingVal = document.getElementById("korting-select").value;
+            const kortingNummer = kortingVal === "Geen" ? null : parseInt(kortingVal);
+
+            const extraBeslissingData = {
+                teamNummer: teamsNummer,
+                rondeNummer: rondeNummer,
+                doelGroep: document.getElementById("doelgroep-select").value,
+                marketingKanaal: document.getElementById("marketingkanaal-select").value,
+                personeelTraining: document.getElementById("personeeltraining-select").value,
+                korting: kortingNummer
+            };
+
+            try {
+                const response = await fetch('http://localhost:5050/api/Beslissingen/extrabeslissingen', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(extraBeslissingData)
+                });
+
+                if (!response.ok) throw new Error("Kon de extra beslissingen niet opslaan.");
+
+                const result = await response.json();
+                console.log("Extra beslissingen opgeslagen:", result);
+                toonSuccesFeedback(opslaanExtraBtn);
+
+            } catch (error) {
+                console.error("Fout bij opslaan extra beslissingen:", error);
+                alert("Er is iets misgegaan bij het opslaan van de extra beslissingen.");
+            }
         });
     }
 

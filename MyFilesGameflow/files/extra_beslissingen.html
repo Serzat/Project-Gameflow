@@ -70,7 +70,8 @@
 
             <div>
                 <label>Keuze</label><br>
-                <select>
+                <select id="doelgroep-select">
+                    <option value="Geen">Geen</option>
                     <option value="gezinnen">gezinnen</option>
                     <option value="Studenten">Studenten</option>
                     <option value="Particulieren">Particulieren</option>
@@ -85,7 +86,8 @@
             </div><br>
             <div>
                 <label>Keuze</label><br>
-                <select>
+                <select id="marketingkanaal-select">
+                    <option value="Geen">Geen</option>
                     <option value="Instagram">Instagram</option>
                     <option value="Facebook">Facebook</option>
                     <option value="X">X</option>
@@ -101,7 +103,8 @@
             </div><br>
             <div>
                 <label>Keuze</label><br>
-                <select>
+                <select id="personeeltraining-select">
+                    <option value="Geen">Geen</option>
                     <option value="Basis">Basis</option>
                     <option value="Gemiddeld">Gemiddeld</option>
                     <option value="Hoog">Hoog</option>
@@ -116,11 +119,12 @@
             </div><br>
             <div>
                 <label>Keuze</label><br>
-                <select>
-                    <option value="10%">10%</option>
-                    <option value="15%">15%</option>
-                    <option value="20%">20%</option>
-                    <option value="25%">25%</option>
+                <select id="korting-select">
+                    <option value="Geen">Geen</option>
+                    <option value="10">10%</option>
+                    <option value="15">15%</option>
+                    <option value="20">20%</option>
+                    <option value="25">25%</option>
                 </select>
             </div>
         </div>
@@ -139,7 +143,7 @@
         </div>
         <div class="button-container-right">
             <button data-card="resetten" onclick="">Resetten</button>
-            <button data-card="beslissingen-opslaan" onclick="">► Beslissingen opslaan</button>
+            <button data-card="extra-beslissingen-opslaan" onclick="">► Beslissingen opslaan</button>
         </div>
     </div>
 </div>
