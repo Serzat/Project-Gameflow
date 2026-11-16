@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Josefin+Sans:wght@400;500;600;700&display=swap');
+
+/* ALGEMENE INSTELLINGEN */
+
+.layout-page {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: "DM Sans", sans-serif;
+  background: #efe3cb;
+  color: #264f4b;
+}
+
+.layout-page *,
+.layout-page *::before,
+.layout-page *::after {
+  box-sizing: border-box;
+}
+
+/* ZIJBALK */
+
+.layout-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: #264f4b;
+  color: #f8e6c5;
+
+  display: flex;
+  flex-direction: column;
+
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  padding: 28px 0 24px;
+}
+
+.layout-brand {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 2.5px;
+  color: #fff9ef;
+  text-align: center;
+
+  padding: 0 20px 26px;
+  margin: 0 20px 18px;
+  border-bottom: 1px solid rgba(248, 230, 197, 0.15);
+}
+
+.layout-nav,
+.layout-nav-onder {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 14px;
+}
+
+.layout-nav-onder {
+  margin: auto 6px 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(248, 230, 197, 0.15);
+}
+
+.layout-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 8px;
+
+  color: #d6e0d4;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: background 0.2s, color 0.2s;
+}
+
+.layout-link svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.layout-link:hover {
+  background: rgba(248, 230, 197, 0.08);
+  color: #fff9ef;
+}
+
+.layout-link-actief,
+.layout-link-actief:hover {
+  background: #f8e6c5;
+  color: #264f4b;
+  font-weight: 700;
+}
+
+.layout-link-actief svg {
+  color: #e58a24;
+  opacity: 1;
+}
+
+/* HOOFDGEDEELTE */
+
+.layout-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* BOVENBALK */
+
+.layout-topbar {
+  height: 70px;
+  background: #f8f0df;
+  border-bottom: 1px solid #e2d3b5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.layout-kruimel {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #7a7762;
+}
+
+.layout-kruimel strong {
+  color: #264f4b;
+}
+
+.layout-kruimel-scheiding {
+  color: #b9ad91;
+  margin: 0 8px;
+}
+
+.layout-gebruiker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.layout-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #264f4b;
+  color: #f8e6c5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.layout-gebruiker-tekst {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.layout-gebruiker-naam {
+  font-size: 13px;
+  font-weight: 700;
+  color: #264f4b;
+}
+
+.layout-gebruiker-rol {
+  font-size: 11px;
+  color: #7a7762;
+}
+
+/* INHOUD */
+
+.layout-content {
+  width: 100%;
+  max-width: 1180px;
+  padding: 32px;
+}
+
+/* MOBIELE SCHERMEN */
+
+@media (max-width: 768px) {
+  .layout-page {
+    flex-direction: column;
+  }
+
+  .layout-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 14px 0 10px;
+  }
+
+  .layout-brand {
+    font-size: 16px;
+    padding: 0 16px 12px;
+    margin: 0 16px 10px;
+  }
+
+  .layout-brand br {
+    display: none;
+  }
+
+  .layout-nav,
+  .layout-nav-onder {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0 12px;
+  }
+
+  .layout-nav-onder {
+    margin: 8px 0 0;
+    padding-top: 8px;
+  }
+
+  .layout-link {
+    white-space: nowrap;
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+
+  .layout-topbar {
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  .layout-content {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .layout-gebruiker-tekst {
+    display: none;
+  }
+}
