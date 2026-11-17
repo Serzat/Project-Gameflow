@@ -1,0 +1,314 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background: #FCFBF8;
+}
+
+.h1-ronde-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8%;
+  margin-bottom: 50px;
+  margin-right: 60px;
+}
+
+.h1-container {
+  margin: 0;
+}
+
+.h1-container h1 {
+  margin: 0 0 8px 0;
+}
+
+.h1-container p {
+  margin: 0;
+}
+
+.ronde-card{
+  background: #E4EDF8;
+  padding: 10px 20px;
+  border-radius: 12px;
+  width: 180px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  margin-right:20px;
+}
+
+.ronde-card h2 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.ronde-card p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: bolder;
+  color: #64748b;
+}
+
+.stats-container {
+  background: #E4EDF8;
+  border-radius: 12px;
+  border: none;
+  border-top: 20px solid #D0D9E4;
+  overflow: hidden;
+  width: 1120px;
+  height: 200px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.stats-container span {
+  font-weight: bold;
+  font-size: 14px;
+  color: #334155
+}
+
+.stats-container h2 {
+  padding: 5px 20px;
+  margin: 10px;
+}
+
+.card-container-stats{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stats-cards{
+  background: #E4EDF8;
+  padding: 5px 10px 10px 20px;
+  border: none;
+  overflow: hidden;
+  width: 300px;
+}
+
+.stats-cards p{
+  margin: 10px;
+  font-size: 14px;
+  color: #334155
+}
+
+.stats-cards[data-card="1"]{
+  border-right: 2px solid #D0D9E4;
+}
+.stats-cards[data-card="2"]{
+  border-right: 2px solid #D0D9E4;
+}
+.stats-cards[data-card="3"]{
+  font-weight: bold;
+}
+.stats-cards[data-card="4"] {
+  padding: 0;
+  width: 380px;
+  height: 92%;
+}
+.stats-cards[data-card="4"] img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.info-card-extra-beslissingen-container{
+  background: #E4EDF8;
+  padding: 5px 20px 20px 20px;
+  border-radius: 12px;
+  border: none;
+  overflow: hidden;
+  width: 1080px;
+  height: 65px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.info-card-extra-beslissingen-container p{
+  margin-top: -10px;
+  color: #334155;
+  font-size: 14px;
+}
+
+.top-bar{
+  width: 100%;
+  height: 6vh;
+  margin-top: 0;
+  background: #F6EAD8;
+}
+
+.sidebar {
+  width: 220px;
+  background: #164e63;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+}
+
+.sidebar div{
+  margin-bottom: 170px;
+}
+
+.sidebar hr{
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.sidebar a {
+  color: #cbd5e1;
+  display: block;
+  padding: 20px 20px;
+  text-decoration: none;
+}
+
+.sidebar a.active {
+  color: white;
+  font-weight: bold;
+}
+
+.sidebar a:hover {
+  background: #275F70;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+}
+
+.content {
+  padding: 30px;
+  flex: 1;
+  margin-left: 260px;
+  color: #333;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.card {
+  background: #E4EDF8;
+  padding: 5px 20px 20px 20px;
+  border-radius: 12px;
+  border: none;
+  border-top: 20px solid #D0D9E4;
+  overflow: hidden;
+  width: 500px;
+}
+
+.card[data-card="kamerprijs"]{
+  border-top-color: #FDDFDF;
+}
+.card[data-card="marketing"]{
+  border-top-color: #FCF7DE;
+}
+.card[data-card="personeel"]{
+  border-top-color: #DEFDE0;
+}
+.card[data-card="investering"]{
+  border-top-color: #ffd8f1;
+}
+.card[data-card="duurzaamheid"]{
+  border-top-color: #F0DEFD;
+}
+.card[data-card="onderhoud&service"]{
+  border-top-color: #d8fff9;
+}
+.card[data-card="doelgroep"]{
+  border-top-color: #FDDFDF;
+}
+.card[data-card="marketingkanaal"]{
+  border-top-color: #DEFDE0;
+}
+.card[data-card="personeeltraining"]{
+  border-top-color: #FCF7DE;
+}
+.card[data-card="korting"]{
+  border-top-color: #F0DEFD;
+}
+
+.card p {
+  margin-top: -10px;
+  margin-bottom: 30px;
+  color: #334155;
+}
+
+.card label{
+  color: #334155;
+}
+
+input, select{
+  padding: 8px;
+  margin-top: 5px;
+  width: 45%;
+  box-sizing: border-box;
+  border: 2px solid #D4D4D4;
+  border-radius: 8px;
+}
+
+.field-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px
+}
+
+.field-container div {
+  flex: 1;
+}
+
+.field-container input, .field-container select {
+  width: 100%;
+}
+
+button{
+  padding: 10px 18px 10px 18px;
+  margin: 40px 20px 40px 0;
+  box-sizing: border-box;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.button-container{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 60px;
+}
+
+.button-container-extra-beslissingen{
+  display: flex;
+  justify-content: space-between;
+  margin-top: -30px;
+}
+
+.button-container-right{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 60px;
+}
+
+.button-container-left{
+  display: flex;
+}
+
+button[data-card="resetten"]{
+  background: #ff6961;
+  color: white;
+}
+button[data-card="beslissingen-opslaan"]{
+  background: #6488EA;
+  color: white;
+}
+button[data-card="extra-beslissingen-opslaan"]{
+  background: #6488EA;
+  color: white;
+}
+button[data-card="meer-beslissingen"]{
+  background: #6fc276;
+  color: white;
+}
+
