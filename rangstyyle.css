@@ -1,0 +1,390 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #faf9f6;
+    color: #172033;
+}
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 210px;
+    min-height: 100vh;
+    background-color: #194353;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar h3 {
+    padding: 30px 26px;
+    font-size: 16px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 13px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #24596b;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+}
+
+/* MAIN CONTENT */
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* TOPBAR */
+
+.topbar {
+    height: 105px;
+    background-color: #f5e9d7;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 25px 40px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+}
+
+.user-icon {
+    font-size: 28px;
+}
+
+/* CONTENT */
+
+.content {
+    padding: 30px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.page-heading h1 {
+    font-size: 30px;
+    margin-bottom: 6px;
+}
+
+.page-heading p {
+    font-size: 13px;
+    color: #526078;
+}
+
+.round {
+    background-color: #e7effb;
+    padding: 14px 16px;
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.round strong {
+    font-size: 14px;
+}
+
+.round small {
+    font-size: 9px;
+    color: #526078;
+}
+
+/* STATISTIEKEN */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.stat-card {
+    padding: 18px;
+    border-radius: 9px;
+    min-height: 108px;
+}
+
+.stat-card p {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #34435c;
+}
+
+.stat-card h2 {
+    font-size: 23px;
+}
+
+.blue {
+    background-color: #e9f2fd;
+}
+
+.green {
+    background-color: #e9f6ef;
+}
+
+.yellow {
+    background-color: #fff3d9;
+}
+
+/* RANGLIJST */
+
+.ranking {
+    background-color: white;
+    border: 1px solid #dce3ed;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.ranking-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.ranking-heading h2 {
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.ranking-heading p {
+    font-size: 10px;
+    color: #71809a;
+}
+
+.ranking-heading select {
+    padding: 10px;
+    border: 1px solid #d5dce7;
+    border-radius: 7px;
+    background-color: white;
+    width: 165px;
+    font-size: 11px;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 7px;
+    font-size: 11px;
+    text-align: left;
+}
+
+thead {
+    background-color: #f3f5f8;
+}
+
+th {
+    padding: 14px 15px;
+    color: #40506b;
+    font-weight: normal;
+    white-space: nowrap;
+}
+
+td {
+    padding: 16px 15px;
+    border-top: 1px solid #e1e5ec;
+    border-bottom: 1px solid #e1e5ec;
+    white-space: nowrap;
+}
+
+td:first-child {
+    border-left: 1px solid #e1e5ec;
+    border-radius: 6px 0 0 6px;
+}
+
+td:last-child {
+    border-right: 1px solid #e1e5ec;
+    border-radius: 0 6px 6px 0;
+}
+
+.my-team td {
+    background-color: #edf5ff;
+    border-top-color: #acd4ff;
+    border-bottom-color: #acd4ff;
+}
+
+.my-team td:first-child {
+    border-left-color: #acd4ff;
+}
+
+.my-team td:last-child {
+    border-right-color: #acd4ff;
+}
+
+.first {
+    color: #d97706;
+}
+
+.positive {
+    color: #07843a;
+    font-weight: bold;
+}
+
+.negative {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+/* ONDERSTE KAARTEN */
+
+.bottom-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.bottom-card {
+    background-color: white;
+    border: 1px solid #d8e0eb;
+    border-radius: 9px;
+    padding: 18px;
+}
+
+.bottom-card h2 {
+    font-size: 15px;
+    margin-bottom: 18px;
+}
+
+.performance {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr auto;
+    gap: 10px;
+    margin-bottom: 18px;
+    align-items: center;
+    font-size: 10px;
+}
+
+.performance span {
+    color: #71809a;
+}
+
+.performance strong {
+    font-size: 10px;
+}
+
+.team-card {
+    background-color: #f6f9fd;
+}
+
+.team-card h3 {
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.team-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.team-stats div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-stats span {
+    font-size: 10px;
+    color: #71809a;
+}
+
+.team-stats strong {
+    font-size: 16px;
+}
+
+.team-message {
+    color: #07843a;
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .bottom-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        width: 145px;
+    }
+
+    .sidebar h3 {
+        padding: 20px 12px;
+        font-size: 13px;
+    }
+
+    .sidebar a {
+        padding: 14px 15px;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .page-heading h1 {
+        font-size: 25px;
+    }
+
+    .team-stats {
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="rangstyyle.css">
+    <title>Ranglijst</title>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h3>Resort Management</h3>
+
+        <nav>
+            <a href="#">Startprofiel</a>
+            <a href="#">Beslissingen</a>
+            <a href="#" class="active">Ranglijst</a>
+            <a href="#">Host</a>
+            <a href="#">Feedback</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+        </div>
+    </aside>
+
+    <!-- Rechter gedeelte -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div class="profile">
+                <span class="user-icon">♙</span>
+                <p id="team-name">Team 1</p>
+            </div>
+        </header>
+
+        <section class="content">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Ranglijst</h1>
+                    <p>Vergelijk de prestaties van jouw team met de andere teams in de competitie.</p>
+                </div>
+
+                <div class="round">
+                    <strong>Ronde 1 / 4</strong>
+                    <small>Laatste update: 10-10-2026</small>
+                </div>
+            </div>
+
+            <!-- Statistieken -->
+            <div class="stats">
+
+                <div class="stat-card blue">
+                    <p>Jouw positie</p>
+                    <h2>2e plaats</h2>
+                </div>
+
+                <div class="stat-card green">
+                    <p>Jouw totaalscore</p>
+                    <h2>78 punten</h2>
+                </div>
+
+                <div class="stat-card yellow">
+                    <p>Verschil met nr. 1</p>
+                    <h2>-6 punten</h2>
+                </div>
+
+            </div>
+
+            <!-- Ranglijst tabel -->
+            <section class="ranking">
+
+                <div class="ranking-heading">
+                    <div>
+                        <h2>Teamranglijst</h2>
+                        <p>De totaalscore is gebaseerd op de prestaties van het team.</p>
+                    </div>
+
+                    <select>
+                        <option>Totaalscore</option>
+                        <option>Bezettingsgraad</option>
+                        <option>Gasttevredenheid</option>
+                        <option>Duurzaamheid</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Positie</th>
+                                <th>Team</th>
+                                <th>Totaalscore</th>
+                                <th>Bezettingsgraad</th>
+                                <th>Gasttevredenheid</th>
+                                <th>Duurzaamheid</th>
+                                <th>Trend</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="first">1</td>
+                                <td>Team Horizon</td>
+                                <td><strong>84</strong></td>
+                                <td>75%</td>
+                                <td>78 / 100</td>
+                                <td>70 / 100</td>
+                                <td class="positive">▲ +5</td>
+                            </tr>
+
+                            <tr class="my-team">
+                                <td><strong>2</strong></td>
+                                <td><strong>Team 1 (jouw team)</strong></td>
+                                <td><strong>78</strong></td>
+                                <td>70%</td>
+                                <td>70 / 100</td>
+                                <td>60 / 100</td>
+                                <td class="positive">▲ +4</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>3</strong></td>
+                                <td>Team Nova</td>
+                                <td><strong>73</strong></td>
+                                <td>66%</td>
+                                <td>68 / 100</td>
+                                <td>58 / 100</td>
+                                <td class="negative">▼ -2</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>4</strong></td>
+                                <td>Team Coast</td>
+                                <td><strong>69</strong></td>
+                                <td>62%</td>
+                                <td>65 / 100</td>
+                                <td>55 / 100</td>
+                                <td class="positive">▲ +1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <!-- Onderste kaarten -->
+            <div class="bottom-cards">
+
+                <section class="bottom-card">
+                    <h2>Top prestaties</h2>
+
+                    <div class="performance">
+                        <span>Hoogste bezettingsgraad</span>
+                        <strong>Team Horizon</strong>
+                        <strong>75%</strong>
+                    </div>
+
+                    <div class="performance">
+                        <span>Beste gasttevredenheid</span>
+                        <strong>Team Horizon</strong>
+                        <strong>78 / 100</strong>
+                    </div>
+
+                    <div class="performance">
+                        <span>Beste duurzaamheid</span>
+                        <strong>Team Horizon</strong>
+                        <strong>70 / 100</strong>
+                    </div>
+                </section>
+
+                <section class="bottom-card team-card">
+                    <h2>Jouw team</h2>
+                    <h3>Team 1</h3>
+
+                    <div class="team-stats">
+                        <div>
+                            <span>Positie</span>
+                            <strong>2e</strong>
+                        </div>
+
+                        <div>
+                            <span>Score</span>
+                            <strong>78</strong>
+                        </div>
+
+                        <div>
+                            <span>Vorige ronde</span>
+                            <strong>74</strong>
+                        </div>
+                    </div>
+
+                    <p class="team-message">
+                        Je team is deze ronde 4 punten gestegen.
+                    </p>
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>
