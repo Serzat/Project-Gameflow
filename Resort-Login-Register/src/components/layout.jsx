@@ -1,10 +1,12 @@
+
 import Icoon from "./icoon";
-import "./Layout.css";
+import "./layout.css";
 
 // Zijbalk + bovenbalk die je om elke pagina heen zet.
 // menuItems: lijst met { label, href, icoon }
 // gebruiker: { naam, rol }
-// kruimel:   lijst met teksten, bijv. ["Ronde 1", "Overzicht"]
+// kruimel: lijst met teksten, bijv. ["Ronde 1", "Overzicht"]
+
 function Layout({ menuItems, gebruiker, kruimel = [], children }) {
   const huidigPad = window.location.pathname;
 
@@ -19,6 +21,7 @@ function Layout({ menuItems, gebruiker, kruimel = [], children }) {
         <nav className="layout-nav">
           {menuItems.map((item) => {
             const actief = item.href === huidigPad;
+
             return (
               <a
                 key={item.href}
@@ -51,10 +54,13 @@ function Layout({ menuItems, gebruiker, kruimel = [], children }) {
           <div className="layout-kruimel">
             {kruimel.map((deel, index) => {
               const laatste = index === kruimel.length - 1;
+
               return (
                 <span key={deel} className="layout-kruimel-deel">
                   {laatste ? <strong>{deel}</strong> : deel}
-                  {!laatste && <span className="layout-kruimel-scheiding">/</span>}
+                  {!laatste && (
+                    <span className="layout-kruimel-scheiding">/</span>
+                  )}
                 </span>
               );
             })}
@@ -65,13 +71,19 @@ function Layout({ menuItems, gebruiker, kruimel = [], children }) {
               <Icoon naam="profiel" grootte={18} />
             </div>
             <div className="layout-gebruiker-tekst">
-              <span className="layout-gebruiker-naam">{gebruiker.naam}</span>
-              <span className="layout-gebruiker-rol">{gebruiker.rol}</span>
+              <span className="layout-gebruiker-naam">
+                {gebruiker.naam}
+              </span>
+              <span className="layout-gebruiker-rol">
+                {gebruiker.rol}
+              </span>
             </div>
           </div>
         </header>
 
-        <main className="layout-content">{children}</main>
+        <main className="layout-content">
+          {children}
+        </main>
       </div>
     </div>
   );

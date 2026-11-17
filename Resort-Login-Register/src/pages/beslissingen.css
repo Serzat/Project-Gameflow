@@ -1,0 +1,141 @@
+/* Stijlen van de beslissingenpagina, geïsoleerd van de rest van de applicatie. */
+.dec-page { font-family: Arial, sans-serif; background: #FCFBF8; width: 100%; min-width: 0; text-align: left; color: #333; }
+.dec-page .h1-ronde-container { display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8%;
+  margin-bottom: 50px;
+  margin-right: 60px; }
+.dec-page .h1-container { margin: 0; }
+.dec-page .h1-container h1 { margin: 0 0 8px 0; }
+.dec-page .h1-container p { margin: 0; }
+.dec-page .ronde-card { background: #E4EDF8;
+  padding: 10px 20px;
+  border-radius: 12px;
+  width: 180px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  margin-right:20px; }
+.dec-page .ronde-card h2 { margin: 10px 0;
+  font-size: 18px; }
+.dec-page .ronde-card p { margin: 0;
+  font-size: 12px;
+  font-weight: bolder;
+  color: #64748b; }
+.dec-page .stats-container { background: #E4EDF8;
+  border-radius: 12px;
+  border: none;
+  border-top: 20px solid #D0D9E4;
+  overflow: hidden;
+  width: 1120px;
+  height: 200px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap; }
+.dec-page .stats-container span { font-weight: bold;
+  font-size: 14px;
+  color: #334155 }
+.dec-page .stats-container h2 { padding: 5px 20px;
+  margin: 10px; }
+.dec-page .card-container-stats { display: flex;
+  flex-wrap: wrap;
+  gap: 10px; }
+.dec-page .stats-cards { background: #E4EDF8;
+  padding: 5px 10px 10px 20px;
+  border: none;
+  overflow: hidden;
+  width: 300px; }
+.dec-page .stats-cards p { margin: 10px;
+  font-size: 14px;
+  color: #334155 }
+.dec-page .stats-cards[data-card="1"] { border-right: 2px solid #D0D9E4; }
+.dec-page .stats-cards[data-card="2"] { border-right: 2px solid #D0D9E4; }
+.dec-page .stats-cards[data-card="3"] { font-weight: bold; }
+.dec-page .stats-cards[data-card="4"] { padding: 0;
+  width: 380px;
+  height: 92%; }
+.dec-page .stats-cards[data-card="4"] img { width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block; }
+.dec-page .info-card-extra-beslissingen-container { background: #E4EDF8;
+  padding: 5px 20px 20px 20px;
+  border-radius: 12px;
+  border: none;
+  overflow: hidden;
+  width: 1080px;
+  height: 65px;
+  margin-top: 40px;
+  margin-bottom: 30px; }
+.dec-page .info-card-extra-beslissingen-container p { margin-top: -10px;
+  color: #334155;
+  font-size: 14px; }
+.dec-page .cards-container { display: flex;
+  flex-wrap: wrap;
+  gap: 40px; }
+.dec-page .card { background: #E4EDF8;
+  padding: 5px 20px 20px 20px;
+  border-radius: 12px;
+  border: none;
+  border-top: 20px solid #D0D9E4;
+  overflow: hidden;
+  width: 500px; }
+.dec-page .card[data-card="kamerprijs"] { border-top-color: #FDDFDF; }
+.dec-page .card[data-card="marketing"] { border-top-color: #FCF7DE; }
+.dec-page .card[data-card="personeel"] { border-top-color: #DEFDE0; }
+.dec-page .card[data-card="investering"] { border-top-color: #ffd8f1; }
+.dec-page .card[data-card="duurzaamheid"] { border-top-color: #F0DEFD; }
+.dec-page .card[data-card="onderhoud&service"] { border-top-color: #d8fff9; }
+.dec-page .card[data-card="doelgroep"] { border-top-color: #FDDFDF; }
+.dec-page .card[data-card="marketingkanaal"] { border-top-color: #DEFDE0; }
+.dec-page .card[data-card="personeeltraining"] { border-top-color: #FCF7DE; }
+.dec-page .card[data-card="korting"] { border-top-color: #F0DEFD; }
+.dec-page .card p { margin-top: -10px;
+  margin-bottom: 30px;
+  color: #334155; }
+.dec-page .card label { color: #334155; }
+.dec-page input, .dec-page select { padding: 8px;
+  margin-top: 5px;
+  width: 45%;
+  box-sizing: border-box;
+  border: 2px solid #D4D4D4;
+  border-radius: 8px; }
+.dec-page .field-container { display: flex;
+  flex-wrap: wrap;
+  gap: 20px }
+.dec-page .field-container div { flex: 1; }
+.dec-page .field-container input, .dec-page .field-container select { width: 100%; }
+.dec-page button { padding: 10px 18px 10px 18px;
+  margin: 40px 20px 40px 0;
+  box-sizing: border-box;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 6px; }
+.dec-page .button-container { display: flex;
+  justify-content: flex-end;
+  margin-right: 60px; }
+.dec-page .button-container-extra-beslissingen { display: flex;
+  justify-content: space-between;
+  margin-top: -30px; }
+.dec-page .button-container-right { display: flex;
+  justify-content: flex-end;
+  margin-right: 60px; }
+.dec-page .button-container-left { display: flex; }
+.dec-page button[data-card="resetten"] { background: #ff6961;
+  color: white; }
+.dec-page button[data-card="beslissingen-opslaan"] { background: #6488EA;
+  color: white; }
+.dec-page button[data-card="extra-beslissingen-opslaan"] { background: #6488EA;
+  color: white; }
+.dec-page button[data-card="meer-beslissingen"] { background: #6fc276;
+  color: white; }
+.dec-page { padding: 24px; }
+.dec-page .h1-ronde-container { margin-top: 0; }
+.dec-page .stats-container { max-width: 100%; width: auto; height: auto; padding-bottom: 16px; }
+.dec-page .cards-container .card { box-sizing: border-box; max-width: 100%; width: min(480px, 100%); }
+.dec-page .info-card-extra-beslissingen-container { max-width: 100%; width: auto; height: auto; }
+.dec-page .h1-ronde-container { gap: 16px; margin-right: 0; }
+.dec-page .button-container, .dec-page .button-container-right { margin-right: 0; }
+@media (max-width: 900px) { .dec-page .h1-ronde-container { flex-wrap: wrap; } .dec-page .stats-cards { width: auto; } }
