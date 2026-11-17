@@ -19,7 +19,7 @@ public class ExtrabeslissingenController : ControllerBase {
         var text = await _service.PostData(dto);
 
         if (!text) {
-            return BadRequest(new {message = "Sla eerst standaard beslissingen op voordat je extra beslissingen oplsaat."});
+            return BadRequest(new {message = "Sla eerst standaard beslissingen op voordat je extra beslissingen opslaat."});
         }
 
         return Ok(new {message = "Extra beslissingen zijn opgeslagen."});
