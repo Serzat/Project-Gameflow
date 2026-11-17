@@ -1,3 +1,4 @@
+
 using Gameflow.Api.Accounts;
 using Gameflow.Api.Data;
 using Microsoft.AspNetCore.Identity;
@@ -5,35 +6,47 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ===== Services registreren (vóór Build) =====
+// ===== Services registreren =====
+
+// Controllers voor Competities, Teams en Startprofielen
+builder.Services.AddControllers();
 
 // Swagger en validatie
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddValidation();
 
+// Strikte verwerking van getallen in JSON
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.NumberHandling =
+        System.Text.Json.Serialization.JsonNumberHandling.Strict;
+});
+
 // EF Core met SQL Server
 builder.Services.AddDbContext<GameflowDb>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Gameflow")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("Gameflow")));
 
 // Identity met rollen
 builder.Services.AddAuthorization();
+
 builder.Services.AddIdentityApiEndpoints<User>(options =>
-    {
-        options.User.RequireUniqueEmail = true;
-        options.Password.RequiredLength = 8;
-        options.Password.RequireUppercase = false;
-        options.Password.RequireNonAlphanumeric = false;
-    })
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<GameflowDb>();
+{
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+})
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<GameflowDb>();
 
 var app = builder.Build();
 
 // Rollen en het spelbegeleider-account aanmaken
 await DbSeeder.SeedAsync(app.Services);
 
-// ===== Middleware en routes (na Build) =====
+// ===== Middleware =====
 
 if (app.Environment.IsDevelopment())
 {
@@ -41,13 +54,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Standaardroutes van Identity: /api/auth/login, /api/auth/register enz.
+// ===== API-routes =====
+
+// Standaardroutes van Identity
 app.MapGroup("/api/auth").MapIdentityApi<User>();
 
-// Onze eigen routes: /api/auth/signup, /api/auth/me, /api/auth/logout
+// Eigen routes voor accounts
 app.MapAccounts();
+
+// Controllers voor het Resort Manager-spel
+app.MapControllers();
 
 app.Run();
