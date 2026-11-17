@@ -1,4 +1,5 @@
 
+import Feedback from "./pages/feedback";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Startprofiel from "./pages/startprofiel";
@@ -28,6 +29,10 @@ function App() {
   if (path === "/overzicht") {
     return <Overzicht />;
   }
+
+  if (path === "/feedback") {
+  return <Feedback />;
+}
 
   return <Login />;
 }
