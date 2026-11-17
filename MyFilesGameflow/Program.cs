@@ -25,6 +25,7 @@ class Program {
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<TeamStatsService>();
         builder.Services.AddScoped<BeslissingenService>();
+        builder.Services.AddScoped<ExtrabeslissingenService>();
         
         
         var app = builder.Build();

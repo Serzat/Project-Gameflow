@@ -20,5 +20,15 @@ public class BeslissingenController : ControllerBase {
         
         return Ok(new {message = "rij is toegevoegd aan database."});
     }
-    
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBeslissingen(int id) {
+        var confirm = await _service.DeleteData(id);
+
+        if (!confirm) {
+            return  NotFound();
+        }
+
+        return Ok(new { message = "Rij verwijderd." });
+    }
 }

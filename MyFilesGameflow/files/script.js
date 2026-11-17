@@ -93,9 +93,7 @@
             try {
                 const response = await fetch('http://localhost:5050/api/Beslissingen', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(beslissingData)
                 });
 
@@ -127,32 +125,46 @@
 
             const kortingVal = document.getElementById("korting-select").value;
             const kortingNummer = kortingVal === "Geen" ? null : parseInt(kortingVal);
+            
+            const doelGroepVal = document.getElementById("doelgroep-select").value;
+            const marketingKanaalVal = document.getElementById("marketingkanaal-select").value;
+            const personeelTrainingVal = document.getElementById("personeeltraining-select").value;
 
             const extraBeslissingData = {
                 teamNummer: teamsNummer,
                 rondeNummer: rondeNummer,
-                doelGroep: document.getElementById("doelgroep-select").value,
-                marketingKanaal: document.getElementById("marketingkanaal-select").value,
-                personeelTraining: document.getElementById("personeeltraining-select").value,
+                doelGroep: doelGroepVal === "Geen"? null : doelGroepVal,
+                marketingKanaal: marketingKanaalVal === "Geen"? null : marketingKanaalVal,
+                personeelTraining: personeelTrainingVal === "Geen"? null : personeelTrainingVal,
                 korting: kortingNummer
             };
 
             try {
-                const response = await fetch('http://localhost:5050/api/Beslissingen/extrabeslissingen', {
+                const response = await fetch('http://localhost:5050/api/Extrabeslissingen', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(extraBeslissingData)
                 });
 
-                if (!response.ok) throw new Error("Kon de extra beslissingen niet opslaan.");
+                const resultText = await response.text();
 
-                const result = await response.json();
-                console.log("Extra beslissingen opgeslagen:", result);
-                toonSuccesFeedback(opslaanExtraBtn);
+                if (!response.ok) {
+                    alert(resultText); 
+                    return; 
+                }
+
+                console.log("Extra beslissingen opgeslagen:", resultText);
+                
+                const origineleTekst = opslaanExtraBtn.innerText;
+                opslaanExtraBtn.innerText = "Opgeslagen!";
+
+                setTimeout(function() {
+                    opslaanExtraBtn.innerText = origineleTekst;
+                }, 2000);
 
             } catch (error) {
                 console.error("Fout bij opslaan extra beslissingen:", error);
-                alert("Er is iets misgegaan bij het opslaan van de extra beslissingen.");
+                alert("Fout details: " + error.message);
             }
         });  
     }

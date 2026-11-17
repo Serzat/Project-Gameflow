@@ -47,4 +47,16 @@ public class BeslissingenService {
         
         await _context.SaveChangesAsync();
     }
+
+    public async Task<bool> DeleteData(int id) {
+        var record = await _context.beslissingen.FindAsync(id);
+
+        if (record == null) {
+            return false;
+        }
+
+        _context.beslissingen.Remove(record);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }
