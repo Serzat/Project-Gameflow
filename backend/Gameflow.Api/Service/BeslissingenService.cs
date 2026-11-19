@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyFilesGameflow.Data;
+using Gameflow.Api.Data;
 using MyFilesGameflow.Models;
 using MyFilesGameflow.Dtos;
 
 namespace MyFilesGameflow.Service;   
 
 public class BeslissingenService {
-    private readonly ApplicationDbContext _context;
+    private readonly GameflowDb _context;
 
-    public BeslissingenService(ApplicationDbContext context) {
+    public BeslissingenService(GameflowDb context) {
         _context = context;
     }
 

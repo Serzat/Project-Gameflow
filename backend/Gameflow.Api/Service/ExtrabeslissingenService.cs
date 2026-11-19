@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyFilesGameflow.Dtos;
-using MyFilesGameflow.Data;
+using Gameflow.Api.Data;
 using MyFilesGameflow.Models;
 namespace MyFilesGameflow.Service;
 
 public class ExtrabeslissingenService {
-    private readonly ApplicationDbContext _context;
-    
-    public ExtrabeslissingenService(ApplicationDbContext context) {
+    private readonly GameflowDb _context;
+
+    public ExtrabeslissingenService(GameflowDb context) {
         _context = context;
     }
 

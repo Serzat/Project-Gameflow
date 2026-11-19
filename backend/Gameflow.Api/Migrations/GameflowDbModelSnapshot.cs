@@ -231,6 +231,108 @@ namespace Gameflow.Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MyFilesGameflow.Models.Beslissingen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AantalMedewerkers")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DoelGroep")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DuurzaamheidKosten")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DuurzaamheidMaatregel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("InvesteringKosten")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Kamerprijs")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("Korting")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MarketingBudget")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("MarketingFocus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MarketingKanaal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OnderhoudsNiveau")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersoneelTraining")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RondeNummer")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamNummer")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeInvestering")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("beslissingen");
+                });
+
+            modelBuilder.Entity("MyFilesGameflow.Models.TeamStats", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AantalKamers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AantalMedewerkers")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("HuidigBudget")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Locatie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResortNaam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RondeNummer")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StartProfiel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<int>("TeamNummer")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("teamStats");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)

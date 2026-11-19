@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyFilesGameflow.Dtos;
-using MyFilesGameflow.Data;
+using Gameflow.Api.Data;
 using MyFilesGameflow.Models;
 
 namespace MyFilesGameflow.Service;
 
 public class TeamStatsService {
-    private readonly ApplicationDbContext _context;
+    private readonly GameflowDb _context;
 
-    public TeamStatsService(ApplicationDbContext context) {
+    public TeamStatsService(GameflowDb context) {
         _context = context;
     }
 

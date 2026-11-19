@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyFilesGameflow.Service;
 using MyFilesGameflow.Dtos;
-using MyFilesGameflow.Data;
 namespace MyFilesGameflow.Controllers;
 
 [ApiController]
