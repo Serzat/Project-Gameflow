@@ -1,4 +1,5 @@
-
+import Competitie from "./pages/competitie";
+import Ranglijst from "./pages/ranglijst";
 import Feedback from "./pages/feedback";
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -32,6 +33,14 @@ function App() {
 
   if (path === "/feedback") {
   return <Feedback />;
+}
+
+if (path === "/competitie") {
+  return <Competitie />;
+}
+
+if (path === "/ranglijst") {
+  return <Ranglijst />;
 }
 
   return <Login />;
