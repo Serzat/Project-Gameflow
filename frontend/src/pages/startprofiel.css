@@ -327,6 +327,56 @@
   color: #7a7762;
 }
 
+/* PROFIEL ACTIVEREN */
+
+.sp-activeer-knop {
+  margin-left: auto;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid #cb7b25;
+  background: #f49a32;
+  color: #263f3c;
+
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sp-activeer-knop:hover {
+  background: #e58a24;
+}
+
+.sp-activeer-knop:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.sp-actief-label {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #d6e6de;
+  color: #2f6b5f;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sp-melding {
+  margin: -8px 0 20px;
+  font-size: 13px;
+  color: #2f6b5f;
+}
+
+.sp-melding-fout {
+  color: #a13e2f;
+}
+
 /* RASTER MET KAARTEN */
 
 .sp-grid {
