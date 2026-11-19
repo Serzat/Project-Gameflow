@@ -1,14 +1,28 @@
-
 import Icoon from "./icoon";
 import "./layout.css";
 
 // Zijbalk + bovenbalk die je om elke pagina heen zet.
 // menuItems: lijst met { label, href, icoon }
 // gebruiker: { naam, rol }
-// kruimel: lijst met teksten, bijv. ["Ronde 1", "Overzicht"]
-
+// kruimel:   lijst met teksten, bijv. ["Ronde 1", "Overzicht"]
 function Layout({ menuItems, gebruiker, kruimel = [], children }) {
   const huidigPad = window.location.pathname;
+
+  // Voeg Competitie toe zonder de menu's van andere pagina's te overschrijven.
+  const zichtbareMenuItems = [...menuItems];
+  if (!zichtbareMenuItems.some((item) => item.href === "/competitie")) {
+    const startprofielIndex = zichtbareMenuItems.findIndex((item) => item.href === "/startprofiel");
+    const overzichtIndex = zichtbareMenuItems.findIndex((item) => item.href === "/overzicht");
+    const plaats = startprofielIndex >= 0
+      ? startprofielIndex + 1
+      : overzichtIndex >= 0 ? overzichtIndex : 0;
+
+    zichtbareMenuItems.splice(plaats, 0, {
+      label: "Competitie",
+      href: "/competitie",
+      icoon: "host",
+    });
+  }
 
   return (
     <div className="layout-page">
@@ -19,9 +33,8 @@ function Layout({ menuItems, gebruiker, kruimel = [], children }) {
         </div>
 
         <nav className="layout-nav">
-          {menuItems.map((item) => {
+          {zichtbareMenuItems.map((item) => {
             const actief = item.href === huidigPad;
-
             return (
               <a
                 key={item.href}
@@ -54,13 +67,10 @@ function Layout({ menuItems, gebruiker, kruimel = [], children }) {
           <div className="layout-kruimel">
             {kruimel.map((deel, index) => {
               const laatste = index === kruimel.length - 1;
-
               return (
                 <span key={deel} className="layout-kruimel-deel">
                   {laatste ? <strong>{deel}</strong> : deel}
-                  {!laatste && (
-                    <span className="layout-kruimel-scheiding">/</span>
-                  )}
+                  {!laatste && <span className="layout-kruimel-scheiding">/</span>}
                 </span>
               );
             })}
@@ -71,19 +81,13 @@ function Layout({ menuItems, gebruiker, kruimel = [], children }) {
               <Icoon naam="profiel" grootte={18} />
             </div>
             <div className="layout-gebruiker-tekst">
-              <span className="layout-gebruiker-naam">
-                {gebruiker.naam}
-              </span>
-              <span className="layout-gebruiker-rol">
-                {gebruiker.rol}
-              </span>
+              <span className="layout-gebruiker-naam">{gebruiker.naam}</span>
+              <span className="layout-gebruiker-rol">{gebruiker.rol}</span>
             </div>
           </div>
         </header>
 
-        <main className="layout-content">
-          {children}
-        </main>
+        <main className="layout-content">{children}</main>
       </div>
     </div>
   );

@@ -85,6 +85,7 @@ const PROFIELEN = {
 
 const MENU_ITEMS = [
   { label: "Startprofiel", href: "/startprofiel", icoon: "profiel" },
+  { label: "Competitie", href: "/competitie", icoon: "host" },
   { label: "Beslissingen", href: "/beslissingen", icoon: "beslissingen" },
   { label: "Ranglijst", href: "/ranglijst", icoon: "ranglijst" },
   { label: "Host", href: "/host", icoon: "host" },
@@ -254,8 +255,18 @@ function ResortKaart({ type, waarden, profielLabel }) {
 
 function Startprofiel() {
   // Welk profiel staat aan: "standaard" of "custom"
-  const [gekozenProfiel, setGekozenProfiel] = useState("standaard");
+  // Houd de gekozen modus vast wanneer de spelbegeleider naar Competitie gaat.
+  const [gekozenProfiel, setGekozenProfiel] = useState(() => {
+    return window.sessionStorage.getItem("resortStartmodus") === "custom"
+      ? "custom"
+      : "standaard";
+  });
   const profiel = PROFIELEN[gekozenProfiel];
+
+  function kiesProfiel(sleutel) {
+    setGekozenProfiel(sleutel);
+    window.sessionStorage.setItem("resortStartmodus", sleutel);
+  }
 
   const huidigPad = window.location.pathname;
 
@@ -345,7 +356,7 @@ function Startprofiel() {
                       : "sp-schakel-knop"
                   }
                   aria-pressed={gekozenProfiel === sleutel}
-                  onClick={() => setGekozenProfiel(sleutel)}
+                  onClick={() => kiesProfiel(sleutel)}
                 >
                   {p.label}
                 </button>
