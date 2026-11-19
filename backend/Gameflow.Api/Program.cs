@@ -3,6 +3,7 @@ using Gameflow.Api.Accounts;
 using Gameflow.Api.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MyFilesGameflow.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,21 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 builder.Services.AddDbContext<GameflowDb>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("Gameflow")));
+
+builder.Services.AddCors(options => {
+    options.AddPolicy("OpenCorsPolicy", policy => {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<TeamStatsService>();
+builder.Services.AddScoped<BeslissingenService>();
+builder.Services.AddScoped<ExtrabeslissingenService>();
 
 // Identity met rollen
 builder.Services.AddAuthorization();
