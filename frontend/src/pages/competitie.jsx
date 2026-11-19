@@ -2,8 +2,8 @@ import { useState } from "react";
 import Layout from "../components/layout";
 import "./competitie.css";
 
-// Dit scherm is bedoeld voor de spelbegeleider.
-// De daadwerkelijke rolcontrole wordt later aan de login gekoppeld.
+// Het competitiescherm is bedoeld voor de spelbegeleider.
+// De autorisatie op basis van de ingelogde rol wordt later gekoppeld.
 const HOST_MENU = [
   { label: "Startprofiel", href: "/startprofiel", icoon: "overzicht" },
   { label: "Competitie", href: "/competitie", icoon: "host" },
@@ -13,17 +13,42 @@ const HOST_MENU = [
   { label: "Feedback", href: "/feedback", icoon: "feedback" },
 ];
 
-const PROFIELEN = ["A", "B", "C", "D"];
+// Dezelfde vier resorttypes als op het Startprofiel-scherm.
+const RESORT_TYPES = [
+  { waarde: "beach", label: "Beach resort" },
+  { waarde: "winter", label: "Winter resort" },
+  { waarde: "cruise", label: "Cruise resort" },
+  { waarde: "city", label: "City resort" },
+];
+
 const RONDE_DUREN = [15, 30, 45];
+
+// Tijdelijke vertaling voor de bestaande backend.
+// Daar worden de resorttypes intern nog met A, B, C of D opgeslagen.
+// Dit moet later ook in Gameflow.Api worden omgezet naar resorttypes.
+const BACKEND_PROFIEL_CODE = {
+  beach: "A",
+  winter: "B",
+  city: "C",
+  cruise: "D",
+};
 
 export default function Competitie() {
   const [naam, setNaam] = useState("");
   const [aantalTeams, setAantalTeams] = useState(2);
   const [teams, setTeams] = useState([
-    { naam: "", profiel: "" },
-    { naam: "", profiel: "" },
+    { naam: "", resorttype: "" },
+    { naam: "", resorttype: "" },
   ]);
   const [rondes, setRondes] = useState([30, 30, 30, 30]);
+
+  // De spelbegeleider kiest Standaard of Custom op de Startprofiel-pagina.
+  const [modus] = useState(() =>
+    window.sessionStorage.getItem("resortStartmodus") === "custom"
+      ? "custom"
+      : "standaard"
+  );
+
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState("");
   const [resultaat, setResultaat] = useState(null);
@@ -33,7 +58,7 @@ export default function Competitie() {
     setAantalTeams(aantal);
     setTeams((vorige) =>
       Array.from({ length: aantal }, (_, index) =>
-        vorige[index] || { naam: "", profiel: "" }
+        vorige[index] || { naam: "", resorttype: "" }
       )
     );
     setResultaat(null);
@@ -57,42 +82,63 @@ export default function Competitie() {
     setResultaat(null);
   }
 
+  async function leesAntwoord(antwoord) {
+    const tekst = await antwoord.text();
+    try {
+      return tekst ? JSON.parse(tekst) : null;
+    } catch {
+      return tekst;
+    }
+  }
+
+  function foutmelding(gegevens, standaardMelding) {
+    if (typeof gegevens === "string") return gegevens;
+    return gegevens?.title || standaardMelding;
+  }
+
   async function maakCompetitie(event) {
     event.preventDefault();
     setFout("");
     setResultaat(null);
 
-    if (!naam.trim() || teams.some((team) => !team.naam.trim() || !team.profiel)) {
-      setFout("Vul een competitienaam in en geef elk team een naam en een profiel.");
+    if (!naam.trim() || teams.some((team) => !team.naam.trim() || !team.resorttype)) {
+      setFout("Vul een competitienaam in en geef elk team een naam en een resorttype.");
       return;
     }
 
     setBezig(true);
+
     try {
+      // De backend stelt eerst de startwaarden voor de gekozen modus in.
+      const modusAntwoord = await fetch("/api/startprofielen/modus", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ modus: modus === "custom" ? "Custom" : "Standaard" }),
+      });
+      const modusGegevens = await leesAntwoord(modusAntwoord);
+
+      if (!modusAntwoord.ok) {
+        setFout(foutmelding(modusGegevens, "De startprofielmodus kon niet worden opgeslagen."));
+        return;
+      }
+
       const antwoord = await fetch("/api/competities", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           naam: naam.trim(),
           aantalTeams,
-          teams: teams.map((team) => ({ naam: team.naam.trim(), profiel: team.profiel })),
+          teams: teams.map((team) => ({
+            naam: team.naam.trim(),
+            profiel: BACKEND_PROFIEL_CODE[team.resorttype],
+          })),
           rondes: rondes.map((duurMinuten) => ({ duurMinuten })),
         }),
       });
 
-      const tekst = await antwoord.text();
-      let gegevens;
-      try {
-        gegevens = tekst ? JSON.parse(tekst) : null;
-      } catch {
-        gegevens = tekst;
-      }
-
+      const gegevens = await leesAntwoord(antwoord);
       if (!antwoord.ok) {
-        const melding = typeof gegevens === "string"
-          ? gegevens
-          : gegevens?.title || "De competitie kon niet worden aangemaakt.";
-        setFout(melding);
+        setFout(foutmelding(gegevens, "De competitie kon niet worden aangemaakt."));
         return;
       }
 
@@ -114,12 +160,6 @@ export default function Competitie() {
         <div className="competitie-intro">
           <h1>Competitie instellen</h1>
           <p>Stel de teams en rondes in voordat het spel begint.</p>
-        </div>
-
-        <div className="competitie-tip">
-          Kies eerst de modus en sla de profielen A, B, C en D op via
-          {" "}<a href="/startprofiel">Startprofiel</a>. Daarna kun je deze aan teams toewijzen.
-          Een ronde wordt later handmatig door de spelbegeleider gestart.
         </div>
 
         <form onSubmit={maakCompetitie}>
@@ -147,11 +187,6 @@ export default function Competitie() {
                   <option key={aantal} value={aantal}>{aantal}</option>
                 ))}
               </select>
-
-              <div className="competitie-start-info">
-                <strong>Start van de ronde</strong>
-                <span>Handmatig door de spelbegeleider</span>
-              </div>
             </div>
 
             <div className="competitie-rondes-wrap">
@@ -176,9 +211,16 @@ export default function Competitie() {
           </div>
 
           <h2 className="competitie-sectie-kop">Teams en startprofielen</h2>
+          <div className="competitie-modus">
+            <span>
+              Gekozen modus: <strong>{modus === "custom" ? "Custom" : "Standaard"}</strong>
+            </span>
+            <a href="/startprofiel">Wijzig via Startprofiel</a>
+          </div>
+
           <div className="competitie-teamlijst">
             <div className="competitie-team-koppen" aria-hidden="true">
-              <span>Team</span><span>Naam</span><span>Profiel</span>
+              <span>Team</span><span>Naam</span><span>Resorttype</span>
             </div>
             {teams.map((team, index) => (
               <div className="competitie-team-rij" key={index}>
@@ -192,14 +234,14 @@ export default function Competitie() {
                   required
                 />
                 <select
-                  aria-label={`Startprofiel team ${index + 1}`}
-                  value={team.profiel}
-                  onChange={(event) => wijzigTeam(index, "profiel", event.target.value)}
+                  aria-label={`Resorttype team ${index + 1}`}
+                  value={team.resorttype}
+                  onChange={(event) => wijzigTeam(index, "resorttype", event.target.value)}
                   required
                 >
-                  <option value="">Kies profiel</option>
-                  {PROFIELEN.map((profiel) => (
-                    <option key={profiel} value={profiel}>Profiel {profiel}</option>
+                  <option value="">Kies resorttype</option>
+                  {RESORT_TYPES.map((type) => (
+                    <option key={type.waarde} value={type.waarde}>{type.label}</option>
                   ))}
                 </select>
               </div>
