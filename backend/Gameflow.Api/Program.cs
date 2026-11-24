@@ -3,6 +3,7 @@ using Gameflow.Api.Accounts;
 using Gameflow.Api.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Gameflow.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 builder.Services.AddDbContext<GameflowDb>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("Gameflow")));
+
+builder.Services.AddScoped<IStartprofielService, StartprofielService>();
 
 // Identity met rollen
 builder.Services.AddAuthorization();

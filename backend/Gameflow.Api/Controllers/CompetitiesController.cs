@@ -1,7 +1,7 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Gameflow.Api.Models;
 using Gameflow.Api.Data;
+using Gameflow.Api.Services;
 
 namespace Gameflow.Api.Controllers
 {
@@ -9,6 +9,13 @@ namespace Gameflow.Api.Controllers
     [Route("api/competities")]
     public class CompetitiesController : ControllerBase
     {
+        private readonly IStartprofielService _startprofielService;
+
+        public CompetitiesController(IStartprofielService startprofielService)
+        {
+            _startprofielService = startprofielService;
+        }
+
         // Get all competitions
         [HttpGet]
         public IActionResult GetCompetities()
@@ -18,8 +25,8 @@ namespace Gameflow.Api.Controllers
 
         // Create a competition with teams and rounds
         [HttpPost]
-        public IActionResult MaakCompetitie(
-            [FromBody] CompetitieAanmakenVerzoek verzoek)
+        public async Task<IActionResult> MaakCompetitie(
+            [FromBody] CompetitieAanmakenVerzoek verzoek, CancellationToken ct)
         {
             // Check the request
             if (verzoek == null)
@@ -58,28 +65,8 @@ namespace Gameflow.Api.Controllers
                     "Er moeten vier rondes worden ingesteld.");
             }
 
-            // Check if a starting profile mode has been selected
-            if (string.IsNullOrWhiteSpace(
-                SpelGegevens.GekozenModus))
-            {
-                return BadRequest(
-                    "Kies eerst een startprofielmodus.");
-            }
-
-            // Check if all starting profiles are ready
-            string[] profielen = { "A", "B", "C", "D" };
-
-            foreach (string code in profielen)
-            {
-                var profiel = SpelGegevens.Startprofielen
-                    .FirstOrDefault(p => p.Code == code);
-
-                if (profiel == null || !profiel.IsIngesteld)
-                {
-                    return BadRequest(
-                        "De startprofielen zijn nog niet ingesteld.");
-                }
-            }
+            // The game host's chosen mode (standaard or custom) from the database
+            string modus = await _startprofielService.GetGekozenModusAsync(ct);
 
             // Validate team names and selected profiles
             foreach (var team in verzoek.Teams)
@@ -90,10 +77,10 @@ namespace Gameflow.Api.Controllers
                         "Alle teams moeten een naam hebben.");
                 }
 
-                if (!profielen.Contains(team.Profiel))
+                if (!Spelopties.ResortTypes.Contains(team.ResortType))
                 {
                     return BadRequest(
-                        "Het profiel moet A, B, C of D zijn.");
+                        "Het resorttype moet beach, winter, cruise of city zijn.");
                 }
             }
 
@@ -120,7 +107,7 @@ namespace Gameflow.Api.Controllers
                 Id = competitieId,
                 Naam = verzoek.Naam,
                 AantalTeams = verzoek.AantalTeams,
-                Modus = SpelGegevens.GekozenModus!,
+                Modus = modus,
                 IsGestart = false
             };
 
@@ -134,30 +121,16 @@ namespace Gameflow.Api.Controllers
                     ? 1
                     : SpelGegevens.Teams.Max(t => t.Id) + 1;
 
-                // Find the selected profile
-                var profiel = SpelGegevens.Startprofielen
-                    .First(p => p.Code == invoer.Profiel);
-
-                // Copy the starting values for this team
-                var startwaarden = new Startprofiel
-                {
-                    Code = profiel.Code,
-                    Locatie = profiel.Locatie,
-                    Startbudget = profiel.Startbudget,
-                    AantalKamers = profiel.AantalKamers,
-                    AantalMedewerkers = profiel.AantalMedewerkers,
-                    Bezettingsgraad = profiel.Bezettingsgraad,
-                    Gasttevredenheid = profiel.Gasttevredenheid,
-                    Duurzaamheidsscore = profiel.Duurzaamheidsscore,
-                    IsIngesteld = true
-                };
+                // Get the starting values for this resort type from the database
+                var startwaarden = await _startprofielService
+                    .GetProfielAsync(invoer.ResortType, ct);
 
                 // Create the team
                 var team = new Team
                 {
                     Id = teamId,
                     Naam = invoer.Naam,
-                    Profiel = invoer.Profiel,
+                    ResortType = invoer.ResortType,
                     CompetitieId = competitieId,
                     Startwaarden = startwaarden
                 };

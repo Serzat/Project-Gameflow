@@ -98,6 +98,80 @@ namespace Gameflow.Api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Gameflow.Api.Models.ResortStartprofiel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AantalKamers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AantalMedewerkers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Bezettingsgraad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duurzaamheidsscore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Gasttevredenheid")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Kamerprijs")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Locatie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Marktaandeel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Modus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Personeelstevredenheid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ResortType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Startbudget")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Modus", "ResortType")
+                        .IsUnique();
+
+                    b.ToTable("ResortStartprofielen");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.Spelinstelling", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GekozenModus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Spelinstellingen");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
