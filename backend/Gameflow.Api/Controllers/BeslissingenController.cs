@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyFilesGameflow.Service;
 using MyFilesGameflow.Dtos;
-namespace MyFilesGameflow.Controllers;
+namespace Gameflow.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
