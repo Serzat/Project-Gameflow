@@ -155,6 +155,34 @@ namespace Gameflow.Api.Migrations
                     b.ToTable("ResortStartprofielen");
                 });
 
+            modelBuilder.Entity("Gameflow.Api.Models.RondeTrekking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Doel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RondeNummer")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpelEventId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpelEventId");
+
+                    b.HasIndex("RondeNummer", "Doel")
+                        .IsUnique();
+
+                    b.ToTable("RondeTrekkingen");
+                });
+
             modelBuilder.Entity("Gameflow.Api.Models.SpelEvent", b =>
                 {
                     b.Property<int>("Id")
@@ -187,14 +215,18 @@ namespace Gameflow.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RondeNummer")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Titel")
+                    b.Property<string>("Soort")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Titel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Titel")
+                        .IsUnique();
 
                     b.ToTable("SpelEvents");
                 });
@@ -236,6 +268,14 @@ namespace Gameflow.Api.Migrations
                     b.Property<string>("GekozenModus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("KansGlobaal")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("KansIndividueel")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
 
                     b.HasKey("Id");
 
@@ -429,6 +469,16 @@ namespace Gameflow.Api.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.RondeTrekking", b =>
+                {
+                    b.HasOne("Gameflow.Api.Models.SpelEvent", "SpelEvent")
+                        .WithMany()
+                        .HasForeignKey("SpelEventId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("SpelEvent");
                 });
 
             modelBuilder.Entity("Gameflow.Api.Models.SpelEventEffect", b =>

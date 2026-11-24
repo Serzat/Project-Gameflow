@@ -17,6 +17,8 @@ public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContex
 
     public DbSet<SpelEventEffect> SpelEventEffecten => Set<SpelEventEffect>();
 
+    public DbSet<RondeTrekking> RondeTrekkingen => Set<RondeTrekking>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Nodig voor de tabellen van Identity. Niet weghalen!
@@ -24,23 +26,20 @@ public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContex
 
         // ===== Startprofielen =====
 
-        // Per modus mag elk resorttype maar één keer voorkomen
         modelBuilder.Entity<ResortStartprofiel>()
             .HasIndex(p => new { p.Modus, p.ResortType })
             .IsUnique();
 
-        // Geldbedragen: tot 10 cijfers, waarvan 2 achter de komma
-        modelBuilder.Entity<ResortStartprofiel>()
-            .Property(p => p.Startbudget)
-            .HasPrecision(10, 2);
+        modelBuilder.Entity<ResortStartprofiel>().Property(p => p.Startbudget).HasPrecision(10, 2);
+        modelBuilder.Entity<ResortStartprofiel>().Property(p => p.Kamerprijs).HasPrecision(10, 2);
 
-        modelBuilder.Entity<ResortStartprofiel>()
-            .Property(p => p.Kamerprijs)
-            .HasPrecision(10, 2);
+        // ===== Spelinstelling =====
+
+        modelBuilder.Entity<Spelinstelling>().Property(s => s.KansGlobaal).HasPrecision(3, 2);
+        modelBuilder.Entity<Spelinstelling>().Property(s => s.KansIndividueel).HasPrecision(3, 2);
 
         // ===== Teamstanden per ronde =====
 
-        // Per resorttype maar één stand per ronde
         modelBuilder.Entity<TeamStand>()
             .HasIndex(t => new { t.ResortType, t.RondeNummer })
             .IsUnique();
@@ -51,7 +50,11 @@ public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContex
 
         // ===== Events en hun effecten =====
 
-        // Eén event heeft meerdere effecten. Event weg = effecten ook weg
+        // De titel is uniek, zo kan de seeder een event terugvinden
+        modelBuilder.Entity<SpelEvent>()
+            .HasIndex(e => e.Titel)
+            .IsUnique();
+
         modelBuilder.Entity<SpelEvent>()
             .HasMany(e => e.Effecten)
             .WithOne(f => f.SpelEvent)
@@ -64,5 +67,19 @@ public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContex
         modelBuilder.Entity<SpelEvent>().Property(e => e.ImpactCity).HasPrecision(3, 2);
 
         modelBuilder.Entity<SpelEventEffect>().Property(f => f.Waarde).HasPrecision(12, 2);
+
+        // ===== Lotingen per ronde =====
+
+        // Per ronde maar één loting per doel ("alle" of een resorttype)
+        modelBuilder.Entity<RondeTrekking>()
+            .HasIndex(r => new { r.RondeNummer, r.Doel })
+            .IsUnique();
+
+        // Wordt een event uit events.json gehaald? Dan blijft de loting bestaan, zonder event
+        modelBuilder.Entity<RondeTrekking>()
+            .HasOne(r => r.SpelEvent)
+            .WithMany()
+            .HasForeignKey(r => r.SpelEventId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }
