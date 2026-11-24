@@ -33,6 +33,8 @@ builder.Services.AddScoped<IStartprofielService, StartprofielService>();
 
 builder.Services.AddScoped<IEventService, EventService>();
 
+builder.Services.AddScoped<IOverzichtService, OverzichtService>();
+
 // Identity met rollen
 builder.Services.AddAuthorization();
 
