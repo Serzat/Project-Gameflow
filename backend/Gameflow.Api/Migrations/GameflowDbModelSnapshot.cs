@@ -167,12 +167,21 @@ namespace Gameflow.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Effect")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("ImpactBeach")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
 
-                    b.Property<bool>("EffectGoed")
-                        .HasColumnType("bit");
+                    b.Property<decimal>("ImpactCity")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("ImpactCruise")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("ImpactWinter")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<string>("Omschrijving")
                         .IsRequired()
@@ -188,6 +197,32 @@ namespace Gameflow.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SpelEvents");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.SpelEventEffect", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Kpi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SpelEventId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Waarde")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpelEventId");
+
+                    b.ToTable("SpelEventEffecten");
                 });
 
             modelBuilder.Entity("Gameflow.Api.Models.Spelinstelling", b =>
@@ -396,6 +431,17 @@ namespace Gameflow.Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Gameflow.Api.Models.SpelEventEffect", b =>
+                {
+                    b.HasOne("Gameflow.Api.Models.SpelEvent", "SpelEvent")
+                        .WithMany("Effecten")
+                        .HasForeignKey("SpelEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SpelEvent");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -445,6 +491,11 @@ namespace Gameflow.Api.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.SpelEvent", b =>
+                {
+                    b.Navigation("Effecten");
                 });
 #pragma warning restore 612, 618
         }
