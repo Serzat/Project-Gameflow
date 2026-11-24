@@ -155,6 +155,41 @@ namespace Gameflow.Api.Migrations
                     b.ToTable("ResortStartprofielen");
                 });
 
+            modelBuilder.Entity("Gameflow.Api.Models.SpelEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Categorie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Effect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EffectGoed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Omschrijving")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RondeNummer")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Titel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SpelEvents");
+                });
+
             modelBuilder.Entity("Gameflow.Api.Models.Spelinstelling", b =>
                 {
                     b.Property<int>("Id")
@@ -170,6 +205,62 @@ namespace Gameflow.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Spelinstellingen");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.TeamStand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AantalKamers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AantalMedewerkers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Bezettingsgraad")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Budget")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<int>("Duurzaamheidsscore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Gasttevredenheid")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Kamerprijs")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("Marktaandeel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Personeelstevredenheid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ResortType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RondeNummer")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Winst")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResortType", "RondeNummer")
+                        .IsUnique();
+
+                    b.ToTable("TeamStanden");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

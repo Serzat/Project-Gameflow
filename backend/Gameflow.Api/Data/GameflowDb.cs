@@ -11,10 +11,16 @@ public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContex
 
     public DbSet<Spelinstelling> Spelinstellingen => Set<Spelinstelling>();
 
+    public DbSet<TeamStand> TeamStanden => Set<TeamStand>();
+
+    public DbSet<SpelEvent> SpelEvents => Set<SpelEvent>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Nodig voor de tabellen van Identity. Niet weghalen!
         base.OnModelCreating(modelBuilder);
+
+        // ===== Startprofielen =====
 
         // Per modus mag elk resorttype maar één keer voorkomen
         modelBuilder.Entity<ResortStartprofiel>()
@@ -29,5 +35,16 @@ public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContex
         modelBuilder.Entity<ResortStartprofiel>()
             .Property(p => p.Kamerprijs)
             .HasPrecision(10, 2);
+
+        // ===== Teamstanden per ronde =====
+
+        // Per resorttype maar één stand per ronde
+        modelBuilder.Entity<TeamStand>()
+            .HasIndex(t => new { t.ResortType, t.RondeNummer })
+            .IsUnique();
+
+        modelBuilder.Entity<TeamStand>().Property(t => t.Budget).HasPrecision(12, 2);
+        modelBuilder.Entity<TeamStand>().Property(t => t.Kamerprijs).HasPrecision(10, 2);
+        modelBuilder.Entity<TeamStand>().Property(t => t.Winst).HasPrecision(12, 2);
     }
 }
