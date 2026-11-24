@@ -11,4 +11,6 @@ public static class Spelopties
         "budget", "aantalKamers", "aantalMedewerkers", "bezettingsgraad", "kamerprijs",
         "winst", "gasttevredenheid", "personeelstevredenheid", "duurzaamheidsscore", "marktaandeel"
     ];
+
+    public const int AantalRondes = 4;
 }

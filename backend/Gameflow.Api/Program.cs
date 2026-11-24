@@ -31,6 +31,8 @@ builder.Services.AddDbContext<GameflowDb>(options =>
 
 builder.Services.AddScoped<IStartprofielService, StartprofielService>();
 
+builder.Services.AddScoped<IEventService, EventService>();
+
 // Identity met rollen
 builder.Services.AddAuthorization();
 
