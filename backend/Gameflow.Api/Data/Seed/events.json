@@ -1,0 +1,137 @@
+{
+  "kansGlobaal": 0.3,
+  "kansIndividueel": 0.4,
+  "events": [
+    {
+      "soort": "globaal",
+      "categorie": "weer",
+      "titel": "Hittegolf",
+      "omschrijving": "Het wordt de komende weken extreem warm. Strandvakanties zijn populairder dan ooit.",
+      "impact": { "beach": 1, "winter": 0, "cruise": 0.6, "city": 0.3 },
+      "effecten": [
+        { "kpi": "bezettingsgraad", "waarde": 10 }
+      ]
+    },
+    {
+      "soort": "globaal",
+      "categorie": "markt",
+      "titel": "Nieuwe concurrent in de regio",
+      "omschrijving": "Er openen nieuwe hotels. Verwacht meer concurrentie op prijs.",
+      "impact": { "beach": 1, "winter": 1, "cruise": 0.5, "city": 1 },
+      "effecten": [
+        { "kpi": "marktaandeel", "waarde": -2 },
+        { "kpi": "kamerprijs", "waarde": -5 }
+      ]
+    },
+    {
+      "soort": "globaal",
+      "categorie": "markt",
+      "titel": "Vakantieseizoen begint",
+      "omschrijving": "Scholen hebben vakantie, waardoor er meer potentiële gasten zijn.",
+      "impact": { "beach": 1, "winter": 0.5, "cruise": 1, "city": 0.8 },
+      "effecten": [
+        { "kpi": "bezettingsgraad", "waarde": 5 }
+      ]
+    },
+    {
+      "soort": "globaal",
+      "categorie": "markt",
+      "titel": "Economische dip",
+      "omschrijving": "Mensen geven minder uit aan vakanties en kiezen voor goedkopere opties.",
+      "impact": { "beach": 1, "winter": 1, "cruise": 1, "city": 0.5 },
+      "effecten": [
+        { "kpi": "bezettingsgraad", "waarde": -6 },
+        { "kpi": "kamerprijs", "waarde": -3 }
+      ]
+    },
+    {
+      "soort": "globaal",
+      "categorie": "weer",
+      "titel": "Flinke sneeuwval in de bergen",
+      "omschrijving": "Er ligt een dik pak verse sneeuw. Wintersporters boeken massaal.",
+      "impact": { "beach": 0, "winter": 1, "cruise": 0, "city": 0 },
+      "effecten": [
+        { "kpi": "bezettingsgraad", "waarde": 12 },
+        { "kpi": "gasttevredenheid", "waarde": 5 }
+      ]
+    },
+    {
+      "soort": "globaal",
+      "categorie": "gasten",
+      "titel": "Zombie-uitbraak op het vasteland",
+      "omschrijving": "Een mysterieus virus verspreidt zich op het land. Gasten blijven massaal thuis, behalve op zee.",
+      "impact": { "beach": 1, "winter": 1, "cruise": 0, "city": 1 },
+      "effecten": [
+        { "kpi": "bezettingsgraad", "waarde": -20 },
+        { "kpi": "gasttevredenheid", "waarde": -15 },
+        { "kpi": "personeelstevredenheid", "waarde": -10 }
+      ]
+    },
+    {
+      "soort": "individueel",
+      "categorie": "gasten",
+      "titel": "Influencer is lyrisch",
+      "omschrijving": "Een bekende influencer deelt enthousiaste video's van jouw resort.",
+      "impact": { "beach": 1, "winter": 1, "cruise": 1, "city": 1 },
+      "effecten": [
+        { "kpi": "gasttevredenheid", "waarde": 6 },
+        { "kpi": "marktaandeel", "waarde": 1 }
+      ]
+    },
+    {
+      "soort": "individueel",
+      "categorie": "gasten",
+      "titel": "Slechte review van een influencer",
+      "omschrijving": "Een influencer klaagt online over het eten en de service in jouw resort.",
+      "impact": { "beach": 1, "winter": 1, "cruise": 1, "city": 1 },
+      "effecten": [
+        { "kpi": "gasttevredenheid", "waarde": -6 },
+        { "kpi": "marktaandeel", "waarde": -1 }
+      ]
+    },
+    {
+      "soort": "individueel",
+      "categorie": "resort",
+      "titel": "Storing in de airconditioning",
+      "omschrijving": "Een deel van de kamers moet tijdelijk worden gerepareerd.",
+      "impact": { "beach": 1, "winter": 0, "cruise": 1, "city": 1 },
+      "effecten": [
+        { "kpi": "budget", "waarde": -400 },
+        { "kpi": "gasttevredenheid", "waarde": -3 }
+      ]
+    },
+    {
+      "soort": "individueel",
+      "categorie": "resort",
+      "titel": "Griepgolf onder het personeel",
+      "omschrijving": "Een paar medewerkers zijn ziek. De overige collega's moeten harder werken.",
+      "impact": { "beach": 1, "winter": 1, "cruise": 1, "city": 1 },
+      "effecten": [
+        { "kpi": "personeelstevredenheid", "waarde": -8 },
+        { "kpi": "gasttevredenheid", "waarde": -2 }
+      ]
+    },
+    {
+      "soort": "individueel",
+      "categorie": "markt",
+      "titel": "Festival in de stad",
+      "omschrijving": "Een groot muziekfestival trekt duizenden bezoekers naar de stad.",
+      "impact": { "beach": 0, "winter": 0, "cruise": 0, "city": 1 },
+      "effecten": [
+        { "kpi": "bezettingsgraad", "waarde": 10 },
+        { "kpi": "kamerprijs", "waarde": 5 }
+      ]
+    },
+    {
+      "soort": "individueel",
+      "categorie": "resort",
+      "titel": "Lokale duurzaamheidsprijs",
+      "omschrijving": "Jouw resort wint een prijs voor zijn inzet voor het milieu.",
+      "impact": { "beach": 1, "winter": 1, "cruise": 1, "city": 1 },
+      "effecten": [
+        { "kpi": "duurzaamheidsscore", "waarde": 8 },
+        { "kpi": "gasttevredenheid", "waarde": 2 }
+      ]
+    }
+  ]
+}

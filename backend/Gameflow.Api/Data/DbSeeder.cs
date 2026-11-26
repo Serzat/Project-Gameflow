@@ -20,6 +20,7 @@ public static class DbSeeder
         await SeedRollenAsync(userManager, roleManager);
         await SeedStartprofielenAsync(db);
         await SeedEventsAsync(db, env);
+        await SeedDoelenAsync(db, env);
     }
 
     // ===== Rollen en het spelbegeleider-account =====
@@ -216,6 +217,106 @@ public static class DbSeeder
         await db.SaveChangesAsync();
     }
 
+    // ===== Doelen uit Data/Seed/doelen.json =====
+    // Net als bij de events: bij elke start opnieuw inlezen.
+    // Een doel wordt herkend aan modus + resorttype + level + volgorde.
+    // Bestaande doelen worden bijgewerkt, nieuwe toegevoegd,
+    // en doelen die niet meer in het bestand staan verwijderd.
+    private static async Task SeedDoelenAsync(GameflowDb db, IWebHostEnvironment env)
+    {
+        var pad = Path.Combine(env.ContentRootPath, "Data", "Seed", "doelen.json");
+
+        if (!File.Exists(pad))
+        {
+            return;
+        }
+
+        var json = await File.ReadAllTextAsync(pad);
+        var opties = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        var bestand = JsonSerializer.Deserialize<DoelenBestand>(json, opties)
+            ?? throw new InvalidOperationException("doelen.json is leeg of ongeldig.");
+
+        // Controleer het bestand, zodat een typfout meteen opvalt
+        foreach (var set in bestand.Sets)
+        {
+            var naam = $"{set.Modus}/{set.ResortType}/level {set.Level}";
+
+            if (!Spelopties.Modi.Contains(set.Modus))
+            {
+                throw new InvalidOperationException(
+                    $"Modus moet 'standaard' of 'custom' zijn bij set '{naam}' (doelen.json).");
+            }
+
+            if (set.Modus == "standaard" && set.ResortType != "alle")
+            {
+                throw new InvalidOperationException(
+                    $"Bij modus 'standaard' moet resortType 'alle' zijn (set '{naam}', doelen.json).");
+            }
+
+            if (set.Modus == "custom" && !Spelopties.ResortTypes.Contains(set.ResortType))
+            {
+                throw new InvalidOperationException(
+                    $"Onbekend resortType bij set '{naam}' (doelen.json).");
+            }
+
+            if (set.Level < 1)
+            {
+                throw new InvalidOperationException(
+                    $"Level moet 1 of hoger zijn bij set '{naam}' (doelen.json).");
+            }
+
+            foreach (var d in set.Doelen)
+            {
+                if (!Spelopties.Kpis.Contains(d.Kpi))
+                {
+                    throw new InvalidOperationException(
+                        $"Onbekende kpi '{d.Kpi}' bij doel '{d.Titel}' (doelen.json).");
+                }
+            }
+        }
+
+        var bestaande = await db.Doelen.ToListAsync();
+        var gezien = new HashSet<Doel>();
+
+        foreach (var set in bestand.Sets)
+        {
+            for (var i = 0; i < set.Doelen.Count; i++)
+            {
+                var invoer = set.Doelen[i];
+                var volgorde = i + 1;
+
+                var doel = bestaande.FirstOrDefault(b =>
+                    b.Modus == set.Modus &&
+                    b.ResortType == set.ResortType &&
+                    b.Level == set.Level &&
+                    b.Volgorde == volgorde);
+
+                if (doel is null)
+                {
+                    doel = new Doel
+                    {
+                        Modus = set.Modus,
+                        ResortType = set.ResortType,
+                        Level = set.Level,
+                        Volgorde = volgorde
+                    };
+                    db.Doelen.Add(doel);
+                }
+
+                doel.Titel = invoer.Titel;
+                doel.Kpi = invoer.Kpi;
+                doel.Doelwaarde = invoer.Doelwaarde;
+
+                gezien.Add(doel);
+            }
+        }
+
+        // Doelen die niet meer in het bestand staan weghalen
+        db.Doelen.RemoveRange(bestaande.Where(b => !gezien.Contains(b)));
+
+        await db.SaveChangesAsync();
+    }
+
     // Hoe events.json eruitziet
     private record EventsBestand(decimal KansGlobaal, decimal KansIndividueel, List<EventInvoer> Events);
 
@@ -228,4 +329,11 @@ public static class DbSeeder
         List<EffectInvoer> Effecten);
 
     private record EffectInvoer(string Kpi, decimal Waarde);
+
+    // Hoe doelen.json eruitziet
+    private record DoelenBestand(List<DoelSetInvoer> Sets);
+
+    private record DoelSetInvoer(string Modus, string ResortType, int Level, List<DoelInvoer> Doelen);
+
+    private record DoelInvoer(string Titel, string Kpi, decimal Doelwaarde);
 }

@@ -19,6 +19,9 @@ public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContex
 
     public DbSet<RondeTrekking> RondeTrekkingen => Set<RondeTrekking>();
 
+    public DbSet<Doel> Doelen => Set<Doel>();
+    public DbSet<BehaaldDoel> BehaaldeDoelen => Set<BehaaldDoel>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Nodig voor de tabellen van Identity. Niet weghalen!
@@ -81,5 +84,28 @@ public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContex
             .WithMany()
             .HasForeignKey(r => r.SpelEventId)
             .OnDelete(DeleteBehavior.SetNull);
+
+        // ===== Doelen =====
+
+        // Per modus, resorttype en level een genummerde lijst
+        modelBuilder.Entity<Doel>()
+            .HasIndex(d => new { d.Modus, d.ResortType, d.Level, d.Volgorde })
+            .IsUnique();
+
+        modelBuilder.Entity<Doel>().Property(d => d.Doelwaarde).HasPrecision(12, 2);
+
+        // ===== Behaalde doelen =====
+
+        // Elk doel kan een team maar één keer halen
+        modelBuilder.Entity<BehaaldDoel>()
+            .HasIndex(b => new { b.ResortType, b.DoelId })
+            .IsUnique();
+
+        // Wordt een doel uit doelen.json gehaald? Dan verdwijnt het "behaald" ook
+        modelBuilder.Entity<BehaaldDoel>()
+            .HasOne(b => b.Doel)
+            .WithMany()
+            .HasForeignKey(b => b.DoelId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

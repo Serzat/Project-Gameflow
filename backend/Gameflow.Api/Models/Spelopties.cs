@@ -12,5 +12,5 @@ public static class Spelopties
         "winst", "gasttevredenheid", "personeelstevredenheid", "duurzaamheidsscore", "marktaandeel"
     ];
 
-    public const int AantalRondes = 4;
+    public const int AantalRondes = 8;
 }

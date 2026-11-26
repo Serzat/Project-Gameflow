@@ -35,6 +35,8 @@ builder.Services.AddScoped<IEventService, EventService>();
 
 builder.Services.AddScoped<IOverzichtService, OverzichtService>();
 
+builder.Services.AddScoped<IDoelService, DoelService>();
+
 // Identity met rollen
 builder.Services.AddAuthorization();
 

@@ -98,6 +98,76 @@ namespace Gameflow.Api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Gameflow.Api.Models.BehaaldDoel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DoelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ResortType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RondeNummer")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoelId");
+
+                    b.HasIndex("ResortType", "DoelId")
+                        .IsUnique();
+
+                    b.ToTable("BehaaldeDoelen");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.Doel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Doelwaarde")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("Kpi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Modus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ResortType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Titel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Volgorde")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Modus", "ResortType", "Level", "Volgorde")
+                        .IsUnique();
+
+                    b.ToTable("Doelen");
+                });
+
             modelBuilder.Entity("Gameflow.Api.Models.ResortStartprofiel", b =>
                 {
                     b.Property<int>("Id")
@@ -469,6 +539,17 @@ namespace Gameflow.Api.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.BehaaldDoel", b =>
+                {
+                    b.HasOne("Gameflow.Api.Models.Doel", "Doel")
+                        .WithMany()
+                        .HasForeignKey("DoelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doel");
                 });
 
             modelBuilder.Entity("Gameflow.Api.Models.RondeTrekking", b =>
