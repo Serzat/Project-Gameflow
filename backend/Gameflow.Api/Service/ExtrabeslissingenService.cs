@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyFilesGameflow.Dtos;
+using Gameflow.Api.Dtos;
 using Gameflow.Api.Data;
-using MyFilesGameflow.Models;
-namespace MyFilesGameflow.Service;
+namespace Gameflow.Api.Service;
 
 public class ExtrabeslissingenService {
     private readonly GameflowDb _context;

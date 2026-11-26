@@ -1,4 +1,4 @@
-﻿namespace MyFilesGameflow.Dtos;
+﻿namespace Gameflow.Api.Dtos;
 
 public class ExtrabeslissingenDto {
     public int TeamNummer { get; set; }

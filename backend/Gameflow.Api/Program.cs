@@ -3,7 +3,7 @@ using Gameflow.Api.Accounts;
 using Gameflow.Api.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MyFilesGameflow.Service;
+using Gameflow.Api.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 

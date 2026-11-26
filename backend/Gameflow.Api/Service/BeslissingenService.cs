@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Gameflow.Api.Data;
-using MyFilesGameflow.Models;
-using MyFilesGameflow.Dtos;
+using Gameflow.Api.Models;
+using Gameflow.Api.Dtos;
 
-namespace MyFilesGameflow.Service;   
+namespace Gameflow.Api.Service;   
 
 public class BeslissingenService {
     private readonly GameflowDb _context;

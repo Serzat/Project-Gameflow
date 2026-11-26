@@ -1,7 +1,7 @@
 using Gameflow.Api.Accounts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MyFilesGameflow.Models;
+using Gameflow.Api.Models;
 
 namespace Gameflow.Api.Data;
 

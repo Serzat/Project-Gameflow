@@ -1,4 +1,4 @@
-﻿namespace MyFilesGameflow.Models;
+﻿namespace Gameflow.Api.Models;
 
 public class Beslissingen {
     public int Id { get; set; }
