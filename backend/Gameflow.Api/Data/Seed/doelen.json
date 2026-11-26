@@ -1,0 +1,324 @@
+{
+  "sets": [
+    {
+      "modus": "standaard",
+      "resortType": "alle",
+      "level": 1,
+      "doelen": [
+        {
+          "titel": "€1.000 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 1000
+        },
+        {
+          "titel": "Bezettingsgraad naar 60%",
+          "kpi": "bezettingsgraad",
+          "doelwaarde": 60
+        },
+        {
+          "titel": "Gasttevredenheid naar 65",
+          "kpi": "gasttevredenheid",
+          "doelwaarde": 65
+        },
+        {
+          "titel": "Personeelstevredenheid naar 65",
+          "kpi": "personeelstevredenheid",
+          "doelwaarde": 65
+        },
+        {
+          "titel": "Duurzaamheidsscore van 45",
+          "kpi": "duurzaamheidsscore",
+          "doelwaarde": 45
+        }
+      ]
+    },
+    {
+      "modus": "standaard",
+      "resortType": "alle",
+      "level": 2,
+      "doelen": [
+        {
+          "titel": "€3.000 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 3000
+        },
+        {
+          "titel": "8 kamers",
+          "kpi": "aantalKamers",
+          "doelwaarde": 8
+        },
+        {
+          "titel": "4 medewerkers",
+          "kpi": "aantalMedewerkers",
+          "doelwaarde": 4
+        },
+        {
+          "titel": "Gasttevredenheid naar 80",
+          "kpi": "gasttevredenheid",
+          "doelwaarde": 80
+        },
+        {
+          "titel": "Marktaandeel van 5%",
+          "kpi": "marktaandeel",
+          "doelwaarde": 5
+        }
+      ]
+    },
+    {
+      "modus": "custom",
+      "resortType": "beach",
+      "level": 1,
+      "doelen": [
+        {
+          "titel": "€1.200 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 1200
+        },
+        {
+          "titel": "Bezettingsgraad naar 65%",
+          "kpi": "bezettingsgraad",
+          "doelwaarde": 65
+        },
+        {
+          "titel": "Gasttevredenheid naar 70",
+          "kpi": "gasttevredenheid",
+          "doelwaarde": 70
+        },
+        {
+          "titel": "Kamerprijs van €65",
+          "kpi": "kamerprijs",
+          "doelwaarde": 65
+        },
+        {
+          "titel": "Duurzaamheidsscore van 40",
+          "kpi": "duurzaamheidsscore",
+          "doelwaarde": 40
+        }
+      ]
+    },
+    {
+      "modus": "custom",
+      "resortType": "beach",
+      "level": 2,
+      "doelen": [
+        {
+          "titel": "€3.500 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 3500
+        },
+        {
+          "titel": "9 kamers",
+          "kpi": "aantalKamers",
+          "doelwaarde": 9
+        },
+        {
+          "titel": "Gasttevredenheid naar 85",
+          "kpi": "gasttevredenheid",
+          "doelwaarde": 85
+        },
+        {
+          "titel": "Personeelstevredenheid naar 75",
+          "kpi": "personeelstevredenheid",
+          "doelwaarde": 75
+        },
+        {
+          "titel": "Marktaandeel van 6%",
+          "kpi": "marktaandeel",
+          "doelwaarde": 6
+        }
+      ]
+    },
+    {
+      "modus": "custom",
+      "resortType": "winter",
+      "level": 1,
+      "doelen": [
+        {
+          "titel": "€1.500 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 1500
+        },
+        {
+          "titel": "Bezettingsgraad naar 60%",
+          "kpi": "bezettingsgraad",
+          "doelwaarde": 60
+        },
+        {
+          "titel": "Kamerprijs van €85",
+          "kpi": "kamerprijs",
+          "doelwaarde": 85
+        },
+        {
+          "titel": "Personeelstevredenheid naar 65",
+          "kpi": "personeelstevredenheid",
+          "doelwaarde": 65
+        },
+        {
+          "titel": "Duurzaamheidsscore van 50",
+          "kpi": "duurzaamheidsscore",
+          "doelwaarde": 50
+        }
+      ]
+    },
+    {
+      "modus": "custom",
+      "resortType": "winter",
+      "level": 2,
+      "doelen": [
+        {
+          "titel": "€4.000 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 4000
+        },
+        {
+          "titel": "7 kamers",
+          "kpi": "aantalKamers",
+          "doelwaarde": 7
+        },
+        {
+          "titel": "4 medewerkers",
+          "kpi": "aantalMedewerkers",
+          "doelwaarde": 4
+        },
+        {
+          "titel": "Gasttevredenheid naar 75",
+          "kpi": "gasttevredenheid",
+          "doelwaarde": 75
+        },
+        {
+          "titel": "Marktaandeel van 5%",
+          "kpi": "marktaandeel",
+          "doelwaarde": 5
+        }
+      ]
+    },
+    {
+      "modus": "custom",
+      "resortType": "cruise",
+      "level": 1,
+      "doelen": [
+        {
+          "titel": "€2.000 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 2000
+        },
+        {
+          "titel": "Bezettingsgraad naar 75%",
+          "kpi": "bezettingsgraad",
+          "doelwaarde": 75
+        },
+        {
+          "titel": "Kamerprijs van €110",
+          "kpi": "kamerprijs",
+          "doelwaarde": 110
+        },
+        {
+          "titel": "Gasttevredenheid naar 70",
+          "kpi": "gasttevredenheid",
+          "doelwaarde": 70
+        },
+        {
+          "titel": "Duurzaamheidsscore van 35",
+          "kpi": "duurzaamheidsscore",
+          "doelwaarde": 35
+        }
+      ]
+    },
+    {
+      "modus": "custom",
+      "resortType": "cruise",
+      "level": 2,
+      "doelen": [
+        {
+          "titel": "€5.000 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 5000
+        },
+        {
+          "titel": "5 kamers",
+          "kpi": "aantalKamers",
+          "doelwaarde": 5
+        },
+        {
+          "titel": "6 medewerkers",
+          "kpi": "aantalMedewerkers",
+          "doelwaarde": 6
+        },
+        {
+          "titel": "Duurzaamheidsscore van 55",
+          "kpi": "duurzaamheidsscore",
+          "doelwaarde": 55
+        },
+        {
+          "titel": "Marktaandeel van 5%",
+          "kpi": "marktaandeel",
+          "doelwaarde": 5
+        }
+      ]
+    },
+    {
+      "modus": "custom",
+      "resortType": "city",
+      "level": 1,
+      "doelen": [
+        {
+          "titel": "€800 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 800
+        },
+        {
+          "titel": "Bezettingsgraad naar 55%",
+          "kpi": "bezettingsgraad",
+          "doelwaarde": 55
+        },
+        {
+          "titel": "Gasttevredenheid naar 60",
+          "kpi": "gasttevredenheid",
+          "doelwaarde": 60
+        },
+        {
+          "titel": "Duurzaamheidsscore van 55",
+          "kpi": "duurzaamheidsscore",
+          "doelwaarde": 55
+        },
+        {
+          "titel": "Marktaandeel van 6%",
+          "kpi": "marktaandeel",
+          "doelwaarde": 6
+        }
+      ]
+    },
+    {
+      "modus": "custom",
+      "resortType": "city",
+      "level": 2,
+      "doelen": [
+        {
+          "titel": "€2.500 winst behalen",
+          "kpi": "winst",
+          "doelwaarde": 2500
+        },
+        {
+          "titel": "12 kamers",
+          "kpi": "aantalKamers",
+          "doelwaarde": 12
+        },
+        {
+          "titel": "5 medewerkers",
+          "kpi": "aantalMedewerkers",
+          "doelwaarde": 5
+        },
+        {
+          "titel": "Kamerprijs van €60",
+          "kpi": "kamerprijs",
+          "doelwaarde": 60
+        },
+        {
+          "titel": "Personeelstevredenheid naar 70",
+          "kpi": "personeelstevredenheid",
+          "doelwaarde": 70
+        }
+      ]
+    }
+  ]
+}

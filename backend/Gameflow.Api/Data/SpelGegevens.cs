@@ -1,4 +1,3 @@
-
 using Gameflow.Api.Models;
 
 namespace Gameflow.Api.Data
@@ -16,18 +15,5 @@ namespace Gameflow.Api.Data
         // Rounds belonging to competitions
         public static List<Ronde> Rondes =
             new List<Ronde>();
-
-        // Currently selected starting profile mode
-        public static string? GekozenModus = null;
-
-        // Four profiles without starting values
-        public static List<Startprofiel> Startprofielen =
-            new List<Startprofiel>
-            {
-                new Startprofiel { Code = "A" },
-                new Startprofiel { Code = "B" },
-                new Startprofiel { Code = "C" },
-                new Startprofiel { Code = "D" }
-            };
     }
 }

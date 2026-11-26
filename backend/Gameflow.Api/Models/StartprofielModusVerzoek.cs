@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 
 namespace Gameflow.Api.Models
 {
     public class StartprofielModusVerzoek
     {
-        // Selected mode: Standaard or Custom
+        [Required]
+        [AllowedValues("standaard", "custom")]
         public string Modus { get; set; } = string.Empty;
     }
 }

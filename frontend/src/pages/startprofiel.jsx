@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getGekozenModus, getStartprofielen, kiesModus } from "../api/startprofielen";
 import "./startprofiel.css";
 
 // DE VIER RESORT TYPES
-// Locatie hoort bij het type en is in beide profielen hetzelfde.
+// De startwaarden en de locatie komen uit de backend.
 const RESORT_TYPES = [
-  { waarde: "beach", label: "Beach resort", icoon: "zon", locatie: "Bali" },
-  { waarde: "winter", label: "Winter resort", icoon: "sneeuw", locatie: "Zermatt" },
-  { waarde: "cruise", label: "Cruise resort", icoon: "anker", locatie: "Middellandse Zee" },
-  { waarde: "city", label: "City resort", icoon: "stad", locatie: "Barcelona" },
+  { waarde: "beach", label: "Beach resort", icoon: "zon" },
+  { waarde: "winter", label: "Winter resort", icoon: "sneeuw" },
+  { waarde: "cruise", label: "Cruise resort", icoon: "anker" },
+  { waarde: "city", label: "City resort", icoon: "stad" },
 ];
 
 // WELKE GEGEVENS EEN PROFIEL HEEFT
@@ -21,65 +22,15 @@ const PROFIEL_VELDEN = [
   { key: "duurzaamheidsscore", label: "Duurzaamheidsscore", eenheid: "/100", weergave: "meter", kleur: "#6b9a5b" },
 ];
 
-// STANDAARD PROFIEL
-// Iedereen begint hetzelfde, welk type resort je ook hebt.
-const STANDAARD_WAARDEN = {
-  startbudget: 5000,
-  aantalKamers: 10,
-  aantalMedewerkers: 5,
-  bezettingsgraad: 60,
-  gasttevredenheid: 70,
-  duurzaamheidsscore: 50,
-};
-
-// CUSTOM PROFIEL
-// Elk type resort begint anders. (Voorbeeldwaarden, later aan te passen.)
-const CUSTOM_WAARDEN = {
-  beach: {
-    startbudget: 6000,
-    aantalKamers: 12,
-    aantalMedewerkers: 6,
-    bezettingsgraad: 75,
-    gasttevredenheid: 80,
-    duurzaamheidsscore: 45,
-  },
-  winter: {
-    startbudget: 7500,
-    aantalKamers: 8,
-    aantalMedewerkers: 5,
-    bezettingsgraad: 65,
-    gasttevredenheid: 75,
-    duurzaamheidsscore: 55,
-  },
-  cruise: {
-    startbudget: 9000,
-    aantalKamers: 6,
-    aantalMedewerkers: 9,
-    bezettingsgraad: 85,
-    gasttevredenheid: 70,
-    duurzaamheidsscore: 35,
-  },
-  city: {
-    startbudget: 4500,
-    aantalKamers: 15,
-    aantalMedewerkers: 10,
-    bezettingsgraad: 70,
-    gasttevredenheid: 65,
-    duurzaamheidsscore: 60,
-  },
-};
-
 // De twee profielen waartussen je kunt schakelen
 const PROFIELEN = {
   standaard: {
     label: "Standaard profiel",
     uitleg: "Elk resort begint met precies dezelfde startwaarden.",
-    waardenVoor: () => STANDAARD_WAARDEN,
   },
   custom: {
     label: "Custom profiel",
     uitleg: "Elk type resort heeft zijn eigen startsituatie.",
-    waardenVoor: (type) => CUSTOM_WAARDEN[type],
   },
 };
 
@@ -189,7 +140,7 @@ function formatWaarde(veld, waarde) {
 
 // RESORTKAART (alleen weergeven, niet bewerken)
 
-function ResortKaart({ type, waarden, profielLabel }) {
+function ResortKaart({ type, waarden = {}, profielLabel }) {
   const tegels = PROFIEL_VELDEN.filter((veld) => veld.weergave === "tegel");
   const meters = PROFIEL_VELDEN.filter((veld) => veld.weergave === "meter");
 
@@ -204,7 +155,7 @@ function ResortKaart({ type, waarden, profielLabel }) {
           <h2>{type.label.toUpperCase()}</h2>
           <span className="sp-locatie">
             <Icoon naam="pin" grootte={13} />
-            {type.locatie}
+            {waarden.locatie ?? "—"}
           </span>
         </div>
 
@@ -253,9 +204,59 @@ function ResortKaart({ type, waarden, profielLabel }) {
 // PAGINA
 
 function Startprofiel() {
-  // Welk profiel staat aan: "standaard" of "custom"
+  // Welk profiel bekijk je nu: "standaard" of "custom"
   const [gekozenProfiel, setGekozenProfiel] = useState("standaard");
   const profiel = PROFIELEN[gekozenProfiel];
+
+  // Gegevens uit de backend
+  const [profielen, setProfielen] = useState({ standaard: [], custom: [] });
+  const [actieveModus, setActieveModus] = useState(null);
+  const [status, setStatus] = useState("laden"); // "laden", "klaar" of "fout"
+  const [melding, setMelding] = useState(null); // { tekst, fout }
+  const [bezig, setBezig] = useState(false);
+
+  // Bij het openen: beide profielen en de gekozen modus ophalen
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function laad() {
+      try {
+        const [standaard, custom, modus] = await Promise.all([
+          getStartprofielen("standaard", controller.signal),
+          getStartprofielen("custom", controller.signal),
+          getGekozenModus(controller.signal),
+        ]);
+        setProfielen({ standaard, custom });
+        setActieveModus(modus.modus);
+        setGekozenProfiel(modus.modus);
+        setStatus("klaar");
+      } catch (err) {
+        if (err.name !== "AbortError") setStatus("fout");
+      }
+    }
+
+    laad();
+    return () => controller.abort();
+  }, []);
+
+  // Zoek de waarden van één resorttype in het bekeken profiel
+  const waardenVoor = (type) =>
+    profielen[gekozenProfiel].find((p) => p.resortType === type);
+
+  // De spelbegeleider maakt het bekeken profiel actief
+  const handleActiveren = async () => {
+    setBezig(true);
+    setMelding(null);
+    try {
+      const antwoord = await kiesModus(gekozenProfiel);
+      setActieveModus(antwoord.modus);
+      setMelding({ tekst: `${profiel.label} is nu actief voor nieuwe competities.`, fout: false });
+    } catch (err) {
+      setMelding({ tekst: err.message, fout: true });
+    } finally {
+      setBezig(false);
+    }
+  };
 
   const huidigPad = window.location.pathname;
 
@@ -353,18 +354,52 @@ function Startprofiel() {
             </div>
 
             <p className="sp-schakel-uitleg">{profiel.uitleg}</p>
+
+            {status === "klaar" && (
+              actieveModus === gekozenProfiel ? (
+                <span className="sp-actief-label">
+                  <Icoon naam="slot" grootte={12} />
+                  Actief profiel
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  className="sp-activeer-knop"
+                  onClick={handleActiveren}
+                  disabled={bezig}
+                >
+                  {bezig ? "Bezig..." : "Gebruik dit profiel"}
+                </button>
+              )
+            )}
           </div>
 
-          <div className="sp-grid">
-            {RESORT_TYPES.map((type) => (
-              <ResortKaart
-                key={type.waarde}
-                type={type}
-                waarden={profiel.waardenVoor(type.waarde)}
-                profielLabel={gekozenProfiel === "standaard" ? "Standaard" : "Custom"}
-              />
-            ))}
-          </div>
+          {melding && (
+            <p className={melding.fout ? "sp-melding sp-melding-fout" : "sp-melding"} role="status">
+              {melding.tekst}
+            </p>
+          )}
+
+          {status === "laden" && <p className="sp-melding">Startprofielen laden...</p>}
+
+          {status === "fout" && (
+            <p className="sp-melding sp-melding-fout" role="alert">
+              De startprofielen konden niet worden geladen. Draait de backend?
+            </p>
+          )}
+
+          {status === "klaar" && (
+            <div className="sp-grid">
+              {RESORT_TYPES.map((type) => (
+                <ResortKaart
+                  key={type.waarde}
+                  type={type}
+                  waarden={waardenVoor(type.waarde)}
+                  profielLabel={gekozenProfiel === "standaard" ? "Standaard" : "Custom"}
+                />
+              ))}
+            </div>
+          )}
         </main>
       </div>
     </div>
