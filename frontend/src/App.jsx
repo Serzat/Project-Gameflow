@@ -6,6 +6,7 @@ import Startprofiel from "./pages/startprofiel";
 import Overzicht from "./pages/overzicht";
 import Beslissingen from "./pages/beslissingen";
 import ExtraBeslissingen from "./pages/extra_beslissingen";
+import Ranglijst from "./pages/ranglijst";
 
 function App() {
   const path = window.location.pathname;
@@ -31,8 +32,12 @@ function App() {
   }
 
   if (path === "/feedback") {
-  return <Feedback />;
-}
+    return <Feedback />;
+  }
+
+  if (path === "/ranglijst") {
+    return <Ranglijst />;
+  }
 
   return <Login />;
 }

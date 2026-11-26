@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/layout";
+import { getFeedback } from "../api/feedback";
 import "./feedback.css";
 
 // Hetzelfde menu als bij Overzicht en Beslissingen.
@@ -57,11 +58,6 @@ const KPI_KLEUREN = {
   Duurzaamheid: "groen",
 };
 
-function leesPositiefGetal(waarde, standaard) {
-  const getal = Number(waarde);
-  return Number.isInteger(getal) && getal > 0 ? getal : standaard;
-}
-
 function KpiIcoon({ naam }) {
   const standaard = { fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" };
   if (naam === "Bezettingsgraad") {
@@ -81,35 +77,25 @@ export default function Feedback() {
   const [voorbeelddata, setVoorbeelddata] = useState(true);
   const [melding, setMelding] = useState("Voorbeeldgegevens — de Feedback API is nog niet gekoppeld.");
 
-  // Tijdelijke URL-parameters zolang teams en rondes nog niet aan de login zijn gekoppeld.
-  const parameters = new URLSearchParams(window.location.search);
-  const competitieId = leesPositiefGetal(parameters.get("competitie"), 1);
-  const teamId = leesPositiefGetal(parameters.get("team"), 1);
-  const rondeNummer = leesPositiefGetal(parameters.get("ronde"), 1);
-
+  // Feedback van de laatste ronde ophalen bij de backend.
+  // Lukt dat niet (bijv. nog geen ronde gespeeld), dan blijven de voorbeeldgegevens staan.
   useEffect(() => {
-    let actief = true;
-    async function laadFeedback() {
-      try {
-        const antwoord = await fetch(
-          `/api/competities/${competitieId}/teams/${teamId}/rondes/${rondeNummer}/feedback`
-        );
-        if (!antwoord.ok) throw new Error("Feedback is nog niet beschikbaar.");
-        const gegevens = await antwoord.json();
-        if (!actief) return;
+    const controller = new AbortController();
+
+    getFeedback(controller.signal)
+      .then((gegevens) => {
         setFeedback(gegevens);
         setVoorbeelddata(false);
         setMelding("");
-      } catch {
-        if (actief) {
-          setVoorbeelddata(true);
-          setMelding("Voorbeeldgegevens — de Feedback API geeft nog geen resultaten terug.");
-        }
-      }
-    }
-    laadFeedback();
-    return () => { actief = false; };
-  }, [competitieId, teamId, rondeNummer]);
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") return;
+        setVoorbeelddata(true);
+        setMelding(`Voorbeeldgegevens — ${err.message}`);
+      });
+
+    return () => controller.abort();
+  }, []);
 
   const ronde = feedback.rondeNummer;
   const totaalRondes = feedback.aantalRondes || 1;

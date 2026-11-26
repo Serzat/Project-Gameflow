@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import "./ranglijst.css";
+import { getRanglijst } from "../api/ranglijst";
 
 const TEAM_MENU = [
   { label: "Overzicht", href: "/overzicht", icoon: "overzicht" },
@@ -10,9 +11,8 @@ const TEAM_MENU = [
   { label: "Feedback", href: "/feedback", icoon: "feedback" },
 ];
 
-// Voorbeeldgegevens uit het aangeleverde ranglijstscherm.
-// Later worden de scores door de backend berekend.
-const TEAMS = [
+// Voorbeeldgegevens: alleen te zien als de backend (nog) geen ranglijst teruggeeft.
+const VOORBEELD_TEAMS = [
   { naam: "Team Horizon", score: 84, bezetting: 75, gast: 78, duurzaam: 70, trend: 5, eigen: false },
   { naam: "Team 1", score: 78, bezetting: 70, gast: 70, duurzaam: 60, trend: 4, eigen: true },
   { naam: "Team Nova", score: 73, bezetting: 66, gast: 68, duurzaam: 58, trend: -2, eigen: false },
@@ -26,26 +26,51 @@ const OPTIES = [
   { key: "duurzaam", naam: "Duurzaamheid", eenheid: "punten" },
 ];
 
-function hoogsteTeam(veld) {
-  return TEAMS.reduce((hoogste, team) => team[veld] > hoogste[veld] ? team : hoogste);
+function hoogsteTeam(teams, veld) {
+  return teams.reduce((hoogste, team) => team[veld] > hoogste[veld] ? team : hoogste);
 }
 
 export default function Ranglijst() {
   const [sortering, setSortering] = useState("score");
-  const ranglijst = [...TEAMS].sort((a, b) => b[sortering] - a[sortering]);
-  const eigenTeam = TEAMS.find((team) => team.eigen);
-  const eigenPositie = ranglijst.findIndex((team) => team.eigen) + 1;
+  const [teams, setTeams] = useState(VOORBEELD_TEAMS);
+  const [ronde, setRonde] = useState({ huidig: 1, totaal: 4 });
+  const [voorbeelddata, setVoorbeelddata] = useState(true);
+  const [melding, setMelding] = useState("Er is nog geen ranglijst-API gekoppeld.");
+
+  // Ranglijst ophalen bij de backend. Lukt dat niet, dan blijven de voorbeeldscores staan
+  useEffect(() => {
+    const controller = new AbortController();
+
+    getRanglijst(controller.signal)
+      .then((gegevens) => {
+        if (!gegevens?.teams?.length) return;
+        setTeams(gegevens.teams);
+        setRonde({ huidig: gegevens.ronde, totaal: gegevens.aantalRondes });
+        setVoorbeelddata(false);
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") return;
+        setMelding(err.message);
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  const ranglijst = [...teams].sort((a, b) => b[sortering] - a[sortering]);
+  // Een spelbegeleider heeft geen eigen team: dan tonen we het team op plek 1
+  const eigenTeam = teams.find((team) => team.eigen) ?? ranglijst[0];
+  const eigenPositie = ranglijst.indexOf(eigenTeam) + 1;
   const verschil = eigenTeam[sortering] - ranglijst[0][sortering];
   const gekozenOptie = OPTIES.find((optie) => optie.key === sortering);
-  const topBezetting = hoogsteTeam("bezetting");
-  const topGast = hoogsteTeam("gast");
-  const topDuurzaam = hoogsteTeam("duurzaam");
+  const topBezetting = hoogsteTeam(teams, "bezetting");
+  const topGast = hoogsteTeam(teams, "gast");
+  const topDuurzaam = hoogsteTeam(teams, "duurzaam");
 
   return (
     <Layout
       menuItems={TEAM_MENU}
       gebruiker={{ naam: eigenTeam.naam, rol: "Speler" }}
-      kruimel={["Ronde 1", "Ranglijst"]}
+      kruimel={[`Ronde ${ronde.huidig}`, "Ranglijst"]}
     >
       <div className="ranglijst-page">
         <div className="ranglijst-heading">
@@ -54,13 +79,15 @@ export default function Ranglijst() {
             <p>Vergelijk de prestaties van jouw team met andere teams in de competitie.</p>
           </div>
           <div className="ranglijst-ronde">
-            <strong>Ronde 1 / 4</strong>
-            <small>Voorbeeldgegevens</small>
+            <strong>Ronde {ronde.huidig} / {ronde.totaal}</strong>
+            {voorbeelddata && <small>Voorbeeldgegevens</small>}
           </div>
         </div>
-        <div className="ranglijst-demo" role="status">
-          Demo: deze ranglijst gebruikt voorbeeldscores. Er is nog geen ranglijst-API gekoppeld.
-        </div>
+        {voorbeelddata && (
+          <div className="ranglijst-demo" role="status">
+            Demo: deze ranglijst gebruikt voorbeeldscores. {melding}
+          </div>
+        )}
 
         <div className="ranglijst-stats">
           <div className="ranglijst-stat ranglijst-stat-blauw">
