@@ -37,6 +37,10 @@ builder.Services.AddScoped<IOverzichtService, OverzichtService>();
 
 builder.Services.AddScoped<IDoelService, DoelService>();
 
+builder.Services.AddScoped<TeamStatsService>();
+builder.Services.AddScoped<BeslissingenService>();
+builder.Services.AddScoped<ExtrabeslissingenService>();
+
 // Identity met rollen
 builder.Services.AddAuthorization();
 
