@@ -7,6 +7,8 @@ namespace Gameflow.Api.Data;
 
 public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContext<User>(options)
 {
+    public DbSet<Beslissingen> beslissingen { get; set; }
+    public DbSet<TeamStats>  teamStats { get; set; }
     public DbSet<ResortStartprofiel> ResortStartprofielen => Set<ResortStartprofiel>();
 
     public DbSet<Spelinstelling> Spelinstellingen => Set<Spelinstelling>();
