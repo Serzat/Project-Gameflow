@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Gameflow.Api.Models;
 using Gameflow.Api.Data;
@@ -53,20 +52,11 @@ namespace Gameflow.Api.Controllers
                 return NotFound("Het team bestaat niet.");
             }
 
-            // Find the starting profile assigned to the team
-            var startprofiel = SpelGegevens.Startprofielen
-                .FirstOrDefault(p => p.Code == team.Profiel);
-
-            if (startprofiel == null)
-            {
-                return NotFound("Het startprofiel bestaat niet.");
-            }
-
-            // Check if the profile has starting values
-            if (!startprofiel.IsIngesteld)
+            // The starting values were copied when the competition was created
+            if (team.Startwaarden == null)
             {
                 return BadRequest(
-                    "Het startprofiel is nog niet ingesteld.");
+                    "Dit team heeft nog geen startwaarden.");
             }
 
             // Return the team and its starting profile
@@ -74,7 +64,8 @@ namespace Gameflow.Api.Controllers
             {
                 TeamId = team.Id,
                 TeamNaam = team.Naam,
-                Startprofiel = startprofiel
+                team.ResortType,
+                Startprofiel = team.Startwaarden
             });
         }
     }

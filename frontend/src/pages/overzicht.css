@@ -642,3 +642,169 @@
     min-height: 46px;
   }
 }
+/* GEKOPPELD AAN DE BACKEND */
+
+/* Meerdere effecten onder elkaar naast een event */
+.ov-effecten {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.ov-effect-neutraal {
+  background: #ece8dc;
+  color: #7a735e;
+}
+
+/* Laad- en foutmeldingen */
+.ov-melding {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #5f6b5f;
+}
+
+.ov-melding-fout {
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #f6dcd4;
+  color: #a13e2f;
+}
+
+.ov-melding-fout a {
+  margin-left: 6px;
+  color: #a13e2f;
+  font-weight: 700;
+}
+
+/* NIEUWSFEED + DOELEN NAAST ELKAAR */
+
+.ov-onder {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+/* DOELEN */
+
+.ov-doelen {
+  background: #fbf6ec;
+  border: 1px solid #dccdae;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px -16px rgba(38, 79, 75, 0.3);
+}
+
+.ov-level {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #f49a32;
+  color: #263f3c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+.ov-doelen-lijst {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ov-doel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px;
+  border-bottom: 1px solid #efe4cd;
+}
+
+.ov-doel:last-child {
+  border-bottom: none;
+}
+
+.ov-doel-nummer {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #d6e6de;
+  color: #264f4b;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ov-doel-tekst {
+  flex: 1;
+  min-width: 0;
+}
+
+.ov-doel-tekst h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #263f3c;
+}
+
+.ov-doel-balk {
+  height: 6px;
+  border-radius: 999px;
+  background: #ebdfc6;
+  overflow: hidden;
+}
+
+.ov-doel-vulling {
+  height: 100%;
+  border-radius: 999px;
+  background: #327b81;
+  transition: width 0.4s;
+}
+
+.ov-doel-stand {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #9a937c;
+}
+
+.ov-doel-vinkje {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #9fb4ad;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Behaald: groen vinkje en volle groene balk */
+.ov-doel-behaald .ov-doel-vinkje {
+  background: #5c8f6b;
+  border-color: #5c8f6b;
+}
+
+.ov-doel-behaald .ov-doel-vulling {
+  background: #5c8f6b;
+}
+
+.ov-doel-behaald .ov-doel-nummer {
+  background: #5c8f6b;
+  color: #fff;
+}
+
+/* Op kleinere schermen onder elkaar */
+@media (max-width: 1150px) {
+  .ov-onder {
+    grid-template-columns: 1fr;
+  }
+}

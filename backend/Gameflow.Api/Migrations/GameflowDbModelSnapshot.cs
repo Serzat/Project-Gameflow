@@ -98,6 +98,316 @@ namespace Gameflow.Api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Gameflow.Api.Models.BehaaldDoel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DoelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ResortType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RondeNummer")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoelId");
+
+                    b.HasIndex("ResortType", "DoelId")
+                        .IsUnique();
+
+                    b.ToTable("BehaaldeDoelen");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.Doel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Doelwaarde")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("Kpi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Modus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ResortType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Titel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Volgorde")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Modus", "ResortType", "Level", "Volgorde")
+                        .IsUnique();
+
+                    b.ToTable("Doelen");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.ResortStartprofiel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AantalKamers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AantalMedewerkers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Bezettingsgraad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duurzaamheidsscore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Gasttevredenheid")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Kamerprijs")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Locatie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Marktaandeel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Modus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Personeelstevredenheid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ResortType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Startbudget")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Modus", "ResortType")
+                        .IsUnique();
+
+                    b.ToTable("ResortStartprofielen");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.RondeTrekking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Doel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RondeNummer")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpelEventId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpelEventId");
+
+                    b.HasIndex("RondeNummer", "Doel")
+                        .IsUnique();
+
+                    b.ToTable("RondeTrekkingen");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.SpelEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Categorie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ImpactBeach")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("ImpactCity")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("ImpactCruise")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("ImpactWinter")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<string>("Omschrijving")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soort")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Titel")
+                        .IsUnique();
+
+                    b.ToTable("SpelEvents");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.SpelEventEffect", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Kpi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SpelEventId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Waarde")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpelEventId");
+
+                    b.ToTable("SpelEventEffecten");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.Spelinstelling", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GekozenModus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("KansGlobaal")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("KansIndividueel")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Spelinstellingen");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.TeamStand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AantalKamers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AantalMedewerkers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Bezettingsgraad")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Budget")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<int>("Duurzaamheidsscore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Gasttevredenheid")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Kamerprijs")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("Marktaandeel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Personeelstevredenheid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ResortType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RondeNummer")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Winst")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResortType", "RondeNummer")
+                        .IsUnique();
+
+                    b.ToTable("TeamStanden");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -231,7 +541,8 @@ namespace Gameflow.Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MyFilesGameflow.Models.Beslissingen", b =>
+
+                        modelBuilder.Entity("MyFilesGameflow.Models.Beslissingen", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -333,6 +644,39 @@ namespace Gameflow.Api.Migrations
                     b.ToTable("teamStats");
                 });
 
+            modelBuilder.Entity("Gameflow.Api.Models.BehaaldDoel", b =>
+                {
+                    b.HasOne("Gameflow.Api.Models.Doel", "Doel")
+                        .WithMany()
+                        .HasForeignKey("DoelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doel");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.RondeTrekking", b =>
+                {
+                    b.HasOne("Gameflow.Api.Models.SpelEvent", "SpelEvent")
+                        .WithMany()
+                        .HasForeignKey("SpelEventId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("SpelEvent");
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.SpelEventEffect", b =>
+                {
+                    b.HasOne("Gameflow.Api.Models.SpelEvent", "SpelEvent")
+                        .WithMany("Effecten")
+                        .HasForeignKey("SpelEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SpelEvent");
+                });
+
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -382,6 +726,11 @@ namespace Gameflow.Api.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Gameflow.Api.Models.SpelEvent", b =>
+                {
+                    b.Navigation("Effecten");
                 });
 #pragma warning restore 612, 618
         }

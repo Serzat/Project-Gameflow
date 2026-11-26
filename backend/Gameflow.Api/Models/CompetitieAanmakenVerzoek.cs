@@ -1,4 +1,3 @@
-
 namespace Gameflow.Api.Models
 {
     public class CompetitieAanmakenVerzoek
@@ -17,7 +16,8 @@ namespace Gameflow.Api.Models
     {
         public string Naam { get; set; } = string.Empty;
 
-        public string Profiel { get; set; } = string.Empty;
+        // Resort type: beach, winter, cruise or city
+        public string ResortType { get; set; } = string.Empty;
     }
 
     // De ingestelde duur van een ronde
