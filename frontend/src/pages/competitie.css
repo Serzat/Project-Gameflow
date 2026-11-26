@@ -1,0 +1,64 @@
+/* Competitiescherm, gebaseerd op het aangeleverde compscherm.html.
+   Alle stijlen zijn beperkt tot deze pagina om conflicten te voorkomen. */
+.competitie-page {
+  color: #172033;
+  text-align: left;
+  width: 100%;
+  max-width: 1180px;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+}
+.competitie-page * { box-sizing: border-box; }
+.competitie-intro { margin-bottom: 20px; }
+.competitie-page h1 { color: #172033; font-size: 30px; font-weight: 700; letter-spacing: 0; line-height: 1.2; margin: 0 0 8px; }
+.competitie-intro p { color: #526078; margin: 0; }
+.competitie-sectie-kop { background: #dce1f3; color: #172033; font-size: 17px; font-weight: bold; text-align: center; padding: 13px; margin: 0; }
+.competitie-instellingen { display: flex; gap: 32px; background: #f5e9d7; padding: 24px; }
+.competitie-basis { width: 30%; min-width: 215px; display: flex; flex-direction: column; gap: 7px; }
+.competitie-basis label { font-weight: 600; }
+.competitie-page input, .competitie-page select { display: block; width: 100%; min-width: 0; background: white; color: #172033; border: 1px solid #b7c1cc; border-radius: 5px; min-height: 39px; padding: 8px 10px; font-size: 14px; font-family: inherit; }
+.competitie-page input:focus-visible, .competitie-page select:focus-visible, .competitie-page button:focus-visible { outline: 2px solid #3e8ac1; outline-offset: 2px; }
+.competitie-basis input, .competitie-basis select { margin-bottom: 11px; }
+.competitie-rondes-wrap { flex: 1; min-width: 0; }
+.competitie-rondes-wrap p { margin: 0 0 18px; color: #34435c; }
+.competitie-rondes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.competitie-ronde-kaart { min-height: 116px; border: 1px solid #c4cbd3; background: #e2e5e9; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; font-weight: bold; }
+.competitie-ronde-kaart select { font-size: 12px; min-height: 36px; padding: 6px; }
+.competitie-teamlijst { background: #f5e9d7; padding-bottom: 16px; }
+.competitie-team-koppen, .competitie-team-rij { display: grid; grid-template-columns: minmax(100px, .7fr) minmax(180px, 2fr) minmax(130px, 1fr); align-items: center; gap: 18px; padding: 12px 22px; }
+.competitie-team-koppen { background: #dce1f3; text-align: left; font-weight: bold; }
+.competitie-team-rij { min-height: 68px; }
+.competitie-team-rij strong { font-weight: 700; }
+.competitie-bericht { padding: 14px 18px; margin-top: 18px; border-radius: 8px; font-weight: 600; }
+.competitie-fout { background: #fff0ee; color: #9d2424; }
+.competitie-succes { background: #eaf7ee; color: #176638; }
+.competitie-aanmaken { display: block; margin: 26px auto 12px; min-width: 260px; min-height: 43px; padding: 10px 24px; color: white; background: #2b7cbb; border: 1px solid #205c8c; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; }
+.competitie-aanmaken:disabled { cursor: progress; opacity: .65; }
+.competitie-aanmaken:hover:not(:disabled) { background: #1f699f; }
+@media (max-width: 950px) {
+  .competitie-instellingen { flex-direction: column; }
+  .competitie-basis { width: 100%; }
+}
+@media (max-width: 580px) {
+  .competitie-rondes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .competitie-team-koppen { display: none; }
+  .competitie-team-rij { grid-template-columns: 1fr; gap: 9px; border-bottom: 1px solid #e0d2bd; }
+  .competitie-instellingen { padding: 15px; }
+}
+
+/* Toon de op Startprofiel gekozen modus bij de teaminstellingen. */
+.competitie-modus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 22px;
+  background: #eaf1e7;
+  color: #264f4b;
+  border-bottom: 1px solid #d2ded0;
+  font-size: 14px;
+}
+.competitie-modus strong { color: #1f5c54; }
+.competitie-modus a { color: #1f5c54; font-weight: 700; }
+.competitie-modus a:hover { text-decoration: none; }

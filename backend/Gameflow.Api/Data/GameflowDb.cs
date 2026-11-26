@@ -2,11 +2,16 @@ using Gameflow.Api.Accounts;
 using Gameflow.Api.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Gameflow.Api.Models;
 
 namespace Gameflow.Api.Data;
 
 public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContext<User>(options)
 {
+ 
+    public DbSet<Beslissingen> beslissingen { get; set; }
+    public DbSet<TeamStats>  teamStats { get; set; }
+    
     public DbSet<ResortStartprofiel> ResortStartprofielen => Set<ResortStartprofiel>();
 
     public DbSet<Spelinstelling> Spelinstellingen => Set<Spelinstelling>();
@@ -108,4 +113,3 @@ public class GameflowDb(DbContextOptions<GameflowDb> options) : IdentityDbContex
             .HasForeignKey(b => b.DoelId)
             .OnDelete(DeleteBehavior.Cascade);
     }
-}

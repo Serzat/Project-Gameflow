@@ -1,9 +1,9 @@
-
 using Gameflow.Api.Accounts;
 using Gameflow.Api.Data;
+using Gameflow.Api.Service;
+using Gameflow.Api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Gameflow.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,12 +29,25 @@ builder.Services.AddDbContext<GameflowDb>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("Gameflow")));
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("OpenCorsPolicy", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
+// Services (samengevoegd uit beide branches)
+builder.Services.AddScoped<TeamStatsService>();
+builder.Services.AddScoped<BeslissingenService>();
+builder.Services.AddScoped<ExtrabeslissingenService>();
+
 builder.Services.AddScoped<IStartprofielService, StartprofielService>();
-
 builder.Services.AddScoped<IEventService, EventService>();
-
 builder.Services.AddScoped<IOverzichtService, OverzichtService>();
-
 builder.Services.AddScoped<IDoelService, DoelService>();
 
 // Identity met rollen
@@ -47,7 +60,7 @@ builder.Services.AddIdentityApiEndpoints<User>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequireNonAlphanumeric = false;
 })
-.AddRoles<IdentityRole>()
+.AddRoles()
 .AddEntityFrameworkStores<GameflowDb>();
 
 var app = builder.Build();
@@ -64,6 +77,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("OpenCorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

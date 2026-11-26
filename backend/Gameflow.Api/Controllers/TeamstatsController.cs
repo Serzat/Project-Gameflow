@@ -1,0 +1,44 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Gameflow.Api.Service;
+using Gameflow.Api.Dtos;
+namespace Gameflow.Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class TeamstatsController : ControllerBase{
+    
+    private readonly TeamStatsService _service;
+
+    public TeamstatsController(TeamStatsService service) {
+        _service = service;   
+    }
+    
+    
+    [HttpGet("{teamnummer}/{rondenummer}")]
+    public async Task<ActionResult<TeamsStatsDto>> GetTeamStats(int teamnummer,  int rondenummer) {
+        var stats = await _service.getTS(teamnummer, rondenummer);
+
+        if (stats == null) {
+            return NotFound(new {messag = "Teamstats not found"});
+        }
+        
+        return Ok(stats);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> PostTeamStats(TeamsStatsInputDto dto) {
+        await _service.postTS(dto);
+        
+        return Ok(new {message = "Stats successfully posted"});
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTeamStats(int id) {
+        if (!await _service.deleteTS(id)) {
+            return NotFound(new { message = "Id not found" });
+        }
+        
+        return Ok(new {message = "Stats successfully deleted"});
+    }
+    
+}

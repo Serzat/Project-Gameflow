@@ -36,6 +36,7 @@ const PROFIELEN = {
 
 const MENU_ITEMS = [
   { label: "Startprofiel", href: "/startprofiel", icoon: "profiel" },
+  { label: "Competitie", href: "/competitie", icoon: "host" },
   { label: "Beslissingen", href: "/beslissingen", icoon: "beslissingen" },
   { label: "Ranglijst", href: "/ranglijst", icoon: "ranglijst" },
   { label: "Host", href: "/host", icoon: "host" },
@@ -229,6 +230,7 @@ function Startprofiel() {
         setProfielen({ standaard, custom });
         setActieveModus(modus.modus);
         setGekozenProfiel(modus.modus);
+        window.sessionStorage.setItem("resortStartmodus", modus.modus);
         setStatus("klaar");
       } catch (err) {
         if (err.name !== "AbortError") setStatus("fout");
@@ -250,6 +252,7 @@ function Startprofiel() {
     try {
       const antwoord = await kiesModus(gekozenProfiel);
       setActieveModus(antwoord.modus);
+      window.sessionStorage.setItem("resortStartmodus", antwoord.modus);
       setMelding({ tekst: `${profiel.label} is nu actief voor nieuwe competities.`, fout: false });
     } catch (err) {
       setMelding({ tekst: err.message, fout: true });
@@ -257,6 +260,7 @@ function Startprofiel() {
       setBezig(false);
     }
   };
+
 
   const huidigPad = window.location.pathname;
 
@@ -346,7 +350,7 @@ function Startprofiel() {
                       : "sp-schakel-knop"
                   }
                   aria-pressed={gekozenProfiel === sleutel}
-                  onClick={() => setGekozenProfiel(sleutel)}
+                  onClick={() => kiesProfiel(sleutel)}
                 >
                   {p.label}
                 </button>
